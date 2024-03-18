@@ -5,7 +5,7 @@ import ArrowDown from "../../../../public/svgs/Arrow_down.svg"
 import TypewriterAnimation, {
   type Config
 } from "../../components/TypewriterAnimation"
-export function PersonScreen() {
+const PersonScreen = () => {
   const config = {
     title: {
       template: [
@@ -80,11 +80,11 @@ export function PersonScreen() {
   )
 }
 
-export function PostScreen() {
+const PostScreen = () => {
   return <div className="h-screen flex relative">container:博文列表</div>
 }
 
-export function GrowthScreen() {
+const GrowthScreen = () => {
   return <div className="h-screen flex relative">container:站点成长</div>
 }
 export default function Home() {
