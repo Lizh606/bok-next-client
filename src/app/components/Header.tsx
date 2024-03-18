@@ -8,6 +8,7 @@ import { ThemeSwitcher } from "./ThemeSwitcher"
 export default function Header() {
   const { isAtTop } = useScrollToTop()
   const pathName = usePathname()
+
   const router = useRouter()
   const tabs = [
     {
@@ -16,11 +17,11 @@ export default function Header() {
     },
     {
       label: "文章",
-      value: "/blog"
+      value: "/posts"
     },
     {
       label: "归档",
-      value: "/archive"
+      value: "/mdx"
     }
   ]
 
@@ -39,7 +40,7 @@ export default function Header() {
       <div className="relative  px-8 mx-auto h-full grid max-w-7xl grid-cols-[4.5rem_auto_4.5rem] ">
         <div className="flex items-center justify-center">
           <Image
-            className="rounded-full"
+            className="rounded-xl shadow-lg"
             src={"/images/avg.png"}
             alt="头像"
             width={40}
@@ -53,15 +54,17 @@ export default function Header() {
             color="primary"
             variant="underlined"
             classNames={{
-              tabList: `gap-6 w-full relative py-0 px-6  border-divider ${
-                isAtTop ? "shadow-lg rounded-full  border-b" : ""
+              tabList: `gap-6 w-full relative py-0 px-6  border-divider  ${
+                isAtTop
+                  ? "shadow-lg rounded-full  border-b border-[#eee] border dark:border-[#373436]"
+                  : ""
               }`,
               cursor: "w-full bg-[#22d3ee] dark:bg-[pink]",
               tab: "max-w-fit",
               tabContent:
                 "group-data-[selected=true]:text-[#06b6d4] dark:group-data-[selected=true]:text-[pink]"
             }}
-            defaultSelectedKey={pathName}
+            defaultSelectedKey={`/${pathName.split("/")[1]}`}
             onSelectionChange={(key) => {
               router.push(key as string)
             }}
