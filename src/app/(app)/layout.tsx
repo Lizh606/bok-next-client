@@ -5,8 +5,8 @@ import Header from "../components/Header"
 import { Providers } from "../providers/providers"
 
 export const metadata: Metadata = {
-  title: "ZeHang-bok",
-  description: "ZeHang的博客前端"
+  title: "Hangg-bok",
+  description: "Hangg的博客前端"
 }
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header></Header>
-          <main className="relative z-[1] px-6 pt-[4.5rem] min-h-[calc(100vh-4.5rem)] ">
+          <main className="relative z-[1] pt-[4.5rem] min-h-[calc(100vh-4.5rem)] ">
             {children}
           </main>
           <Footer></Footer>
