@@ -1,5 +1,5 @@
 "use client"
-import BounceTransitionView from "@/app/components/BounceTransitionView"
+import BounceTransitionView from "@/components/BounceTransitionView"
 import {
   Card,
   CardBody,
@@ -19,8 +19,8 @@ import DateDarkIcon from "../../../../public/svgs/时间-dark.svg"
 import DateIcon from "../../../../public/svgs/时间.svg"
 import TypewriterAnimation, {
   type Config
-} from "../../components/TypewriterAnimation"
-import { calculateTimeDifference } from "../utils/date"
+} from "../../../components/TypewriterAnimation"
+import { calculateTimeDifference } from "../../../utils/date"
 type PostData = {
   author: string
   title: string
@@ -239,7 +239,7 @@ export default function Home() {
     <>
       <PersonScreen></PersonScreen>
       <PostScreen></PostScreen>
-      <GrowthScreen></GrowthScreen>
+      {/* <GrowthScreen></GrowthScreen> */}
     </>
   )
 }

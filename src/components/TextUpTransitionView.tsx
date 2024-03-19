@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import type { FC } from "react"
 
-import { microReboundPreset } from "@/app/constants/spring"
+import { microReboundPreset } from "@/constants/spring"
 
 export const TextUpTransitionView: FC<
   {

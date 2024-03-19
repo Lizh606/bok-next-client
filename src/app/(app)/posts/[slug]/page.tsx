@@ -1,6 +1,6 @@
 import { MDXRemoteProps } from "next-mdx-remote/rsc"
 
-import { Code } from "@/app/components/Code"
+import { Code } from "@/components/Code"
 import { getAllPosts, getPostBySlug } from "@/lib/posts"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"

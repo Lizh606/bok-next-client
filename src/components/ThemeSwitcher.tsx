@@ -3,8 +3,8 @@
 import * as lodash from "lodash"
 import { useTheme } from "next-themes"
 import { useCallback, useEffect, useState } from "react"
-import Morning from "../../../public/svgs/太阳.svg"
-import Night from "../../../public/svgs/月亮.svg"
+import Morning from "../../public/svgs/太阳.svg"
+import Night from "../../public/svgs/月亮.svg"
 enum Themes {
   "DARK" = "dark",
   "LIGHT" = "light"

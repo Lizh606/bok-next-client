@@ -12,9 +12,9 @@ const calculateTimeDifference = (date: string): string => {
   const timeDifference: number = nowTimestamp - inputDateTimestamp
 
   // 判断日期是否是未来的
-  if (timeDifference < 0) {
-    throw new Error("The provided date is in the future.")
-  }
+  // if (timeDifference < 0) {
+  //   throw new Error("The provided date is in the future.")
+  // }
 
   // 计算天数差异
   const daysDifference: number = Math.floor(
