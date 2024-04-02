@@ -1,5 +1,11 @@
 import { nextui } from "@nextui-org/react"
 import type { Config } from "tailwindcss"
+import {
+  createVariableColors,
+  variableColorsPlugin
+  //@ts-ignore
+} from "tailwindcss-variable-colors"
+import colors from "tailwindcss/colors"
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,9 +20,16 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))"
       }
-    }
+    },
+    colors: createVariableColors(colors)
   },
   darkMode: "class",
-  plugins: [nextui()]
+  plugins: [
+    variableColorsPlugin(colors),
+    nextui({
+      prefix: "nextui",
+      addCommonColors: true
+    })
+  ]
 }
 export default config

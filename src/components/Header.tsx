@@ -21,7 +21,7 @@ export default function Header() {
     },
     {
       label: "归档",
-      value: "/mdx"
+      value: "/archive"
     }
   ]
 

@@ -3,13 +3,13 @@ title: My First Post
 date: 2022-02-22T22:22:22+0800
 ---
 
-## Vue3 编译宏
+## Vue3编译宏
 
 ### defineProps
 
 - 父子组件传参
 
-```js filename='123'
+```js title="..."
 <template>
  <div>
     <Child name="xiaoman"></Child>
@@ -21,10 +21,11 @@ date: 2022-02-22T22:22:22+0800
 <style></style>
 ```
 
-子组件使用`defineProps`接受值
+子组件使用defineProps接受值
 
 ```js
 <template>
+
  <div>
      {{ name }}
  </div>
@@ -36,7 +37,7 @@ date: 2022-02-22T22:22:22+0800
 </script>
 ```
 
-- 使用 TS 字面量模式
+- 使用TS字面量模式
 
 ```js
 <template>
@@ -134,7 +135,7 @@ const list = [
 <style></style>
 ```
 
-子组件 defineSlots 只做声明不做实现 同时约束 slot 类型
+子组件 defineSlots只做声明不做实现 同时约束slot类型
 
 ```js
 <template>
@@ -160,7 +161,7 @@ defineSlots<{
 
 - 主要是用来定义 Options API 的选项
 
-常用的就是定义 name 在 seutp 语法糖模式发现 name 不好定义了需要在开启一个 script 自定义 name 现在有了 defineOptions 就可以随意定义 name 了
+常用的就是定义name 在seutp 语法糖模式发现name不好定义了需要在开启一个script自定义name现在有了defineOptions就可以随意定义name了
 
 ```js
 defineOptions({
