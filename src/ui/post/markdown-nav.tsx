@@ -1,7 +1,30 @@
-//拼接字符串工具
+"use client"
 import clsx from "clsx"
+import { useEffect, useState } from "react"
 
 export default function MarkdownNav(props: any) {
+  const [isCurrent, setCurrent] = useState(false)
+
+  useEffect(() => {
+    // 定义处理 hash 变化的函数
+    const handleHashChange = () => {
+      const newHash = decodeURIComponent(window.location.hash)
+      if (props.tagName === "a") {
+        setCurrent(props.properties.href.toLowerCase() === newHash)
+      }
+    }
+
+    // 初始化时检查一次 hash
+    handleHashChange()
+
+    // 添加 hashchange 事件监听器
+    window.addEventListener("hashchange", handleHashChange)
+
+    // 在组件卸载时移除事件监听器
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange)
+    }
+  }, [])
   switch (props.tagName) {
     case "nav": {
       return (
@@ -35,9 +58,10 @@ export default function MarkdownNav(props: any) {
         <a
           {...props.properties}
           className={clsx(
-            "block py-1 text-sm font-medium hover:text-[#428dcc] focus:outline-none dark:hover:text-gray-200 focus-visible:text-gray-700 dark:opacity-90 dark:focus-visible:text-gray-200 text-gray-400",
-            props.properties.href == "#" + props.idTable &&
-              "text-[#428dcc] dark:text-gray-200"
+            isCurrent
+              ? "text-sky-500 border-l-2 border-sky-500"
+              : "text-neutral-400",
+            "block p-2 text-sm font-medium hover:text-sky-500 focus:outline-none"
           )}
         >
           {props.children.map((item: any, index: number) => {

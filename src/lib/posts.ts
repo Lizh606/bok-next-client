@@ -12,9 +12,14 @@ type MetaData = {
   description?: string
   draft?: boolean
 }
-
+export type Post = {
+  slug: string
+  meta: MetaData
+  content: string
+  excerpt?: string
+}
 // 根据文件名读取 markdown 文档内容
-export function getPostBySlug(slug: string) {
+export function getPostBySlug(slug: string): Post {
   const realSlug = slug.replace(/\.md$/, "")
 
   const fullPath = join(postsDir, `${realSlug}.md`)

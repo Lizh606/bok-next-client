@@ -1,47 +1,223 @@
-pre {
-  @apply bg-slate-100 !important;
-  overflow-x: auto;
-  padding: 1rem 0;
+.markdown font {
+  display: block;
 }
 
-pre [data-line] {
-  padding: 0 1rem;
+.markdown img {
+  max-width: 100%;
 }
 
-code {
-  background-color: inherit !important; /* 子元素继承父元素的背景色 */
+.markdown a {
+  color: #3b82f6;
+  text-decoration: underline;
 }
 
-code {
-  counter-reset: line;
+.markdown p {
+  /* !important is needed here because Hotmail/Outlook.com uses !important to
+       kill the margin in <p>. We need this to win. */
+  margin: 0 0 1.2em 0 !important;
 }
 
-code > [data-line]::before {
-  counter-increment: line;
-  content: counter(line);
-
-  /* Other styling */
-  display: inline-block;
-  width: 1rem;
-  margin-right: 2rem;
-  text-align: right;
-  color: gray;
+.markdown table,
+.markdown pre,
+.markdown dl,
+.markdown q,
+.markdown ul,
+.markdown ol {
+  margin: 1.2em 0;
 }
 
-code[data-line-numbers-max-digits="2"] > [data-line]::before {
-  width: 2rem;
+.markdown ul,
+.markdown ol {
+  padding-left: 2em;
 }
 
-code[data-line-numbers-max-digits="3"] > [data-line]::before {
-  width: 3rem;
+.markdown li {
+  margin: 0.5em 0;
+  font-size: 1rem;
 }
 
-[data-rehype-pretty-code-title] {
-  @apply text-slate-700 bg-slate-200 !important;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
+.markdown li p {
+  /* Needs !important to override rule above. */
+  margin: 0.5em 0 !important;
+}
+
+.markdown ul ul,
+.markdown ul ol,
+.markdown ol ul,
+.markdown ol ol {
+  margin: 0;
+  padding-left: 1em;
+}
+
+.markdown ul ul,
+.markdown ul,
+.markdown ul {
+  list-style-type: square;
+  font-size: 1rem;
+}
+
+.markdown ol ol,
+.markdown ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown ul ul ol,
+.markdown ul ol ol,
+.markdown ol ul ol,
+.markdown ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown dl {
+  padding: 0;
+}
+
+.markdown dl dt {
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.markdown dl dd {
+  margin: 0 0 1em;
+  padding: 0 1em;
+}
+
+.markdown blockquote,
+.markdown q {
+  border-left: 4px solid #49b1f5;
+  padding: 1em;
+  color: #a1a1a1;
+  quotes: none;
+  background-color: #ecf7fe;
+  margin-bottom: 1.2rem;
+}
+
+.markdown blockquote p,
+.markdown q p {
+  margin: 0 !important;
+}
+
+.markdown blockquote::before,
+.markdown blockquote::after,
+.markdown q::before,
+.markdown q::after {
+  content: none;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  color: #009688;
+}
+
+.markdown h1 a,
+.markdown h2 a,
+.markdown h3 a,
+.markdown h4 a {
+  cursor: pointer;
+  color: #009688;
+  text-decoration: none;
+}
+
+.markdown h1 a:hover,
+.markdown h2 a:hover,
+.markdown h3 a:hover,
+.markdown h4 a:hover {
+  color: #3b82f6;
+}
+
+.markdown h1 a:hover::after,
+.markdown h2 a:hover::after,
+.markdown h3 a:hover::after,
+.markdown h4 a:hover::after {
+  content: " #";
+  color: #3b82f6;
+}
+
+.markdown h1 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown h2 {
+  font-size: 1.375rem;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+}
+
+.markdown h4 {
+  font-size: 1.125rem;
+}
+
+.markdown h5 {
+  font-size: 1rem;
+}
+
+.markdown h6 {
+  font-size: 1rem;
+  color: #777;
+}
+
+.markdown table {
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 1em;
+  font: inherit;
+  border: 0;
+  width: 100%;
+  color: #000;
+}
+
+.markdown tbody {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.markdown table tr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.markdown table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown table tr th,
+.markdown table tr td {
+  font-size: 1em;
+  border: 1px solid #ccc;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
+.markdown table tr th {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.markdown p {
+  font-size: 1rem;
+  line-height: 1.75em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+}
+
+.markdown strong,
+.markdown b {
+  color: #bf360c;
 }
