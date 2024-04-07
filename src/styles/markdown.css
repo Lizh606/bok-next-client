@@ -221,3 +221,7 @@
 .markdown b {
   color: #bf360c;
 }
+
+.toc {
+  height: 100%;
+}

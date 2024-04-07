@@ -1,18 +1,24 @@
-import { getAllPostSorts } from "@/lib/posts"
+import { getPostsBySort } from "@/lib/posts"
 import Link from "next/link"
-export default function Posts() {
-  const posts = getAllPostSorts()
+
+type Props = {
+  params: { sort: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export default function Sort({ params }: Props) {
+  const posts = getPostsBySort(params.sort)
 
   return (
-    <div className="prose grid gap-9 m-auto">
+    <div>
       {posts?.map((post: any) => (
         <Link
-          href={`/posts/${post}`}
+          href={`/posts/${params.sort}/${post.slug}`}
           className="group font-normal overflow-hidden cursor-pointer no-underline transition fade-in-up "
-          key={post}
+          key={post.slug}
         >
           <div className="text-xl text-gray-600 group-hover:text-brand truncate ease-in duration-300">
-            {post}
+            {post.slug}
           </div>
           {/* <time className="text-gray-400 text-sm leading-none flex items-center">
             {post.meta?.date?.toString()}

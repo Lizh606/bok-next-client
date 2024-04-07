@@ -1,0 +1,191 @@
+---
+title: 简单了解Vue3编译宏
+date: 2024-03-22T22:22:22+0800
+tag: Vue
+---
+
+## Vue3编译宏
+
+### defineProps
+
+- 父子组件传参
+
+```js
+<template>
+ <div>
+    <Child name="xiaoman"></Child>
+ </div>
+</template>
+ <script lang='ts' setup>
+ import Child from './views/child.vue'
+</script>
+<style></style>
+```
+
+子组件使用`defineProps`接受值
+
+```js
+<template>
+ <div>
+     {{ name }}
+ </div>
+</template>
+ <script  lang='ts' setup>
+ defineProps({
+     name: String
+ })
+</script>
+```
+
+- 使用TS字面量模式
+
+```js
+<template>
+ <div>
+     {{ name }}
+ </div>
+</template>
+ <script  lang='ts' setup>
+ defineProps<{
+    name:string
+ }>()
+</script>
+```
+
+- `Vue3.3` 新增 defineProps 可以接受泛型
+
+```js
+ <Child :name="['xiaoman']"></Child>
+ //-------------子组件-----------------
+ <template>
+ <div>
+     {{ name }}
+ </div>
+</template>
+ <script generic="T"  lang='ts' setup>
+ defineProps<{
+    name:T[]
+ }>()
+</script>
+```
+
+- 反应式 Props 解构
+
+```js
+const { msg = "hello" } = defineProps(["msg"])
+```
+
+### defineEmits
+
+```js
+<template>
+ <div>
+    <button @click="send">派发事件</button>
+ </div>
+</template>
+ <script  lang='ts' setup>
+const emit = defineEmits<{
+    'send':[name:string]
+}>()
+const send = () => {
+    // 通过派发事件，将数据传递给父组件
+    emit('send', '我是子组件的数据')
+}
+</script>
+```
+
+### defineExpose
+
+没变化
+
+```js
+defineExpose({
+  name: "张三"
+})
+```
+
+### defineSlots
+
+- 父组件
+
+```js
+<template>
+    <div>
+        <Child :data="list">
+            <template #default="{item}">
+                   <div>{{ item.name }}</div>
+            </template>
+        </Child>
+    </div>
+</template>
+<script lang='ts' setup>
+import Child from './views/child.vue'
+const list = [
+    {
+        name: "张三"
+    },
+    {
+        name: "李四"
+    },
+    {
+        name: "王五"
+    }
+]
+</script>
+<style></style>
+```
+
+子组件 defineSlots只做声明不做实现 同时约束slot类型
+
+```js
+<template>
+ <div>
+     <ul>
+        <li v-for="(item,index) in data">
+            <slot :index="index" :item="item"></slot>
+        </li>
+     </ul>
+ </div>
+</template>
+ <script generic="T"  lang='ts' setup>
+defineProps<{
+    data: T[]
+}>()
+defineSlots<{
+   default(props:{item:T,index:number}):void
+}>()
+</script>
+```
+
+### defineOptions
+
+- 主要是用来定义 Options API 的选项
+
+常用的就是定义name 在seutp 语法糖模式发现name不好定义了需要在开启一个script自定义name现在有了defineOptions就可以随意定义name了
+
+```js
+defineOptions({
+  name: "Child",
+  inheritAttrs: false
+})
+```
+
+### defineModel
+
+v-model
+
+```js
+//父组件
+<OperateDialog
+      v-model:show="addDialog"
+      :title="dialogTitle"
+      :currentFormData="currentFormData"
+      @updateList="getUserList"
+    ></OperateDialog>
+
+
+// 子组件
+const dialogShow = defineModel('show', { required: true })
+```
+
+https://blog.vuejs.org/posts/vue-3-3

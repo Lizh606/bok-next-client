@@ -34,7 +34,7 @@ export default function MarkDownPage({ post }: { post: Post }) {
               //@ts-ignore
               toc,
               {
-                headings: ["h1", "h2", "h3", "h4"],
+                headings: ["h1", "h2", "h3", "h4", "h5"],
                 customizeTOC: (tocAll: any) => {
                   data = tocAll
                   return false
@@ -50,7 +50,9 @@ export default function MarkDownPage({ post }: { post: Post }) {
                     id={props.id}
                     className="relative -top-24 invisible"
                   ></div>
-                  <a href={"#" + props.id}>{props.children}</a>
+                  <a href={"#" + props.id} id={"#" + props.id}>
+                    {props.children}
+                  </a>
                 </h1>
               )
             },
@@ -61,7 +63,9 @@ export default function MarkDownPage({ post }: { post: Post }) {
                     id={props.id}
                     className="relative -top-24 invisible"
                   ></div>
-                  <a href={"#" + props.id}>{props.children}</a>
+                  <a href={"#" + props.id} id={"#" + props.id}>
+                    {props.children}
+                  </a>
                 </h2>
               )
             },
@@ -72,7 +76,9 @@ export default function MarkDownPage({ post }: { post: Post }) {
                     id={props.id}
                     className="relative -top-24 invisible"
                   ></div>
-                  <a href={"#" + props.id}>{props.children}</a>
+                  <a href={"#" + props.id} id={"#" + props.id}>
+                    {props.children}
+                  </a>
                 </h3>
               )
             },
@@ -83,7 +89,22 @@ export default function MarkDownPage({ post }: { post: Post }) {
                     id={props.id}
                     className="relative -top-24 invisible"
                   ></div>
-                  <a href={"#" + props.id}>{props.children}</a>
+                  <a href={"#" + props.id} id={"#" + props.id}>
+                    {props.children}
+                  </a>
+                </h4>
+              )
+            },
+            h5: (props) => {
+              return (
+                <h4>
+                  <div
+                    id={props.id}
+                    className="relative -top-24 invisible"
+                  ></div>
+                  <a href={"#" + props.id} id={"#" + props.id}>
+                    {props.children}
+                  </a>
                 </h4>
               )
             },
@@ -127,10 +148,12 @@ export default function MarkDownPage({ post }: { post: Post }) {
         </ReactMarkdown>
       </div>
       <div className="block">
-        <Card className="sticky top-24 overflow-y-auto max-h-[70vh]">
-          <CardBody className="overflow-visible py-2 relative">
+        <Card className="sticky top-24">
+          <CardBody className="overflow-visible py-2 relative flex flex-col h-full max-h-[70vh]">
             <h3 className="text-default-900 text-xl font-bold pb-4">目录</h3>
-            <MarkdownNav {...tocData}></MarkdownNav>
+            <div className="overflow-y-auto flex-1 min-h-0">
+              <MarkdownNav {...tocData}></MarkdownNav>
+            </div>
           </CardBody>
         </Card>
       </div>

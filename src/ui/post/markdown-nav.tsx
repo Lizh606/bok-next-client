@@ -1,6 +1,8 @@
 "use client"
 import clsx from "clsx"
+import { atom } from "jotai"
 import { useEffect, useState } from "react"
+const textAtom = atom("")
 
 export default function MarkdownNav(props: any) {
   const [isCurrent, setCurrent] = useState(false)
@@ -10,7 +12,12 @@ export default function MarkdownNav(props: any) {
     const handleHashChange = () => {
       const newHash = decodeURIComponent(window.location.hash)
       if (props.tagName === "a") {
-        setCurrent(props.properties.href.toLowerCase() === newHash)
+        if (props.properties.href.toLowerCase() === newHash) {
+          document.getElementById(props.properties.href)?.click()
+          setCurrent(true)
+        } else {
+          setCurrent(false)
+        }
       }
     }
 
@@ -19,11 +26,27 @@ export default function MarkdownNav(props: any) {
 
     // 添加 hashchange 事件监听器
     window.addEventListener("hashchange", handleHashChange)
-
+    const handleScroll = () => {
+      if (props.tagName === "a") {
+        const id = props.properties.href
+        const element = document.getElementById(id)
+        const offsetTop = element?.getBoundingClientRect().top
+        if (offsetTop && offsetTop > 96 && offsetTop < 100) {
+          console.log("当前范围在：", props.properties.href)
+          window.location.hash = props.properties.href.toLowerCase()
+        }
+        if (window.scrollY === 0) {
+          window.location.hash = ""
+        }
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
     // 在组件卸载时移除事件监听器
     return () => {
       window.removeEventListener("hashchange", handleHashChange)
+      window.removeEventListener("scroll", handleScroll)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   switch (props.tagName) {
     case "nav": {
@@ -55,19 +78,21 @@ export default function MarkdownNav(props: any) {
     }
     case "a": {
       return (
-        <a
-          {...props.properties}
-          className={clsx(
-            isCurrent
-              ? "text-sky-500 border-l-2 border-sky-500"
-              : "text-neutral-400",
-            "block p-2 text-sm font-medium hover:text-sky-500 focus:outline-none"
-          )}
-        >
-          {props.children.map((item: any, index: number) => {
-            return <MarkdownNav {...item} key={index} />
-          })}
-        </a>
+        <>
+          <a
+            {...props.properties}
+            className={clsx(
+              isCurrent
+                ? "text-primary-500 border-l-2 border-primary-500"
+                : "text-default-700",
+              "block p-2 text-sm font-medium hover:text-primary-500 focus:outline-none"
+            )}
+          >
+            {props.children.map((item: any, index: number) => {
+              return <MarkdownNav {...item} key={index} />
+            })}
+          </a>
+        </>
       )
     }
     default:

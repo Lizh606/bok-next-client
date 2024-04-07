@@ -1,27 +1,25 @@
-import { getAllPosts, getPostBySlug } from "@/lib/posts"
+import { getPostBySlug } from "@/lib/posts"
 import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
+
 type Props = {
-  params: { slug: string }
+  params: { slug: string; sort: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-function getPost(params: Props["params"]) {
-  const post = getPostBySlug(params.slug)
-  return { post }
-}
+// export function generateStaticParams() {
+//   const posts = getAllPostSorts()
 
-export function generateStaticParams() {
-  const posts = getAllPosts()
-
-  return posts.map((post) => ({ slug: post.slug }))
-}
-
+//   return posts.map((post) => ({ slug: post.slug }))
+// }
 export default function Post({ params }: Props) {
-  const { post } = getPost(params)
-  // const { theme } = useTheme()
+  const post = getPostBySlug(
+    decodeURIComponent(params.slug),
+    decodeURIComponent(params.sort)
+  )
+
   return (
-    <div className="max-w-7xl m-auto mt-20">
+    <div className="mt-20">
       <h1 className="text-4xl font-bold text-center text-balance mb-4">
         {post.meta.title}
       </h1>
@@ -29,14 +27,15 @@ export default function Post({ params }: Props) {
         {" "}
         <div className="flex gap-1 items-center text-default-700">
           {/* <DateIcon
-            className="w-4 h-4"
-            style={{ display: theme === "light" ? "block" : "none" }}
-          ></DateIcon> */}
+              className="w-4 h-4"
+              style={{ display: theme === "light" ? "block" : "none" }}
+            ></DateIcon> */}
           {/* <DateDarkIcon
-            className="w-4 h-4"
-            style={{ display: theme === "dark" ? "block" : "none" }}
-          ></DateDarkIcon> */}
+              className="w-4 h-4"
+              style={{ display: theme === "dark" ? "block" : "none" }}
+            ></DateDarkIcon> */}
           <span>{calculateTimeDifference(post.meta.date.toString())}</span>
+          <span>#{post.meta.tag}</span>
         </div>
       </div>
       <div className="grid grid-cols-4 gap-6 relative mt-8">
