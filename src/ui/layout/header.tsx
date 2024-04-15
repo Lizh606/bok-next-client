@@ -1,9 +1,10 @@
 "use client"
 import { Tab, Tabs } from "@nextui-org/react"
 import Image from "next/image"
+import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import useScrollToTop from "../hooks/useScrollToTop"
-import { ThemeSwitcher } from "./ThemeSwitcher"
+import { ThemeSwitcher } from "../../components/ThemeSwitcher"
+import useScrollToTop from "../../hooks/useScrollToTop"
 
 export default function Header() {
   const { isAtTop } = useScrollToTop()
@@ -76,7 +77,7 @@ export default function Header() {
                   title={
                     <div className="flex items-center space-x-2">
                       {/* <PhotoIcon /> */}
-                      <span>{tab.label}</span>
+                      <Link href={tab.value}>{tab.label}</Link>
                     </div>
                   }
                 />

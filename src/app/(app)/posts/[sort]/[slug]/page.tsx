@@ -1,3 +1,4 @@
+import WithIconTime from "@/components/WithIconTime"
 import { getPostBySlug } from "@/lib/posts"
 import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
@@ -25,16 +26,10 @@ export default function Post({ params }: Props) {
       </h1>
       <div className="flex w-full items-center justify-center">
         {" "}
-        <div className="flex gap-1 items-center text-default-700">
-          {/* <DateIcon
-              className="w-4 h-4"
-              style={{ display: theme === "light" ? "block" : "none" }}
-            ></DateIcon> */}
-          {/* <DateDarkIcon
-              className="w-4 h-4"
-              style={{ display: theme === "dark" ? "block" : "none" }}
-            ></DateDarkIcon> */}
-          <span>{calculateTimeDifference(post.meta.date.toString())}</span>
+        <div className="flex gap-4 items-center text-default-700">
+          <WithIconTime
+            time={calculateTimeDifference(post.meta.date.toString())}
+          ></WithIconTime>
           <span>#{post.meta.tag}</span>
         </div>
       </div>

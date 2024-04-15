@@ -1,4 +1,4 @@
-const calculateTimeDifference = (date: string): string => {
+const calculateTimeDifference = (date: string | Date): string | Date => {
   // 使用Date.now()提高性能
   const nowTimestamp: number = Date.now()
   // 将传入的日期转换为时间戳
@@ -39,4 +39,18 @@ const calculateTimeDifference = (date: string): string => {
   const minutesDifference: number = Math.floor(timeDifference / (1000 * 60))
   return `${minutesDifference}分钟前`
 }
-export { calculateTimeDifference }
+
+const formatDate = (dateString: string | Date): string => {
+  const date = new Date(dateString)
+
+  // 提取年月日
+  const year: number = date.getFullYear()
+  const month: number = date.getMonth() + 1
+  const day: number = date.getDate()
+
+  // 格式化为 YYYY-MM-DD
+  const formattedDate: string = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`
+
+  return formattedDate
+}
+export { calculateTimeDifference, formatDate }

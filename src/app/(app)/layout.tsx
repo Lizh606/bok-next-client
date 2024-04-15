@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import Footer from "../../components/Footer"
-import Header from "../../components/Header"
+import Footer from "../../ui/layout/footer"
+import Header from "../../ui/layout/header"
 
 import { Providers } from "../../providers/providers"
 

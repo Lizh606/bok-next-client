@@ -1,5 +1,5 @@
 import fs from "fs"
-import { join } from "path"
+import { basename, join, parse } from "path"
 
 import matter from "gray-matter"
 
@@ -18,6 +18,12 @@ export type Post = {
   meta: MetaData
   content: string
   excerpt?: string
+}
+export interface PostInfo {
+  meta: MetaData
+  href: string
+  sort: string
+  post?: Post
 }
 // 根据文件名读取 markdown 文档内容
 export function getPostBySlug(slug: string, sortPath: string): Post {
@@ -54,19 +60,66 @@ export function getPostsBySort(sort: string) {
     .filter((c) => !/\.draft$/.test(c.slug))
   return posts.sort((a, b) => +b.meta.date - +a.meta.date)
 }
+export type SortInfo = {
+  sort: string
+  count: number
+}
 // 获取 /posts文件夹下所用markdown文档
-export function getAllPostSorts() {
+export function getAllPostSorts(): SortInfo[] {
   const slugs = fs.readdirSync(postsDir)
-  const posts = slugs.filter((slug) => {
+  const sorts = slugs.filter((slug) => {
     const fullPath = join(postsDir, slug)
     const stats = fs.statSync(fullPath)
     return stats.isDirectory()
   })
 
-  // // 排除草稿文件
-  // const posts = slugs
-  //   .map((slug) => getPostBySlug(slug))
-  //   .filter((c) => !/\.draft$/.test(c.slug))
-  return posts
-  // return posts.sort((a, b) => +b.meta.date - +a.meta.date)
+  return sorts.map((sort) => {
+    return {
+      sort: sort,
+      count: getPostsBySort(sort).length
+    }
+  })
+}
+
+function readMarkdownFiles(
+  directoryPath: string,
+  filesList: PostInfo[] = []
+): PostInfo[] {
+  // 获取文件夹下的所有文件
+  const files: string[] = fs.readdirSync(directoryPath)
+
+  files.forEach((file) => {
+    const filePath: string = join(directoryPath, file)
+    const fileStat: fs.Stats = fs.statSync(filePath)
+
+    if (fileStat.isDirectory()) {
+      // 如果是文件夹，则递归地读取该文件夹
+      readMarkdownFiles(filePath, filesList)
+    } else if (file.endsWith(".md")) {
+      // 如果是markdown文件，则将其路径添加到列表中
+      const fileBasename = basename(directoryPath)
+      const fileContents = fs.readFileSync(filePath, "utf8")
+      // 解析 markdown 元数据
+      const { data } = matter(fileContents, {
+        excerpt: true
+      })
+
+      const meta = { ...data } as MetaData
+      const hrefName = parse(file).name
+      const href =
+        fileBasename === "posts"
+          ? `/posts/${hrefName}`
+          : `/posts/${fileBasename}/${hrefName}`
+      const sort = fileBasename === "posts" ? "未分类" : fileBasename
+      filesList.push({ href, meta, sort })
+    }
+  })
+
+  return filesList
+}
+
+export function getAllPosts() {
+  const files = readMarkdownFiles(postsDir)
+
+  return files.sort((a, b) => +new Date(b.meta.date) - +new Date(a.meta.date))
 }
