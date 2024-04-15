@@ -66,6 +66,7 @@ export default function Header() {
                 "group-data-[selected=true]:text-[#06b6d4] dark:group-data-[selected=true]:text-[pink]"
             }}
             defaultSelectedKey={`/${pathName.split("/")[1]}`}
+            selectedKey={`/${pathName.split("/")[1]}`}
             onSelectionChange={(key) => {
               router.push(key as string)
             }}
