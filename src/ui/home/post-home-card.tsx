@@ -38,20 +38,15 @@ export default function PostHomeCard({
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <CardHeader className="justify-between">
-          <div className="flex gap-5">
-            {/* <Avatar isBordered radius="full" size="md" src="/images/avg.png" /> */}
+        <CardHeader>
+          <Link href={post.href} className="w-full flex gap-5 justify-between">
             <div className="flex flex-col gap-1 items-start justify-center">
-              <Link
-                href={post.href}
-                className="text-xl font-semibold leading-none text-default-600"
-              >
+              <div className="text-xl font-semibold leading-none text-default-600">
                 {post.meta.title}
-              </Link>
-              {/* <h5 className="text-small tracking-tight ">@ {post.author}</h5> */}
+              </div>
             </div>
-          </div>
-          <ReadTip show={isHover}></ReadTip>
+            <ReadTip show={isHover}></ReadTip>
+          </Link>
         </CardHeader>
         <Divider />
         <CardBody className="px-3 py-2 text-small">

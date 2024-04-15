@@ -12,5 +12,13 @@ export default function Sort({ params }: Props) {
   )
 
   const sorts = getAllPostSorts()
-  return <PostList posts={posts} sorts={sorts}></PostList>
+  return (
+    <>
+      {posts.length > 0 ? (
+        <PostList posts={posts} sorts={sorts}></PostList>
+      ) : (
+        <span>暂无数据或文章未分类！</span>
+      )}
+    </>
+  )
 }

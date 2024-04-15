@@ -6,6 +6,7 @@ import ArrowDown from "~/svgs/Arrow_down.svg"
 import TypewriterAnimation, {
   type Config
 } from "@/components/TypewriterAnimation"
+import Screen from "./screen"
 
 const PersonScreen = () => {
   const config = {
@@ -57,28 +58,30 @@ const PersonScreen = () => {
     }
   } as Config
   return (
-    <div className="h-screen flex relative px-6">
-      <div className="flex-1 min-w-0 flex items-center justify-center">
-        <TypewriterAnimation config={config}></TypewriterAnimation>
-      </div>
-      <div className="flex-1 min-w-0 flex items-center justify-center">
-        <Image
-          className="rounded-full"
-          src={"/images/avg.png"}
-          alt="头像"
-          width={300}
-          height={300}
-        ></Image>
-      </div>
-      <div className="absolute bottom-0 w-full flex justify-center items-center">
-        <div className="flex flex-col gap-4 items-center">
-          <span>世间所有路都将与你相逢</span>
-          <BounceTransitionView>
-            <ArrowDown className="w-6 h-6"></ArrowDown>
-          </BounceTransitionView>
+    <Screen className="min-h-[800px]">
+      <div className="h-screen flex relative px-6">
+        <div className="flex-1 min-w-0 flex items-center justify-center">
+          <TypewriterAnimation config={config}></TypewriterAnimation>
+        </div>
+        <div className="flex-1 min-w-0 flex items-center justify-center">
+          <Image
+            className="rounded-full"
+            src={"/images/avg.png"}
+            alt="头像"
+            width={300}
+            height={300}
+          ></Image>
+        </div>
+        <div className="absolute bottom-0 w-full flex justify-center items-center">
+          <div className="flex flex-col gap-4 items-center">
+            <span>世间所有路都将与你相逢</span>
+            <BounceTransitionView>
+              <ArrowDown className="w-6 h-6"></ArrowDown>
+            </BounceTransitionView>
+          </div>
         </div>
       </div>
-    </div>
+    </Screen>
   )
 }
 
