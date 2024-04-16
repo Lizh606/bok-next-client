@@ -36,9 +36,7 @@ export default function PostCard({
           <div
             className={clsx(
               "text-2xl font-bold truncate ease-in duration-300",
-              isHover
-                ? "text-[#61B9AF] dark:text-[pink] !important"
-                : "text-default-600 "
+              isHover ? "text-highlight !important" : "text-default-600"
             )}
           >
             {post.meta.title}

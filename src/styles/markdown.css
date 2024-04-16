@@ -1,3 +1,10 @@
+.text-highlight {
+  @apply text-highlight-light dark:text-highlight-dark;
+}
+
+.text-highlight-hover {
+  @apply hover:text-highlight-light dark:hover:text-highlight-dark;
+}
 .markdown font {
   display: block;
 }
@@ -114,7 +121,7 @@
   margin: 20px 0 10px;
   padding: 0;
   font-weight: bold;
-  color: #009688;
+  @apply text-highlight;
 }
 
 .markdown h1 a,
@@ -122,7 +129,7 @@
 .markdown h3 a,
 .markdown h4 a {
   cursor: pointer;
-  color: #009688;
+  @apply text-highlight;
   text-decoration: none;
 }
 
@@ -130,7 +137,7 @@
 .markdown h2 a:hover,
 .markdown h3 a:hover,
 .markdown h4 a:hover {
-  color: #3b82f6;
+  @apply text-highlight;
 }
 
 .markdown h1 a:hover::after,
@@ -138,7 +145,7 @@
 .markdown h3 a:hover::after,
 .markdown h4 a:hover::after {
   content: " #";
-  color: #3b82f6;
+  @apply text-highlight;
 }
 
 .markdown h1 {

@@ -27,7 +27,7 @@ export default function PostList({
             return (
               <Link
                 href={`/posts/${sort.sort}`}
-                className="hover:underline text-zinc-400 cursor-pointer"
+                className="hover:underline text-zinc-400 cursor-pointer text-highlight-hover"
                 key={i}
               >
                 {sort.sort}({sort.count})

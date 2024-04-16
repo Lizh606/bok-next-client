@@ -63,7 +63,7 @@ export default function Header() {
               cursor: "w-full bg-[#22d3ee] dark:bg-[pink]",
               tab: "max-w-fit",
               tabContent:
-                "group-data-[selected=true]:text-[#06b6d4] dark:group-data-[selected=true]:text-[pink]"
+                "group-data-[selected=true]:text-highlight-light dark:group-data-[selected=true]:text-highlight-dark"
             }}
             defaultSelectedKey={`/${pathName.split("/")[1]}`}
             selectedKey={`/${pathName.split("/")[1]}`}

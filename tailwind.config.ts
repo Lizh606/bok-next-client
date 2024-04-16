@@ -22,7 +22,15 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))"
       }
     },
-    colors: createVariableColors(colors)
+    colors: {
+      ...createVariableColors(colors),
+      ...{
+        highlight: {
+          light: "#61B9AF",
+          dark: "pink"
+        }
+      }
+    }
   },
   darkMode: "class",
   plugins: [

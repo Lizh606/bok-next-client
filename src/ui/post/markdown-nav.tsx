@@ -83,9 +83,9 @@ export default function MarkdownNav(props: any) {
             {...props.properties}
             className={clsx(
               isCurrent
-                ? "text-primary-500 border-l-2 border-primary-500"
+                ? "text-highlight border-l-2 border-highlight-light dark:border-highlight-dark"
                 : "text-default-700",
-              "block p-2 text-sm font-medium hover:text-primary-500 focus:outline-none"
+              "block p-2 text-sm font-medium text-highlight-hover focus:outline-none"
             )}
           >
             {props.children.map((item: any, index: number) => {

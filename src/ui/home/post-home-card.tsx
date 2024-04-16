@@ -34,7 +34,7 @@ export default function PostHomeCard({
       }} // 过渡效果使用弹簧动画，根据索引延迟动画
     >
       <Card
-        className="w-[360px] cursor-pointer text-[#A1A1AA] "
+        className="w-[360px] cursor-pointer text-default-700 "
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
