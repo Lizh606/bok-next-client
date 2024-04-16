@@ -11,11 +11,6 @@ const calculateTimeDifference = (date: string | Date): string | Date => {
 
   const timeDifference: number = nowTimestamp - inputDateTimestamp
 
-  // 判断日期是否是未来的
-  // if (timeDifference < 0) {
-  //   throw new Error("The provided date is in the future.")
-  // }
-
   // 计算天数差异
   const daysDifference: number = Math.floor(
     timeDifference / (1000 * 60 * 60 * 24)
@@ -27,7 +22,7 @@ const calculateTimeDifference = (date: string | Date): string | Date => {
       return `${daysDifference}天前`
     }
     // 如果时间差超过30天，返回传入的日期
-    return date
+    return formatDateWithEnglishMonth(new Date(date))
   }
 
   // 细化到小时和分钟
@@ -52,5 +47,27 @@ const formatDate = (dateString: string | Date): string => {
   const formattedDate: string = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`
 
   return formattedDate
+}
+const formatDateWithEnglishMonth = (date: Date): string => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ]
+
+  const day = String(date.getDate()).padStart(2, "0") // 获取日期，并确保是两位数
+  const month = months[date.getMonth()] // 获取月份的英文缩写
+  const year = date.getFullYear() // 获取年份
+
+  return `${month} ${day}, ${year}`
 }
 export { calculateTimeDifference, formatDate }
