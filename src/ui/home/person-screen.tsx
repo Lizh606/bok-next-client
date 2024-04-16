@@ -3,9 +3,10 @@ import BounceTransitionView from "@/components/BounceTransitionView"
 import Image from "next/image"
 import ArrowDown from "~/svgs/Arrow_down.svg"
 
-import TypewriterAnimation, {
-  type Config
-} from "@/components/TypewriterAnimation"
+import InfoWriterAnimation, {
+  type Config,
+  type Social
+} from "@/ui/home/Info-writer-animation"
 import Screen from "./screen"
 
 const PersonScreen = () => {
@@ -53,15 +54,33 @@ const PersonScreen = () => {
           type: "span",
           text: "Going to A NodeJS Full Stack Developer",
           class: "font-light"
+        },
+        {
+          type: "br"
         }
       ]
     }
   } as Config
+  const socialConfig: Social[] = [
+    {
+      name: "Github",
+      href: "https://github.com/Lizh606",
+      iconUrl: "/svgs/github.svg"
+    },
+    {
+      name: "哔哩哔哩",
+      href: "https://space.bilibili.com/1572749593?spm_id_from=333.1007.0.0",
+      iconUrl: "/svgs/Bilibili.svg"
+    }
+  ]
   return (
     <Screen className="h-[95vh]">
       <div className="h-full flex relative px-6">
         <div className="flex-1 min-w-0 flex items-center justify-center">
-          <TypewriterAnimation config={config}></TypewriterAnimation>
+          <InfoWriterAnimation
+            config={config}
+            socialConfig={socialConfig}
+          ></InfoWriterAnimation>
         </div>
         <div className="flex-1 min-w-0 flex items-center justify-center">
           <Image

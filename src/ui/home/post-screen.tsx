@@ -1,6 +1,6 @@
-import type { Config } from "@/components/TypewriterAnimation"
-import TypewriterAnimation from "@/components/TypewriterAnimation"
 import { getAllPosts } from "@/lib/posts"
+import type { Config } from "@/ui/home/Info-writer-animation"
+import InfoWriterAnimation from "@/ui/home/Info-writer-animation"
 import PostHomeCard from "./post-home-card"
 import Screen from "./screen"
 
@@ -21,7 +21,7 @@ export default function PostScreen() {
     <Screen className="mt-24">
       <div className="flex relative p-6">
         <div className="flex-1 min-w-0 flex items-center justify-center z-10 text-4xl font-bold tracking-widest">
-          <TypewriterAnimation config={config}></TypewriterAnimation>
+          <InfoWriterAnimation config={config}></InfoWriterAnimation>
         </div>
         <div className="flex-1 min-w-0 flex items-center justify-center">
           <div className="flex flex-col gap-4">
