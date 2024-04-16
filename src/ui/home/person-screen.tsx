@@ -74,9 +74,9 @@ const PersonScreen = () => {
         </div>
         <div className="absolute bottom-0 w-full flex justify-center items-center">
           <div className="flex flex-col gap-4 items-center">
-            <small>世间所有路都将与你相逢</small>
+            <small className="tracking-widest">世间所有路都将与你相逢</small>
             <BounceTransitionView>
-              <ArrowDown className="w-6 h-6"></ArrowDown>
+              <ArrowDown className="w-6 h-6 fill-highlight-light dark:fill-highlight-dark"></ArrowDown>
             </BounceTransitionView>
           </div>
         </div>
