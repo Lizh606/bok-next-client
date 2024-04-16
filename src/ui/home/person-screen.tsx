@@ -19,7 +19,7 @@ const PersonScreen = () => {
         },
         {
           type: "h1",
-          text: "Hangg",
+          text: "XiaoHang",
           class: "font-bold mx-2 text-4xl"
         },
         {

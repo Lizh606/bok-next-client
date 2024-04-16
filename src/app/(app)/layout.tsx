@@ -5,7 +5,7 @@ import Header from "../../ui/layout/header"
 import { Providers } from "../../providers/providers"
 
 export const metadata: Metadata = {
-  title: "Hangg-bok",
+  title: "XiaoHang-bok",
   description: "Hangg的博客前端"
 }
 
