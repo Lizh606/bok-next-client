@@ -58,8 +58,8 @@ const PersonScreen = () => {
     }
   } as Config
   return (
-    <Screen className="min-h-[800px]">
-      <div className="h-screen flex relative px-6">
+    <Screen className="h-[95vh]">
+      <div className="h-full flex relative px-6">
         <div className="flex-1 min-w-0 flex items-center justify-center">
           <TypewriterAnimation config={config}></TypewriterAnimation>
         </div>
@@ -74,7 +74,7 @@ const PersonScreen = () => {
         </div>
         <div className="absolute bottom-0 w-full flex justify-center items-center">
           <div className="flex flex-col gap-4 items-center">
-            <span>世间所有路都将与你相逢</span>
+            <small>世间所有路都将与你相逢</small>
             <BounceTransitionView>
               <ArrowDown className="w-6 h-6"></ArrowDown>
             </BounceTransitionView>
