@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body
-        className={`lxg h-full m-0 p-0 overflow-x-hidden overflow-y-auto text-default-900`}
+        className={`lxg h-full m-0 p-0 overflow-x-hidden overflow-y-auto text-default-700`}
       >
         <Providers>
           <Header></Header>

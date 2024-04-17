@@ -64,7 +64,7 @@ export default function Header() {
                   ? "shadow-lg rounded-full  border-b border-[#eee] border dark:border-[#373436]"
                   : ""
               }`,
-              cursor: "w-full bg-[#22d3ee] dark:bg-[pink]",
+              cursor: "w-full bg-highlight-light dark:bg-highlight-dark",
               tab: "max-w-fit",
               tabContent:
                 "group-data-[selected=true]:text-highlight-light dark:group-data-[selected=true]:text-highlight-dark"
