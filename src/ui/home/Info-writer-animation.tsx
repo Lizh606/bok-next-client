@@ -1,5 +1,5 @@
 "use client"
-import { Tooltip } from "@nextui-org/react"
+import { microReboundPreset } from "@/constants/spring"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -68,31 +68,30 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
             <motion.span
               key={index}
               className="inline-block whitespace-pre"
-              initial={{ transform: "translateY(10px)", opacity: 0.001 }}
+              initial={{ transform: "translateY(10px)", opacity: 0 }}
               animate={{
                 transform: "translateY(0px)",
                 opacity: 1,
                 transition: {
+                  ...microReboundPreset,
                   duration: 0.1,
                   delay: index * 0.05 + titleAnimateD / 1000
                 }
               }}
             >
-              <Tooltip placement={"bottom"} content={social.name}>
-                <Link
-                  href={social.href}
-                  className="mr-2"
-                  passHref={true}
-                  target="_blank"
-                >
-                  <Image
-                    src={social.iconUrl}
-                    alt={social.name}
-                    width={32}
-                    height={32}
-                  ></Image>
-                </Link>
-              </Tooltip>
+              <Link
+                href={social.href}
+                className="mr-2"
+                passHref={true}
+                target="_blank"
+              >
+                <Image
+                  src={social.iconUrl}
+                  alt={social.name}
+                  width={32}
+                  height={32}
+                ></Image>
+              </Link>
             </motion.span>
           )
         })}
