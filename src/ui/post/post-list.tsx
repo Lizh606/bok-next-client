@@ -25,12 +25,10 @@ export default function PostList({
           <Divider className="my-1"></Divider>
           {sorts.map((sort, i) => {
             return (
-              <Link
-                href={`/posts/${sort.sort}`}
-                className="hover:underline text-zinc-400 cursor-pointer text-highlight-hover"
-                key={i}
-              >
-                {sort.sort}({sort.count})
+              <Link href={`/posts/${sort.sort}`} key={i}>
+                <div className="underline-animation text-zinc-400 cursor-pointer text-highlight-hover">
+                  {sort.sort}({sort.count})
+                </div>
               </Link>
             )
           })}

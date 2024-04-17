@@ -38,3 +38,21 @@ body {
 .lxg {
   font-family: "LXG";
 }
+
+.underline-animation {
+  position: relative;
+  display: inline-block;
+  &::before {
+    @apply bg-highlight-light dark:bg-highlight-dark;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* 初始宽度为0 */
+    height: 2px; /* 下划线高度 */
+    transition: width 0.3s ease-in-out; /* 过渡效果 */
+  }
+  &:hover::before {
+    width: 100%; /* 鼠标悬停时宽度为100% */
+  }
+}
