@@ -3,6 +3,7 @@ import type { PostInfo } from "@/lib/posts"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 import Link from "next/link"
 import { useState } from "react"
 import ReadTip from "./read-tip"
@@ -14,7 +15,7 @@ export default function PostCard({
   index: number
 }) {
   const [isHover, setHover] = useState(false)
-
+  const { theme } = useTheme()
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }} // 初始状态，透明度为0，缩放为0.5
@@ -35,8 +36,7 @@ export default function PostCard({
         >
           <div
             className={clsx(
-              "text-2xl font-bold truncate ease-in duration-300",
-              isHover ? "text-highlight !important" : "text-default-600"
+              "text-2xl font-bold truncate ease-in duration-300 text-default-600"
             )}
           >
             {post.meta.title}
@@ -58,8 +58,10 @@ export default function PostCard({
         </Link>
         <div
           className={clsx(
-            isHover ? "bg-default-50 opacity-100" : "opacity-0",
-            "-z-10 rounded-xl absolute w-full h-full left-0 top-0 transition-opacity duration-300 ease-in-out "
+            isHover
+              ? `${theme === "light" ? " bg-highlight-light" : "bg-highlight-dark"} opacity-20 shadow-xl`
+              : "opacity-0",
+            "-z-10 rounded-xl absolute w-full h-full left-0 top-0 transition-opacity duration-400 ease-in-out "
           )}
         ></div>
       </div>
