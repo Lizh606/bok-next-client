@@ -10,7 +10,10 @@ export default function ReadTip({ show }: { show: boolean }) {
     >
       阅读全文
       <ArrowRight
-        className={clsxm("w-4 h-4", `fill-highlight-${theme}`)}
+        className={clsxm(
+          "w-4 h-4",
+          theme === "light" ? "fill-highlight-light" : "fill-highlight-dark"
+        )}
       ></ArrowRight>
     </div>
   )
