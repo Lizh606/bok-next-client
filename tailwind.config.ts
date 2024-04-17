@@ -27,6 +27,7 @@ const config: Config = {
       ...{
         highlight: {
           light: "#61B9AF",
+          DEFAULT: "#61B9AF",
           dark: "pink"
         }
       }

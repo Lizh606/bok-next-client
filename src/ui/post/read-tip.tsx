@@ -1,3 +1,4 @@
+import { clsxm } from "@/lib/helper"
 import { useTheme } from "next-themes"
 import ArrowRight from "~/svgs/右箭头.svg"
 export default function ReadTip({ show }: { show: boolean }) {
@@ -8,7 +9,9 @@ export default function ReadTip({ show }: { show: boolean }) {
       className="flex items-center gap-1 whitespace-nowrap text-[#61B9AF] dark:text-[pink]"
     >
       阅读全文
-      <ArrowRight className={`w-4 h-4 fill-highlight-${theme}`}></ArrowRight>
+      <ArrowRight
+        className={clsxm("w-4 h-4", `fill-highlight-${theme}`)}
+      ></ArrowRight>
     </div>
   )
 }
