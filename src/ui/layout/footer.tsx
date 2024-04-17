@@ -14,10 +14,10 @@ export default function Footer() {
         <div className="grid grid-cols-3 w-1/2">
           <div className="flex flex-col gap-4">
             <b className="font-bold text-base h-6">关于</b>
-            <span className="flex gap-1 items-center">
+            <Link href={"/about"} className="flex gap-1 items-center">
               <AboutMe className="w-5 h-5" />
               关于我
-            </span>
+            </Link>
             <Link
               href={"https://github.com/Lizh606/bok-next-client.git"}
               target="_blank"

@@ -6,7 +6,7 @@ import { Providers } from "../../providers/providers"
 
 export const metadata: Metadata = {
   title: "XiaoHang-bok",
-  description: "Hangg的博客前端"
+  description: "XiaoHang的博客"
 }
 
 export default function RootLayout({

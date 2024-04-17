@@ -23,6 +23,10 @@ export default function Header() {
     {
       label: "归档",
       value: "/archive"
+    },
+    {
+      label: "关于",
+      value: "/about"
     }
   ]
 

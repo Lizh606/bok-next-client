@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "文章",
+  title: "关于",
   description: "XiaoHang的博客"
 }
 
@@ -10,5 +10,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <div className="max-w-5xl m-auto">{children}</div>
+  return <div className="max-w-5xl m-auto mt-8">{children}</div>
 }

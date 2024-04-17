@@ -1,3 +1,3 @@
 export default function Archive() {
-  return <div>archive</div>
+  return <div>QAQ 归档ing</div>
 }
