@@ -53,8 +53,8 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
           { key: i, className: t.class },
           t.text && (
             <TextUpTransitionView
-              initialDelay={prevAllTextLength * 0.05}
-              eachDelay={0.05}
+              initialDelay={prevAllTextLength * 0.03}
+              eachDelay={0.03}
             >
               {t.text}
             </TextUpTransitionView>
