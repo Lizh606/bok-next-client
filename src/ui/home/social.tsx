@@ -3,6 +3,7 @@ import { clsxm } from "@/lib/helper"
 import { Tooltip } from "@nextui-org/react"
 import Link from "next/link"
 
+import toast from "react-hot-toast"
 import Bilibili from "~/svgs/Bilibili.svg"
 import Email from "~/svgs/QQ邮箱.svg"
 import Github from "~/svgs/github.svg"
@@ -51,10 +52,12 @@ export default function Social({
       icon: WeChat,
       onClick: async () => {
         try {
+          // TODO：消息弹窗暂用react-hot-toast，后续等nextUI出Toast组件更新
           await navigator.clipboard.writeText("lizh000919")
-          console.log("微信号已复制到剪切板啦🫡") // 实际应用中应该使用UI反馈，例如toast消息
+          toast.success("微信号已复制到剪切板啦🫡")
+          console.log("微信号已复制到剪切板啦🫡")
         } catch (err) {
-          console.error("复制到剪贴板失败:", err)
+          toast.error(`复制到剪贴板失败:, ${err}`)
         }
       }
     },
