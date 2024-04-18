@@ -1,5 +1,6 @@
 "use client"
 import { Tab, Tabs } from "@nextui-org/react"
+import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -9,7 +10,7 @@ import useScrollToTop from "../../hooks/useScrollToTop"
 export default function Header() {
   const { isAtTop } = useScrollToTop()
   const pathName = usePathname()
-
+  const { theme } = useTheme()
   const router = useRouter()
   const tabs = [
     {
@@ -47,7 +48,7 @@ export default function Header() {
         className="absolute inset-0 grid transform-gpu [-webkit-backdrop-filter:saturate(180%)_blur(20px)] [backdrop-filter:saturate(180%)_blur(20px)] [backface-visibility:hidden] [border-bottom:1px_solid_rgb(187_187_187_/_20%)] "
       ></div>
       <div className="relative  px-8 mx-auto h-full grid max-w-7xl grid-cols-[4.5rem_auto_4.5rem] ">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center  gap-2">
           <Image
             className="rounded-xl shadow-lg"
             src={"/images/avg.png"}
@@ -55,6 +56,19 @@ export default function Header() {
             width={40}
             height={40}
           ></Image>
+          {/* <span className="text-default-700 font-bold"> */}
+          {/* {process.env.NEXT_PUBLIC_BOK_NAME} */}
+          <Image
+            src={
+              theme === "light"
+                ? "/images/XiaoHang.png"
+                : "/images/XiaoHang-dark.png"
+            }
+            alt={process.env.NEXT_PUBLIC_BOK_NAME as string}
+            width={80}
+            height={24}
+          ></Image>
+          {/* </span> */}
         </div>
 
         <div className="flex items-center justify-center">

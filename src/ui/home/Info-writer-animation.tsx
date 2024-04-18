@@ -22,11 +22,11 @@ export interface Social {
 }
 export type InfoWriterAnimationProps = {
   config: Config
-  socialConfig?: Social[]
+  showSocial?: boolean
 }
 const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
   config,
-  socialConfig
+  showSocial = false
 }) => {
   const titleAnimateD =
     config.title.template.reduce((acc, cur) => {
@@ -61,7 +61,7 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
           )
         )
       })}
-      {socialConfig && (
+      {showSocial && (
         <motion.div
           className="inline-block whitespace-pre"
           initial={{ transform: "translateY(10px)", opacity: 0 }}

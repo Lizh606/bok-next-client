@@ -1,14 +1,8 @@
-import type { Metadata } from "next"
 import Footer from "../../ui/layout/footer"
 import Header from "../../ui/layout/header"
 
 import { Toaster } from "react-hot-toast"
 import { Providers } from "../../providers/providers"
-
-export const metadata: Metadata = {
-  title: "XiaoHang-bok",
-  description: "XiaoHang的博客"
-}
 
 export default function RootLayout({
   children

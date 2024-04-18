@@ -4,10 +4,7 @@ import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
 import type { Metadata } from "next"
 
-let metadata: Metadata = {
-  title: "XiaoHang-bok",
-  description: "XiaoHang的博客"
-}
+let metadata: Metadata = {}
 
 type Props = {
   params: { slug: string; sort: string }

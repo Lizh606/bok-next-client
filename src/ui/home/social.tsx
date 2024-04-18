@@ -53,7 +53,9 @@ export default function Social({
       onClick: async () => {
         try {
           // TODO：消息弹窗暂用react-hot-toast，后续等nextUI出Toast组件更新
-          await navigator.clipboard.writeText("lizh000919")
+          await navigator.clipboard.writeText(
+            process.env.NEXT_PUBLIC_BOK_WECHAT as string
+          )
           toast.success("微信号已复制到剪切板啦🫡")
           console.log("微信号已复制到剪切板啦🫡")
         } catch (err) {
@@ -64,20 +66,19 @@ export default function Social({
     {
       name: "Email",
       icon: Email,
-      link: "mailto:916194732@qq.com"
+      link: `mailto:${process.env.NEXT_PUBLIC_BOK_EMAIL}`
     },
     {
       name: "Github",
       icon: Github,
-      link: "https://github.com/Lizh606"
+      link: process.env.NEXT_PUBLIC_BOK_GITHUB
     },
     {
       name: "Bilibili",
       icon: Bilibili,
-      link: "https://space.bilibili.com/1672749693?spm_id_from=333.1007.0.0"
+      link: process.env.NEXT_PUBLIC_BOK_BILIBILI
     }
   ]
-
   return (
     <div
       style={{ display: "flex" }}

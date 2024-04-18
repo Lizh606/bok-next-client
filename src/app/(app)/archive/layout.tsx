@@ -1,8 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "归档",
-  description: "XiaoHang的博客"
+  title: `归档`
 }
 
 export default function RootLayout({
