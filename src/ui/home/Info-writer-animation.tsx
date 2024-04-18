@@ -1,10 +1,9 @@
 "use client"
 import { microReboundPreset } from "@/constants/spring"
 import { motion } from "framer-motion"
-import Image from "next/image"
-import Link from "next/link"
 import { createElement } from "react"
 import { TextUpTransitionView } from "../../components/TextUpTransitionView"
+import Social from "./social"
 
 interface Template {
   type: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "br" | "code" | "span"
@@ -62,39 +61,23 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
           )
         )
       })}
-      {socialConfig &&
-        socialConfig.map((social, index) => {
-          return (
-            <motion.span
-              key={index}
-              className="inline-block whitespace-pre"
-              initial={{ transform: "translateY(10px)", opacity: 0 }}
-              animate={{
-                transform: "translateY(0px)",
-                opacity: 1,
-                transition: {
-                  ...microReboundPreset,
-                  duration: 0.1,
-                  delay: index * 0.05 + titleAnimateD / 1000
-                }
-              }}
-            >
-              <Link
-                href={social.href}
-                className="mr-2"
-                passHref={true}
-                target="_blank"
-              >
-                <Image
-                  src={social.iconUrl}
-                  alt={social.name}
-                  width={32}
-                  height={32}
-                ></Image>
-              </Link>
-            </motion.span>
-          )
-        })}
+      {socialConfig && (
+        <motion.div
+          className="inline-block whitespace-pre"
+          initial={{ transform: "translateY(10px)", opacity: 0 }}
+          animate={{
+            transform: "translateY(0px)",
+            opacity: 1,
+            transition: {
+              ...microReboundPreset,
+              duration: 0.1,
+              delay: titleAnimateD / 1000
+            }
+          }}
+        >
+          <Social svgClassName="w-8 h-8"></Social>
+        </motion.div>
+      )}
     </motion.div>
   )
 }

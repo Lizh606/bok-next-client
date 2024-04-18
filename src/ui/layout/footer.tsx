@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import ICP from "~/svgs/备案.svg"
 import Site from "~/svgs/网站.svg"
-import Social from "./social"
+import Social from "../home/social"
 
 export default function Footer() {
   return (
