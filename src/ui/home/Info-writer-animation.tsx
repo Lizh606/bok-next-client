@@ -31,7 +31,8 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
   const titleAnimateD =
     config.title.template.reduce((acc, cur) => {
       return acc + (cur.text?.length || 0)
-    }, 0) * 50
+    }, 0) * 30
+  console.log(titleAnimateD)
 
   return (
     <motion.div
@@ -71,7 +72,7 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
             transition: {
               ...microReboundPreset,
               duration: 0.1,
-              delay: titleAnimateD / 1000
+              delay: 0 + titleAnimateD / 1000
             }
           }}
         >
