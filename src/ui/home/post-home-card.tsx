@@ -1,5 +1,5 @@
 "use client"
-import { type PostInfo } from "@/lib/posts"
+import { type Post } from "@/lib/posts"
 import { useState } from "react"
 
 import WithIconTime from "@/components/WithIconTime"
@@ -18,7 +18,7 @@ export default function PostHomeCard({
   post,
   index
 }: {
-  post: PostInfo
+  post: Post
   index: number
 }) {
   const [isHover, setHover] = useState(false)
@@ -39,14 +39,19 @@ export default function PostHomeCard({
         onMouseLeave={() => setHover(false)}
       >
         <CardHeader>
-          <Link href={post.href} className="w-full flex gap-5 justify-between">
-            <div className="flex flex-col gap-1 items-start justify-center">
-              <div className="text-xl font-semibold leading-none text-default-600">
-                {post.meta.title}
+          {post.href && (
+            <Link
+              href={post.href}
+              className="w-full flex gap-5 justify-between"
+            >
+              <div className="flex flex-col gap-1 items-start justify-center">
+                <div className="text-xl font-semibold leading-none text-default-600">
+                  {post.slug}
+                </div>
               </div>
-            </div>
-            <ReadTip show={isHover}></ReadTip>
-          </Link>
+              <ReadTip show={isHover}></ReadTip>
+            </Link>
+          )}
         </CardHeader>
         <Divider />
         <CardBody className="px-3 py-2 text-small">

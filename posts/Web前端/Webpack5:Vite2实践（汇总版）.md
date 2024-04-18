@@ -1,5 +1,4 @@
 ---
-title: Webpack5:Vite2实践
 date: 2024-04-18T09:31:22+0800
 tag: Vue
 description: Webpack5:Vite2实践（汇总版）

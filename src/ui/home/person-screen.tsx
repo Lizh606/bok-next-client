@@ -25,7 +25,7 @@ const PersonScreen = () => {
         },
         {
           type: "h1",
-          text: "👻",
+          text: "🫡",
           class: "font-light text-4xl"
         },
         {

@@ -6,7 +6,6 @@ import matter from "gray-matter"
 const postsDir = join(process.cwd(), "posts")
 
 type MetaData = {
-  title: string
   date: Date
   tag: string
   category: string
@@ -16,15 +15,12 @@ type MetaData = {
 export type Post = {
   slug: string
   meta: MetaData
-  content: string
+  href?: string
+  sort: string
+  content?: string
   excerpt?: string
 }
-export interface PostInfo {
-  meta: MetaData
-  href: string
-  sort: string
-  post?: Post
-}
+
 // 根据文件名读取 markdown 文档内容
 export function getPostBySlug(slug: string, sortPath: string): Post {
   const path = join(postsDir, sortPath)
@@ -36,9 +32,6 @@ export function getPostBySlug(slug: string, sortPath: string): Post {
     excerpt: true
   })
 
-  // const processedContent = await remark().use(html).processSync(content)
-
-  // const contentHtml = processedContent.toString()
   // 配置文章元数据
   const meta = { ...data } as MetaData
 
@@ -46,8 +39,8 @@ export function getPostBySlug(slug: string, sortPath: string): Post {
     slug: realSlug,
     meta,
     content,
-    excerpt
-    // contentHtml
+    excerpt,
+    sort: sortPath
   }
 }
 // 根据分类读取md文档列表
@@ -83,8 +76,8 @@ export function getAllPostSorts(): SortInfo[] {
 
 function readMarkdownFiles(
   directoryPath: string,
-  filesList: PostInfo[] = []
-): PostInfo[] {
+  filesList: Post[] = []
+): Post[] {
   // 获取文件夹下的所有文件
   const files: string[] = fs.readdirSync(directoryPath)
 
@@ -99,6 +92,8 @@ function readMarkdownFiles(
       // 如果是markdown文件，则将其路径添加到列表中
       const fileBasename = basename(directoryPath)
       const fileContents = fs.readFileSync(filePath, "utf8")
+      const realSlug = file.replace(/\.md$/, "")
+
       // 解析 markdown 元数据
       const { data } = matter(fileContents, {
         excerpt: true
@@ -111,7 +106,7 @@ function readMarkdownFiles(
           ? `/posts/${hrefName}`
           : `/posts/${fileBasename}/${hrefName}`
       const sort = fileBasename === "posts" ? "未分类" : fileBasename
-      filesList.push({ href, meta, sort })
+      filesList.push({ href, meta, sort, slug: realSlug })
     }
   })
 

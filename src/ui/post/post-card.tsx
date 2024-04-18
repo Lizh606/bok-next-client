@@ -1,5 +1,5 @@
 "use client"
-import type { PostInfo } from "@/lib/posts"
+import type { Post } from "@/lib/posts"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
@@ -11,7 +11,7 @@ export default function PostCard({
   post,
   index
 }: {
-  post: PostInfo
+  post: Post
   index: number
 }) {
   const [isHover, setHover] = useState(false)
@@ -28,34 +28,39 @@ export default function PostCard({
       }} // 过渡效果使用弹簧动画，根据索引延迟动画
     >
       <div className="relative p-4">
-        <Link
-          href={post.href}
-          className="flex flex-col gap-2 overflow-hidden cursor-pointer no-underline transition fade-in-up"
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          <div
-            className={clsx(
-              "text-2xl font-bold truncate ease-in duration-300 text-default-600"
-            )}
+        {post.href && (
+          <Link
+            href={post.href}
+            className="flex flex-col gap-2 overflow-hidden cursor-pointer no-underline transition fade-in-up"
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
           >
-            {post.meta.title}
-          </div>
-          <span className="text-zinc-400 text-sm h-16">
-            {post.meta.description}
-          </span>
-          <div className="flex justify-between items-center text-zinc-400 text-base">
-            <div className="flex items-center gap-4">
-              <div className="flex gap-1">
-                {post.sort}
-                <span style={{ display: post.meta.tag ? "" : "none" }}>|</span>
-                {post.meta.tag}
-              </div>
-              <div> {formatDate(post.meta.date)}</div>
+            <div
+              className={clsx(
+                "text-2xl font-bold truncate ease-in duration-300 text-default-600"
+              )}
+            >
+              {post.slug}
             </div>
-            <ReadTip show={isHover}></ReadTip>
-          </div>
-        </Link>
+            <span className="text-zinc-400 text-sm h-16">
+              {post.meta.description}
+            </span>
+            <div className="flex justify-between items-center text-zinc-400 text-base">
+              <div className="flex items-center gap-4">
+                <div className="flex gap-1">
+                  {post.sort}
+                  <span style={{ display: post.meta.tag ? "" : "none" }}>
+                    |
+                  </span>
+                  {post.meta.tag}
+                </div>
+                <div> {formatDate(post.meta.date)}</div>
+              </div>
+              <ReadTip show={isHover}></ReadTip>
+            </div>
+          </Link>
+        )}
+
         <div
           className={clsx(
             isHover

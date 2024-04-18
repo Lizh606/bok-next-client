@@ -1,6 +1,6 @@
 "use client"
 
-import type { PostInfo, SortInfo } from "@/lib/posts"
+import type { Post, SortInfo } from "@/lib/posts"
 import { Divider } from "@nextui-org/react"
 import Link from "next/link"
 import PostCard from "./post-card"
@@ -9,13 +9,13 @@ export default function PostList({
   posts,
   sorts
 }: {
-  posts: PostInfo[]
+  posts: Post[]
   sorts: SortInfo[]
 }) {
   return (
     <div className="m-auto grid grid-cols-4 gap-8 mt-8">
       <div className="col-span-3 flex flex-col gap-4">
-        {posts?.map((post: PostInfo, i: number) => {
+        {posts?.map((post: Post, i: number) => {
           return <PostCard post={post} index={i} key={i}></PostCard>
         })}
       </div>
