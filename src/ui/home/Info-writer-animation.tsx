@@ -32,7 +32,6 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
     config.title.template.reduce((acc, cur) => {
       return acc + (cur.text?.length || 0)
     }, 0) * 30
-  console.log(titleAnimateD)
 
   return (
     <motion.div
