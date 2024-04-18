@@ -27,6 +27,10 @@ export default function Header() {
     {
       label: "关于",
       value: "/about"
+    },
+    {
+      label: "mdx",
+      value: "/mdx"
     }
   ]
 
