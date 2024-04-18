@@ -4,6 +4,7 @@ import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { ThemeSwitcher } from "../../components/ThemeSwitcher"
 import useScrollToTop from "../../hooks/useScrollToTop"
 
@@ -34,7 +35,11 @@ export default function Header() {
     //   value: "/mdx"
     // }
   ]
-
+  const [isShowName, setShow] = useState(false)
+  useEffect(() => {
+    theme && setShow(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden transition-shadow duration-200 ${
@@ -48,7 +53,7 @@ export default function Header() {
         className="absolute inset-0 grid transform-gpu [-webkit-backdrop-filter:saturate(180%)_blur(20px)] [backdrop-filter:saturate(180%)_blur(20px)] [backface-visibility:hidden] [border-bottom:1px_solid_rgb(187_187_187_/_20%)] "
       ></div>
       <div className="relative  px-8 mx-auto h-full grid max-w-7xl grid-cols-[4.5rem_auto_4.5rem] ">
-        <div className="flex items-center  gap-2">
+        <div className="flex items-center gap-2">
           <Image
             className="rounded-xl shadow-lg"
             src={"/images/avg.png"}
@@ -58,17 +63,19 @@ export default function Header() {
           ></Image>
           {/* <span className="text-default-700 font-bold"> */}
           {/* {process.env.NEXT_PUBLIC_BOK_NAME} */}
-          <Image
-            src={
-              theme === "light"
-                ? "/images/XiaoHang.png"
-                : "/images/XiaoHang-dark.png"
-            }
-            alt={process.env.NEXT_PUBLIC_BOK_NAME as string}
-            width={80}
-            height={24}
-          ></Image>
           {/* </span> */}
+          {isShowName && (
+            <Image
+              src={
+                theme === "light"
+                  ? "/images/XiaoHang.png"
+                  : "/images/XiaoHang-dark.png"
+              }
+              alt={process.env.NEXT_PUBLIC_BOK_NAME as string}
+              width={80}
+              height={24}
+            ></Image>
+          )}
         </div>
 
         <div className="flex items-center justify-center">
