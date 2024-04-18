@@ -35,6 +35,7 @@
     "rehype-slug": "^6.0.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
+    "shiki": "^1.3.0",
     "tailwindcss-variable-colors": "^0.0.2",
     "unist-util-visit": "^5.0.0"
   },
