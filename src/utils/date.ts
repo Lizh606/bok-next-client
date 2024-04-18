@@ -1,19 +1,38 @@
+const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24
+const MILLISECONDS_IN_HOUR = 1000 * 60 * 60
+const MILLISECONDS_IN_MINUTE = 1000 * 60
+
 const calculateTimeDifference = (date: string | Date): string | Date => {
-  // 使用Date.now()提高性能
   const nowTimestamp: number = Date.now()
-  // 将传入的日期转换为时间戳
-  let inputDateTimestamp: number
-  try {
-    inputDateTimestamp = new Date(date).getTime()
-  } catch (error) {
-    throw new Error(`Failed to parse date: ${date}`)
+  let inputDate: Date
+  if (typeof date === "string") {
+    inputDate = new Date(date)
+    if (isNaN(inputDate.getTime())) {
+      throw new Error(
+        `Failed to parse date "${date}". Please provide a valid date format.`
+      )
+    }
+  } else if (date instanceof Date) {
+    inputDate = date
+  } else {
+    throw new TypeError(
+      "Invalid date type. Please provide a string or a Date object."
+    )
   }
 
+  const inputDateTimestamp: number = inputDate.getTime()
   const timeDifference: number = nowTimestamp - inputDateTimestamp
+
+  // 判断是否是有效的日期
+  if (Number.isNaN(timeDifference)) {
+    throw new Error(
+      `Invalid date/time difference calculated for date "${date}".`
+    )
+  }
 
   // 计算天数差异
   const daysDifference: number = Math.floor(
-    timeDifference / (1000 * 60 * 60 * 24)
+    timeDifference / MILLISECONDS_IN_DAY
   )
 
   if (daysDifference > 0) {
@@ -22,16 +41,22 @@ const calculateTimeDifference = (date: string | Date): string | Date => {
       return `${daysDifference}天前`
     }
     // 如果时间差超过30天，返回传入的日期
-    return formatDateWithEnglishMonth(new Date(date))
+    return formatDateWithEnglishMonth(inputDate)
   }
-
+  if (timeDifference < MILLISECONDS_IN_MINUTE) {
+    return "刚刚"
+  }
   // 细化到小时和分钟
-  const hoursDifference: number = Math.floor(timeDifference / (1000 * 60 * 60))
+  const hoursDifference: number = Math.floor(
+    timeDifference / MILLISECONDS_IN_HOUR
+  )
   if (hoursDifference > 0) {
     return `${hoursDifference}小时前`
   }
 
-  const minutesDifference: number = Math.floor(timeDifference / (1000 * 60))
+  const minutesDifference: number = Math.floor(
+    timeDifference / MILLISECONDS_IN_MINUTE
+  )
   return `${minutesDifference}分钟前`
 }
 
