@@ -232,3 +232,16 @@
 .toc {
   height: 100%;
 }
+
+.toc-item-h2 {
+  margin-left: 0.5rem;
+}
+.toc-item-h3 {
+  margin-left: 1rem;
+}
+.toc-item-h4 {
+  margin-left: 1.5rem;
+}
+.toc-item-h5 {
+  margin-left: 2rem;
+}
