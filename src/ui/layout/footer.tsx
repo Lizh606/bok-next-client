@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import ICP from "~/svgs/备案.svg"
 import Site from "~/svgs/网站.svg"
-import Social from "../home/social"
+import Social from "../../components/Social"
 
 export default function Footer() {
   const { BOK_YEAR, BOK_AUTHOR, BOK_ICP } = process.env

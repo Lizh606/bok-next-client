@@ -1,4 +1,4 @@
-import Social from "@/ui/home/social"
+import Social from "@/components/Social"
 import Image from "next/image"
 
 export default function About() {

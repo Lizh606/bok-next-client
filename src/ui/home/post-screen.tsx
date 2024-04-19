@@ -1,8 +1,8 @@
 import { getAllPosts } from "@/lib/posts"
 import type { Config } from "@/ui/home/Info-writer-animation"
 import InfoWriterAnimation from "@/ui/home/Info-writer-animation"
+import Screen from "../../components/Screen"
 import PostHomeCard from "./post-home-card"
-import Screen from "./screen"
 
 export default function PostScreen() {
   const postList = getAllPosts()

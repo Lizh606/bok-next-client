@@ -5,7 +5,7 @@ import ArrowDown from "~/svgs/Arrow_down.svg"
 import InfoWriterAnimation, {
   type Config
 } from "@/ui/home/Info-writer-animation"
-import Screen from "./screen"
+import Screen from "../../components/Screen"
 
 const PersonScreen = ({ config }: { config: Config }) => {
   return (
