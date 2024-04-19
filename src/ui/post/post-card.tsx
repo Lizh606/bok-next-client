@@ -1,11 +1,11 @@
 "use client"
+import useHover from "@/hooks/useHover"
 import type { Post } from "@/lib/posts"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import Link from "next/link"
-import { useState } from "react"
 import ReadTip from "./read-tip"
 export default function PostCard({
   post,
@@ -14,7 +14,7 @@ export default function PostCard({
   post: Post
   index: number
 }) {
-  const [isHover, setHover] = useState(false)
+  const { isHover, bind } = useHover()
   const { theme } = useTheme()
   return (
     <motion.div
@@ -32,8 +32,7 @@ export default function PostCard({
           <Link
             href={post.href}
             className="flex flex-col gap-2 overflow-hidden cursor-pointer no-underline transition fade-in-up"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            {...bind}
           >
             <div
               className={clsx(

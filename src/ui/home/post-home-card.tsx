@@ -1,8 +1,8 @@
 "use client"
 import { type Post } from "@/lib/posts"
-import { useState } from "react"
 
 import WithIconTime from "@/components/WithIconTime"
+import useHover from "@/hooks/useHover"
 import { calculateTimeDifference } from "@/utils/date"
 import {
   Card,
@@ -21,7 +21,7 @@ export default function PostHomeCard({
   post: Post
   index: number
 }) {
-  const [isHover, setHover] = useState(false)
+  const { isHover, bind } = useHover()
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }} // 初始状态，透明度为0，缩放为0.5
@@ -33,11 +33,7 @@ export default function PostHomeCard({
         delay: index * 0.4
       }} // 过渡效果使用弹簧动画，根据索引延迟动画
     >
-      <Card
-        className="w-[360px] cursor-pointer text-default-700 "
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
+      <Card className="w-[360px] cursor-pointer text-default-700 " {...bind}>
         <CardHeader>
           {post.href && (
             <Link
