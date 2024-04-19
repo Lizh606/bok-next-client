@@ -1,4 +1,5 @@
 "use client"
+import useScrolling from "@/hooks/useScrolling"
 import { Tab, Tabs } from "@nextui-org/react"
 import { useTheme } from "next-themes"
 import Image from "next/image"
@@ -13,6 +14,8 @@ export default function Header() {
   const pathName = usePathname()
   const { theme } = useTheme()
   const router = useRouter()
+  const scrolling = useScrolling()
+
   const tabs = [
     {
       label: "首页",
@@ -79,41 +82,43 @@ export default function Header() {
         </div>
 
         <div className="flex items-center justify-center">
-          <Tabs
-            aria-label="Options"
-            color="primary"
-            variant="underlined"
-            classNames={{
-              tabList: `gap-6 w-full relative py-0 px-6  border-divider  ${
-                isAtTop
-                  ? "shadow-lg rounded-full  border-b border-[#eee] border dark:border-[#373436]"
-                  : ""
-              }`,
-              cursor: "w-full bg-highlight-light dark:bg-highlight-dark",
-              tab: "max-w-fit",
-              tabContent:
-                "group-data-[selected=true]:text-highlight-light dark:group-data-[selected=true]:text-highlight-dark"
-            }}
-            defaultSelectedKey={`/${pathName.split("/")[1]}`}
-            selectedKey={`/${pathName.split("/")[1]}`}
-            onSelectionChange={(key) => {
-              router.push(key as string)
-            }}
-          >
-            {tabs.map((tab) => {
-              return (
-                <Tab
-                  key={tab.value}
-                  title={
-                    <div className="flex items-center space-x-2">
-                      {/* <PhotoIcon /> */}
-                      <Link href={tab.value}>{tab.label}</Link>
-                    </div>
-                  }
-                />
-              )
-            })}
-          </Tabs>
+          {!scrolling && (
+            <Tabs
+              aria-label="Options"
+              color="primary"
+              variant="underlined"
+              classNames={{
+                tabList: `gap-6 w-full relative py-0 px-6  border-divider  ${
+                  isAtTop
+                    ? "shadow-lg rounded-full  border-b border-[#eee] border dark:border-[#373436]"
+                    : ""
+                }`,
+                cursor: "w-full bg-highlight-light dark:bg-highlight-dark",
+                tab: "max-w-fit",
+                tabContent:
+                  "group-data-[selected=true]:text-highlight-light dark:group-data-[selected=true]:text-highlight-dark"
+              }}
+              defaultSelectedKey={`/${pathName.split("/")[1]}`}
+              selectedKey={`/${pathName.split("/")[1]}`}
+              onSelectionChange={(key) => {
+                router.push(key as string)
+              }}
+            >
+              {tabs.map((tab) => {
+                return (
+                  <Tab
+                    key={tab.value}
+                    title={
+                      <div className="flex items-center space-x-2">
+                        {/* <PhotoIcon /> */}
+                        <Link href={tab.value}>{tab.label}</Link>
+                      </div>
+                    }
+                  />
+                )
+              })}
+            </Tabs>
+          )}
         </div>
         <div className="flex items-center justify-center">
           <ThemeSwitcher></ThemeSwitcher>
