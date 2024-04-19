@@ -1,5 +1,4 @@
 "use client"
-import BounceTransitionView from "@/components/BounceTransitionView"
 import Image from "next/image"
 import ArrowDown from "~/svgs/Arrow_down.svg"
 
@@ -30,9 +29,9 @@ const PersonScreen = ({ config }: { config: Config }) => {
         <div className="absolute bottom-0 w-full flex justify-center items-center">
           <div className="flex flex-col gap-4 items-center">
             <small className="tracking-widest">世间所有路都将与你相逢</small>
-            <BounceTransitionView>
-              <ArrowDown className="w-6 h-6 fill-highlight-light dark:fill-highlight-dark"></ArrowDown>
-            </BounceTransitionView>
+            {/* <BounceTransitionView> */}
+            <ArrowDown className="animate-bounce w-6 h-6 fill-highlight-light dark:fill-highlight-dark"></ArrowDown>
+            {/* </BounceTransitionView> */}
           </div>
         </div>
       </div>

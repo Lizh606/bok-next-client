@@ -5,13 +5,11 @@ const useScrolling = () => {
   useEffect(() => {
     let scrollingTimer: number | NodeJS.Timeout
     const handleScroll = () => {
-      console.log(222)
-
       setScrolling(true)
       clearTimeout(scrollingTimer)
       scrollingTimer = setTimeout(() => {
         setScrolling(false)
-      }, 500)
+      }, 100)
     }
     window.addEventListener("scroll", handleScroll)
     return () => {

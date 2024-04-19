@@ -65,7 +65,7 @@ export default function PostCard({
             isHover
               ? `${theme === "light" ? " bg-highlight-light" : "bg-highlight-dark"} opacity-20 shadow-xl`
               : "opacity-0",
-            "-z-10 rounded-xl absolute w-full h-full left-0 top-0 transition-opacity duration-400 ease-in-out "
+            "-z-10 rounded-xl absolute w-full h-full left-0 top-0 transition-opacity duration-400 ease-in-out"
           )}
         ></div>
       </div>
