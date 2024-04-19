@@ -76,3 +76,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #bbb;
 }
+
+circle {
+  stroke-dashoffset: 0;
+  stroke-width: 5%;
+  fill: none;
+}

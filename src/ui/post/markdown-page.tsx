@@ -1,7 +1,7 @@
 "use client"
 
 import type { Post } from "@/lib/posts"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"
 
 import ReactMarkdown from "react-markdown"
@@ -9,23 +9,51 @@ import rehypeHighlight from "rehype-highlight"
 import rehypeSlug from "rehype-slug"
 
 import { CopyButton1 } from "@/components/CopyButton"
+import useScrollToTop from "@/hooks/useScrollToTop"
+import { clsxm } from "@/lib/helper"
 import toc from "@jsdevtools/rehype-toc"
 import { Card, CardBody } from "@nextui-org/react"
+import { motion, useScroll } from "framer-motion"
 import "highlight.js/styles/atom-one-dark.css"
-
 export default function MarkDownPage({ post }: { post: Post }) {
   let data = {}
 
   const [tocData, setTocData] = useState({})
+  const { isAtTop } = useScrollToTop()
 
   useEffect(() => {
     setTocData(data)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const ref = useRef(null)
+  const circleRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"]
+  })
+  const [percent, setPercent] = useState(0)
+  useEffect(() => {
+    // 当 scrollYProgress 变化时更新 percent
+    const updatePercent = () => {
+      const currentPercent = scrollYProgress.get()
+      setPercent(Math.round(currentPercent * 100))
+    }
+
+    // 初始化时更新一次 percent
+    updatePercent()
+
+    // 监听 scrollYProgress 的变化，并更新 percent
+    const unsubscribe = scrollYProgress.onChange(updatePercent)
+
+    // 组件卸载时取消监听
+    return () => {
+      unsubscribe()
+    }
+  }, [scrollYProgress]) // 依赖于 scrollYProgress 的变化
   return (
     <>
-      <div className="markdown col-span-3">
+      <div className="markdown col-span-3" ref={ref}>
         <ReactMarkdown
           rehypePlugins={[
             rehypeHighlight,
@@ -149,8 +177,45 @@ export default function MarkDownPage({ post }: { post: Post }) {
       </div>
       <div className="block">
         <Card className="sticky top-24">
-          <CardBody className="overflow-visible py-2 relative flex flex-col h-full max-h-[70vh]">
-            <h3 className="text-default-900 text-xl font-bold pb-4">目录</h3>
+          <CardBody className="overflow-visible py-2 relative flex flex-col h-full max-h-[60vh] gap-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-default-900 text-xl font-bold">目录</h3>
+              <div
+                className={clsxm(
+                  "flex flex-col gap-2",
+                  isAtTop ? "hidden" : "flex"
+                )}
+              >
+                <div className="flex gap-1 items-center">
+                  <svg
+                    id="progress"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 100 100"
+                    className="-rotate-90"
+                  >
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="30"
+                      pathLength="1"
+                      className="stroke-highlight-light dark:stroke-highlight-dark opacity-20 "
+                    />
+                    <motion.circle
+                      ref={circleRef}
+                      cx="50"
+                      cy="50"
+                      r="30"
+                      pathLength="1"
+                      className="stroke-highlight-light dark:stroke-highlight-dark "
+                      style={{ pathLength: scrollYProgress }}
+                    />
+                  </svg>
+                  <span className="text-default-400">{percent}%</span>
+                </div>
+              </div>
+            </div>
+
             <div className="overflow-y-auto flex-1 min-h-0">
               <MarkdownNav {...tocData}></MarkdownNav>
             </div>
