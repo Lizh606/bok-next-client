@@ -1,4 +1,5 @@
 // 先创建一个类，给类添加1个属性 instance代表axios的实例  构造函数传递配置 config配置比如全局的baseURL timeout
+import { getToken } from "@/lib/public"
 import type {
   AxiosError,
   AxiosInstance,
@@ -14,12 +15,14 @@ import axios from "axios"
 class Request {
   // 限制创建的实例必须是axios的实例
   private instance: AxiosInstance
-  // 这个config是不能乱写的，axios对创建的配置有限制的
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(config)
     // 接下来配置axios实例身上的全局配置，比如拦截器
     this.instance.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
+      async (config: InternalAxiosRequestConfig) => {
+        if (config.url?.includes("auth")) return config
+        const token = await getToken()
+        config.headers["Authorization"] = "Bearer " + token
         return config
       },
       (error: AxiosError) => {
@@ -64,5 +67,5 @@ class Request {
   }
 }
 export const http = new Request({
-  baseURL: "http://106.54.47.60:13000/"
+  baseURL: process.env.API_URL
 })

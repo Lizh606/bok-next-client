@@ -1,6 +1,5 @@
 "use client"
 
-import type { Post } from "@/lib/posts"
 import { useEffect, useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"
 
@@ -11,6 +10,7 @@ import rehypeSlug from "rehype-slug"
 import { CopyButton1 } from "@/components/CopyButton"
 import useScrollToTop from "@/hooks/useScrollToTop"
 import { clsxm } from "@/lib/helper"
+import type { Post } from "@/lib/post"
 import toc from "@jsdevtools/rehype-toc"
 import { Card, CardBody } from "@nextui-org/react"
 import { motion, useScroll } from "framer-motion"

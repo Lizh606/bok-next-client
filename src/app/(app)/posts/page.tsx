@@ -1,7 +1,6 @@
-import { getAllPostSorts, getAllPosts } from "@/lib/posts"
+import { getPostList } from "@/lib/post"
 import PostList from "@/ui/post/post-list"
-export default function Posts() {
-  const posts = getAllPosts()
-  const sorts = getAllPostSorts()
-  return <PostList posts={posts} sorts={sorts}></PostList>
+export default async function Posts() {
+  const posts = await getPostList()
+  return <PostList posts={posts}></PostList>
 }

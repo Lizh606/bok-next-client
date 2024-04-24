@@ -1,11 +1,10 @@
-import { getAllPosts } from "@/lib/posts"
+import { getPostList } from "@/lib/post"
 import type { Config } from "@/ui/home/Info-writer-animation"
 import InfoWriterAnimation from "@/ui/home/Info-writer-animation"
 import Screen from "../../components/Screen"
 import PostHomeCard from "./post-home-card"
-
-export default function PostScreen() {
-  const postList = getAllPosts()
+export default async function PostScreen() {
+  const posts = await getPostList()
   const config = {
     title: {
       template: [
@@ -25,8 +24,8 @@ export default function PostScreen() {
         </div>
         <div className="flex-1 min-w-0 flex items-center justify-center">
           <div className="flex flex-col gap-4">
-            {postList
-              .filter((post) => post.meta.tag)
+            {posts
+              .filter((post) => post.tag)
               .splice(0, 4)
               .map((post, i) => {
                 return (

@@ -1,6 +1,6 @@
 "use client"
 import useHover from "@/hooks/useHover"
-import type { Post } from "@/lib/posts"
+import type { Post } from "@/lib/post"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
@@ -28,37 +28,31 @@ export default function PostCard({
       }} // 过渡效果使用弹簧动画，根据索引延迟动画
     >
       <div className="relative p-4">
-        {post.href && (
-          <Link
-            href={post.href}
-            className="flex flex-col gap-2 overflow-hidden cursor-pointer no-underline transition fade-in-up"
-            {...bind}
+        <Link
+          href={`/posts/${post.sort}/${post.id}`}
+          className="flex flex-col gap-2 overflow-hidden cursor-pointer no-underline transition fade-in-up"
+          {...bind}
+        >
+          <div
+            className={clsx(
+              "text-2xl font-bold truncate ease-in duration-300 text-default-600"
+            )}
           >
-            <div
-              className={clsx(
-                "text-2xl font-bold truncate ease-in duration-300 text-default-600"
-              )}
-            >
-              {post.slug}
-            </div>
-            <span className="text-zinc-400 text-sm h-16">
-              {post.meta.description}
-            </span>
-            <div className="flex justify-between items-center text-zinc-400 text-base">
-              <div className="flex items-center gap-4">
-                <div className="flex gap-1">
-                  {post.sort}
-                  <span style={{ display: post.meta.tag ? "" : "none" }}>
-                    |
-                  </span>
-                  {post.meta.tag}
-                </div>
-                <div> {formatDate(post.meta.date)}</div>
+            {post.title}
+          </div>
+          <span className="text-zinc-400 text-sm h-16">{post.description}</span>
+          <div className="flex justify-between items-center text-zinc-400 text-base">
+            <div className="flex items-center gap-4">
+              <div className="flex gap-1">
+                {post.sort}
+                <span style={{ display: post.tag ? "" : "none" }}>|</span>
+                {post.tag}
               </div>
-              <ReadTip show={isHover}></ReadTip>
+              <div> {post.date ? formatDate(post.date) : ""}</div>
             </div>
-          </Link>
-        )}
+            <ReadTip show={isHover}></ReadTip>
+          </div>
+        </Link>
 
         <div
           className={clsx(

@@ -1,16 +1,16 @@
 "use client"
 
-import type { Post, SortInfo } from "@/lib/posts"
+import type { Post } from "@/lib/post"
 import { Divider } from "@nextui-org/react"
-import Link from "next/link"
 import PostCard from "./post-card"
+import PostSortList from "./post-sort-list"
 
 export default function PostList({
   posts,
-  sorts
+  allPosts
 }: {
   posts: Post[]
-  sorts: SortInfo[]
+  allPosts?: Post[]
 }) {
   return (
     <div className="m-auto grid grid-cols-4 gap-8 mt-8">
@@ -23,15 +23,7 @@ export default function PostList({
         <div className="sticky top-24 flex flex-col gap-4">
           <div>文章分类</div>
           <Divider className="my-1"></Divider>
-          {sorts.map((sort, i) => {
-            return (
-              <Link href={`/posts/${sort.sort}`} key={i}>
-                <div className="underline-animation text-zinc-400 cursor-pointer text-highlight-hover">
-                  {sort.sort}({sort.count})
-                </div>
-              </Link>
-            )
-          })}
+          <PostSortList posts={allPosts ? allPosts : posts}></PostSortList>
         </div>
       </div>
     </div>
