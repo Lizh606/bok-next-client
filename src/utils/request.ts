@@ -66,6 +66,8 @@ class Request {
     return this.fetchData({ ...options, method: "DELETE" })
   }
 }
+console.log(process.env.NEXT_PUBLIC_API_URL)
+
 export const http = new Request({
-  baseURL: process.env.API_URL
+  baseURL: process.env.NEXT_PUBLIC_API_URL
 })
