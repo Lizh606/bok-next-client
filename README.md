@@ -1,4 +1,4 @@
-# Hangg个人搭建博客网站
+# XiaoHang个人搭建博客网站
 
 ## 建站初衷
 
@@ -12,7 +12,7 @@
 
    通过这个博客网站，我希望能够激励自己更多地写作和分享知识。通过整理和发布文章，不仅可以加深对各种技术的理解，还可以建立自己的知识体系和文档库，方便日后回顾和学习。
 
-## 功能特性
+## 功能点
 
 - 首页展示
 - 文章列表
@@ -21,8 +21,15 @@
 
 ## 技术栈
 
-- 前端：Next.js, NextUI, TailwindCSS, Jotai
-- 数据源：暂时用前端本地MD文件`（PS:posts目录为两级目录，一级为文章分类，二级为文章MD文件）`
+- 博客前端：Next.js, NextUI, TailwindCSS, Jotai
+- 后台管理：Vue3，Vite，Pinia，ElementUI
+- 后台：Nest.js，TypeScript，TypeORM
+- 数据库：Mysql
+
+## 博客生态地址
+
+- 博客前端：https://hang.izeper.icu
+- 后台管理：https://admin.izeper.icu
 
 ## 快速开始
 
@@ -35,3 +42,9 @@ pnpm dev
 # or
 bun dev
 ```
+
+## RoadMap
+
+- 文章归纳
+- 用户登陆（含第三方）
+- 评论、关注、浏览量
