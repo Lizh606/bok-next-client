@@ -1,5 +1,6 @@
 import { getPostList } from "@/lib/post"
 import PostList from "@/ui/post/post-list"
+import { notFound } from "next/navigation"
 
 type Props = {
   params: { sort: string }
@@ -12,13 +13,9 @@ export default async function Sort({ params }: Props) {
   const postsBySort = posts.filter(
     (post) => post.sort === decodeURIComponent(params.sort)
   )
-  return (
-    <>
-      {posts.length > 0 ? (
-        <PostList posts={postsBySort} allPosts={posts}></PostList>
-      ) : (
-        <span>暂无数据或文章未分类！</span>
-      )}
-    </>
-  )
+
+  if (postsBySort.length === 0) {
+    notFound()
+  }
+  return <PostList posts={postsBySort} allPosts={posts}></PostList>
 }

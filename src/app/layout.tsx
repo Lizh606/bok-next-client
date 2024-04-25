@@ -14,5 +14,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <>{children}</>
+  return (
+    <html lang="en" className="light">
+      <body
+        className={`lxg h-full m-0 p-0 overflow-x-hidden overflow-y-auto text-default-700`}
+      >
+        <>{children}</>
+      </body>
+    </html>
+  )
 }
