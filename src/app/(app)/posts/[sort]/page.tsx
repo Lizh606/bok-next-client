@@ -7,7 +7,8 @@ type Props = {
 }
 
 export default async function Sort({ params }: Props) {
-  const posts = await getPostList()
+  const queryParams = { page: 1, size: 999 }
+  const posts = await getPostList(queryParams)
   const postsBySort = posts.filter(
     (post) => post.sort === decodeURIComponent(params.sort)
   )

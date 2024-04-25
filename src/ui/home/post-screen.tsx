@@ -4,7 +4,8 @@ import InfoWriterAnimation from "@/ui/home/Info-writer-animation"
 import Screen from "../../components/Screen"
 import PostHomeCard from "./post-home-card"
 export default async function PostScreen() {
-  const posts = await getPostList()
+  const queryParams = { page: 1, size: 4 }
+  const posts = await getPostList(queryParams)
   const config = {
     title: {
       template: [
@@ -26,7 +27,6 @@ export default async function PostScreen() {
           <div className="flex flex-col gap-4">
             {posts
               .filter((post) => post.tag)
-              .splice(0, 4)
               .map((post, i) => {
                 return (
                   <PostHomeCard post={post} key={i} index={i}></PostHomeCard>

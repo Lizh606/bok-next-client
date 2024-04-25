@@ -17,9 +17,15 @@ export type SortInfo = {
   sort: string
   count: number
 }
-export const getPostList = async () => {
+export const getPostList = async ({
+  page,
+  size
+}: {
+  page: number
+  size: number
+}) => {
   const { data } = await http.get<PageResponse<Post>>({
-    url: `posts?page=1&size=10`
+    url: `posts?page=${page}&size=${size}`
   })
   return data
 }
