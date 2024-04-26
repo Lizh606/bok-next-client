@@ -1,3 +1,4 @@
+import BackToTop from "@/components/BackToTop"
 import "@/styles/globals.css"
 import { Metadata } from "next"
 import type React from "react"
@@ -17,9 +18,12 @@ export default async function RootLayout({
   return (
     <html lang="en" className="light">
       <body
-        className={`lxg h-full m-0 p-0 overflow-x-hidden overflow-y-auto text-default-700`}
+        className={`relative lxg h-full m-0 p-0 overflow-x-hidden overflow-y-auto text-default-700`}
       >
         <>{children}</>
+        <div className="fixed right-4 bottom-44 z-20">
+          <BackToTop></BackToTop>
+        </div>
       </body>
     </html>
   )
