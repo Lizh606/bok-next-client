@@ -19,13 +19,15 @@ export type SortInfo = {
 }
 export const getPostList = async ({
   page,
-  size
+  size,
+  keyword
 }: {
   page: number
   size: number
+  keyword?: string
 }) => {
   const { data } = await http.get<PageResponse<Post>>({
-    url: `posts?page=${page}&size=${size}`
+    url: `posts?page=${page}&size=${size}${keyword ? `&keyword=${keyword}` : ""}`
   })
   return data
 }
