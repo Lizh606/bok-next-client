@@ -28,7 +28,11 @@ export default function PersonGrowth() {
     },
     {
       date: "2024-04-10",
-      event: "博客前端页面初版发布"
+      event: "博客前端初版发布"
+    },
+    {
+      date: "2024-04-18",
+      event: "博客后台管理发布"
     },
     {
       date: "2024-04-19",
@@ -50,13 +54,13 @@ export default function PersonGrowth() {
                 key={index}
               >
                 <span className="text-xl font-bold">{growth.date}</span>
-                <span className="text-sm text-default-400">
-                  {" "}
-                  {growth.event}
-                </span>
+                <span className="text-sm text-default-400">{growth.event}</span>
               </div>
             )
           })}
+          <span className="text-xl font-bold w-60 m-8 shrink-0 flex items-center">
+            💪 GROWING...
+          </span>
         </div>
       </div>
     </Screen>
