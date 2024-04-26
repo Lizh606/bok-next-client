@@ -1,4 +1,5 @@
 import type { Config } from "@/ui/home/Info-writer-animation"
+import PersonGrowth from "@/ui/home/person-growth"
 import PersonScreen from "@/ui/home/person-screen"
 import PostScreen from "@/ui/home/post-screen"
 
@@ -64,6 +65,9 @@ export default function Home() {
     <>
       <PersonScreen config={config}></PersonScreen>
       <PostScreen></PostScreen>
+      <div className="rounded-xl flex items-center justify-center w-full">
+        <PersonGrowth></PersonGrowth>
+      </div>
       {/* <GrowthScreen></GrowthScreen> */}
     </>
   )
