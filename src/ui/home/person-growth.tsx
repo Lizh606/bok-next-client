@@ -43,7 +43,7 @@ export default function PersonGrowth() {
   return (
     <Screen className="mt-24 w-3/5">
       <div className="flex flex-col items-center gap-4 ">
-        <div className="font-bold text-2xl text-center">Growth Record</div>
+        <div className="font-bold text-2xl text-center">站点历程</div>
         <span className="bg-highlight-light dark:bg-highlight-dark rounded-full h-[2px] w-12"></span>
         <span className="text-default-400 text-sm">「 左右滑动查看 」</span>
         <div className="w-full flex overflow-x-scroll">
