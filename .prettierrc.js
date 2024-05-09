@@ -1,5 +1,5 @@
 module.exports = {
-  semi: false, // 默认值。为‘es5’。是否句尾添加分号,默认值。为true。false:不添加
+  semi: true, // 默认值。为‘es5’。是否句尾添加分号,默认值。为true。false:不添加
   trailingComma: "none", // 默认值为'es5'。为对象或数组最后一个元素后面不加逗号。
   vueIndentScriptAndStyle: true, // 默认值为false。 Vue 文件中 <script> 和 <style> 标签内的代码是否缩进。
 
@@ -19,5 +19,5 @@ module.exports = {
   htmlWhitespaceSensitivity: "css", // 默认值。值。空白敏感度.v1.15.0及以上
   endOfLine: "lf", // 默认值。"\n"时换行。
   embeddedLanguageFormatting: "auto", //默认值。是否格式化嵌入在文件中的引用代码。v2.1.0及以上
-  singleAttributePerLine: false, // 默认值。在 HTML、Vue 和 JSX 中每行强制执行单个属性。v2.6.0及以上
+  singleAttributePerLine: false // 默认值。在 HTML、Vue 和 JSX 中每行强制执行单个属性。v2.6.0及以上
 }
