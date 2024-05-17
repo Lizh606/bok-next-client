@@ -35,17 +35,14 @@ export default function PostList({
             startContent={<SearchIcon size="18" className="p-1" />}
             type="search"
             onValueChange={debounce(async (value) => {
-              console.log(value)
-
               const params = {
                 page: 1,
                 size: 99,
                 keyword: value
               }
-              const res = await getPostList(params)
-              console.log(res)
-              setShowPosts(res)
-            }, 1000)}
+              const postList = await getPostList(params)
+              setShowPosts(postList)
+            }, 500)}
           />
           <span>文章分类</span>
           <Divider className="my-1"></Divider>

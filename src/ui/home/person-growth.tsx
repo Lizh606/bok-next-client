@@ -42,15 +42,15 @@ export default function PersonGrowth() {
 
   return (
     <Screen className="mt-24 w-3/5">
-      <div className="flex flex-col items-center gap-4 ">
-        <div className="font-bold text-2xl text-center">站点历程</div>
-        <span className="bg-highlight-light dark:bg-highlight-dark rounded-full h-[2px] w-12"></span>
-        <span className="text-default-400 text-sm">「 左右滑动查看 」</span>
-        <div className="w-full flex overflow-x-scroll">
+      <div className="flex flex-col items-center gap-4">
+        <div className="text-center text-2xl font-bold">站点历程</div>
+        <span className="h-[2px] w-12 rounded-full bg-highlight-light dark:bg-highlight-dark"></span>
+        <span className="text-sm text-default-400">「 左右滑动查看 」</span>
+        <div className="flex w-full overflow-x-scroll">
           {growthArr.map((growth, index) => {
             return (
               <div
-                className="w-60 m-8 flex flex-col shrink-0 gap-4"
+                className="m-8 flex w-60 shrink-0 flex-col gap-4"
                 key={index}
               >
                 <span className="text-xl font-bold">{growth.date}</span>
@@ -58,7 +58,7 @@ export default function PersonGrowth() {
               </div>
             )
           })}
-          <span className="text-xl font-bold w-60 m-8 shrink-0 flex items-center">
+          <span className="m-8 flex w-60 shrink-0 items-center text-xl font-bold">
             💪 GROWING...
           </span>
         </div>
