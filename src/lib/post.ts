@@ -11,6 +11,9 @@ export type Post = {
   sort: string
   date: string
   description: string
+  year?: number
+  month?: number
+  day?: number
 }
 
 export type SortInfo = {

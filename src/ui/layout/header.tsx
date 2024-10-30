@@ -27,8 +27,8 @@ export default function Header() {
       value: "/posts"
     },
     {
-      label: "归档",
-      value: "/archive"
+      label: "时光",
+      value: "/time"
     },
     {
       label: "关于",
@@ -50,14 +50,14 @@ export default function Header() {
       className={`fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden transition-shadow duration-200 ${
         isAtTop
           ? ""
-          : "shadow-none shadow-neutral-100 lg:shadow-sm dark:shadow-neutral-800/50 "
+          : "shadow-none shadow-neutral-100 dark:shadow-neutral-800/50 lg:shadow-sm "
       } `}
     >
       <div
         style={isAtTop ? { opacity: 0 } : {}}
         className="absolute inset-0 grid transform-gpu [-webkit-backdrop-filter:saturate(180%)_blur(20px)] [backdrop-filter:saturate(180%)_blur(20px)] [backface-visibility:hidden] [border-bottom:1px_solid_rgb(187_187_187_/_20%)] "
       ></div>
-      <div className="relative px-8 mx-auto h-full grid max-w-7xl grid-cols-[4.5rem_auto_4.5rem] ">
+      <div className="relative mx-auto grid h-full max-w-7xl grid-cols-[4.5rem_auto_4.5rem] px-8 ">
         <div className="flex items-center gap-2">
           <Image
             className="rounded-xl shadow-lg"
