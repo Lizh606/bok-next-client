@@ -1,3 +1,4 @@
+"use client"
 import type { Post } from "@/lib/post"
 import Link from "next/link"
 
@@ -23,7 +24,6 @@ export default function TimePosts({ posts }: { posts: Post[] }) {
     item.year && acc[item.year].push(item) // 将当前项推入对应的数组
     return acc
   }, {})
-  console.log(groupedByYear)
 
   return (
     <div className="mt-20 flex flex-col gap-6">

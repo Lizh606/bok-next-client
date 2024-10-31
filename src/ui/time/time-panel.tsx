@@ -13,49 +13,57 @@ export default function TimePanel() {
   const dayOfYear: number = Math.floor(diff / oneDay)
 
   // 获取今年已过百分多少
-  const endOfYear: Date = new Date(today.getFullYear(), 11, 31, 23, 59, 59)
-  const totalMilliseconds: number = endOfYear.getTime() - startOfYear.getTime()
-  const elapsedMilliseconds: number = today.getTime() - startOfYear.getTime()
-  const PassDayPercent = (elapsedMilliseconds / totalMilliseconds) * 100
+  const [PassDayPercent, setPassDayPercent] = useState(0)
 
-  // 获取今天剩下百分比
+  // 获取今天已过百分比
   const [remainingPercentage, setRemainingPercentage] = useState(0)
 
-  const getTodayRemainingPercentage = (): number => {
-    const now = new Date()
-    const startOfDay = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      0,
-      0,
-      0
-    )
-    const endOfDay = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      23,
-      59,
-      59
-    )
-
-    const totalMilliseconds = endOfDay.getTime() - startOfDay.getTime()
-    const remainingMilliseconds = endOfDay.getTime() - now.getTime()
-
-    return (remainingMilliseconds / totalMilliseconds) * 100
-  }
   useEffect(() => {
-    // 初始化剩余百分比
+    const today: Date = new Date()
+    const startOfYear: Date = new Date(today.getFullYear(), 0, 0)
+
+    // 初始化今天已过百分比
+    const getTodayRemainingPercentage = (): number => {
+      const now = new Date()
+
+      const secondsInADay = 24 * 60 * 60 * 1000 // 用毫秒表示全天的时间
+      const millisecondsPassedToday =
+        now.getHours() * 3600 * 1000 +
+        now.getMinutes() * 60 * 1000 +
+        now.getSeconds() * 1000 +
+        now.getMilliseconds()
+
+      return (millisecondsPassedToday / secondsInADay) * 100
+    }
     setRemainingPercentage(getTodayRemainingPercentage())
 
-    // 更新今天剩余百分比
+    // 更新今天已过百分比
     const intervalId = setInterval(() => {
       setRemainingPercentage(getTodayRemainingPercentage())
     }, 1)
 
+    // 初始化今年已过百分比
+    const getPassDayPercent = (): number => {
+      const endOfYear: Date = new Date(today.getFullYear(), 11, 31, 23, 59, 59)
+      const totalMilliseconds: number =
+        endOfYear.getTime() - startOfYear.getTime()
+      const elapsedMilliseconds: number =
+        today.getTime() - startOfYear.getTime()
+      const PassDayPercent = (elapsedMilliseconds / totalMilliseconds) * 100
+      return PassDayPercent
+    }
+    setPassDayPercent(getPassDayPercent())
+
+    // 更新今年已过百分比
+    const intervalId1 = setInterval(() => {
+      setPassDayPercent(getPassDayPercent())
+    }, 1000)
+
     // 在组件卸载时清除定时器
-    return () => clearInterval(intervalId)
+    return () => {
+      clearInterval(intervalId)
+      clearInterval(intervalId1)
+    }
   }, [])
   return (
     <div className="flex flex-col gap-2">
