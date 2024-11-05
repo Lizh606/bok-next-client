@@ -9,5 +9,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <div className="m-auto mt-8 max-w-4xl">{children}</div>
+  return <div className="m-auto mt-8 max-w-3xl">{children}</div>
 }

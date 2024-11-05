@@ -82,3 +82,37 @@ circle {
   stroke-width: 5%;
   fill: none;
 }
+
+.timeline {
+  position: relative;
+  list-style-type: none;
+  line-height: 2;
+  &::before {
+    @apply border border-solid border-highlight-light dark:border-highlight-dark;
+    content: "";
+    position: absolute;
+    left: 3px;
+    bottom: 0;
+  }
+  &::after {
+    @apply bg-highlight-light dark:bg-highlight-dark;
+    content: "";
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    position: absolute;
+  }
+  &:not(:first-child):not(:last-child):before {
+    top: 0;
+  }
+  &:first-child:before {
+    top: 50% !important;
+  }
+  &:last-child:before {
+    bottom: 50%;
+    top: 0;
+  }
+}
