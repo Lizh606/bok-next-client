@@ -5,15 +5,16 @@ import MarkdownNav from "./markdown-nav"
 
 import ReactMarkdown from "react-markdown"
 import rehypeHighlight from "rehype-highlight"
+import rehypeRaw from "rehype-raw"
 import rehypeSlug from "rehype-slug"
+import remarkGfm from "remark-gfm"
 
 import { CopyButton1 } from "@/components/CopyButton"
 import useScrollToTop from "@/hooks/useScrollToTop"
-import { clsxm } from "@/lib/helper"
 import type { Post } from "@/lib/post"
 import toc from "@jsdevtools/rehype-toc"
 import { Card, CardBody } from "@nextui-org/react"
-import { motion, useScroll } from "framer-motion"
+import { useScroll } from "framer-motion"
 import "highlight.js/styles/atom-one-dark.css"
 export default function MarkDownPage({ post }: { post: Post }) {
   let data = {}
@@ -58,6 +59,8 @@ export default function MarkDownPage({ post }: { post: Post }) {
           rehypePlugins={[
             rehypeHighlight,
             rehypeSlug,
+            rehypeRaw,
+            remarkGfm,
             [
               //@ts-ignore
               toc,
@@ -76,7 +79,7 @@ export default function MarkDownPage({ post }: { post: Post }) {
                 <h1>
                   <div
                     id={props.id}
-                    className="relative -top-24 invisible"
+                    className="invisible relative -top-24"
                   ></div>
                   <a href={"#" + props.id} id={"#" + props.id}>
                     {props.children}
@@ -89,7 +92,7 @@ export default function MarkDownPage({ post }: { post: Post }) {
                 <h2>
                   <div
                     id={props.id}
-                    className="relative -top-24 invisible"
+                    className="invisible relative -top-24"
                   ></div>
                   <a href={"#" + props.id} id={"#" + props.id}>
                     {props.children}
@@ -102,7 +105,7 @@ export default function MarkDownPage({ post }: { post: Post }) {
                 <h3>
                   <div
                     id={props.id}
-                    className="relative -top-24 invisible"
+                    className="invisible relative -top-24"
                   ></div>
                   <a href={"#" + props.id} id={"#" + props.id}>
                     {props.children}
@@ -115,7 +118,7 @@ export default function MarkDownPage({ post }: { post: Post }) {
                 <h4>
                   <div
                     id={props.id}
-                    className="relative -top-24 invisible"
+                    className="invisible relative -top-24"
                   ></div>
                   <a href={"#" + props.id} id={"#" + props.id}>
                     {props.children}
@@ -128,7 +131,7 @@ export default function MarkDownPage({ post }: { post: Post }) {
                 <h4>
                   <div
                     id={props.id}
-                    className="relative -top-24 invisible"
+                    className="invisible relative -top-24"
                   ></div>
                   <a href={"#" + props.id} id={"#" + props.id}>
                     {props.children}
@@ -177,10 +180,10 @@ export default function MarkDownPage({ post }: { post: Post }) {
       </div>
       <div className="block">
         <Card className="sticky top-24">
-          <CardBody className="overflow-visible py-2 relative flex flex-col h-full max-h-[60vh] gap-4">
-            <div className="flex justify-between items-center">
-              <h3 className="text-default-900 text-xl font-bold">目录</h3>
-              <div
+          <CardBody className="relative flex h-full max-h-[60vh] flex-col gap-4 overflow-visible py-2">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-bold text-default-900">目录</h3>
+              {/* <div
                 className={clsxm(
                   "flex flex-col gap-2",
                   isAtTop ? "hidden" : "flex"
@@ -213,10 +216,10 @@ export default function MarkDownPage({ post }: { post: Post }) {
                   </svg>
                   <span className="text-default-400">{percent}%</span>
                 </div>
-              </div>
+              </div> */}
             </div>
 
-            <div className="overflow-y-auto flex-1 min-h-0">
+            <div className="min-h-0 flex-1 overflow-y-auto">
               <MarkdownNav {...tocData}></MarkdownNav>
             </div>
           </CardBody>
