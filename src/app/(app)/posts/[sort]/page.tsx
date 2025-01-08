@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 
 type Props = {
   params: { sort: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  // searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export default async function Sort({ params }: Props) {

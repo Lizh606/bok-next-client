@@ -3,10 +3,6 @@ import PersonGrowth from "@/ui/home/person-growth"
 import PersonScreen from "@/ui/home/person-screen"
 import PostScreen from "@/ui/home/post-screen"
 
-const GrowthScreen = () => {
-  return <div className="h-screen flex relative">container:站点成长</div>
-}
-
 export default function Home() {
   const { BOK_AUTHOR } = process.env
   const config = {
@@ -65,10 +61,9 @@ export default function Home() {
     <>
       <PersonScreen config={config}></PersonScreen>
       <PostScreen></PostScreen>
-      <div className="rounded-xl flex items-center justify-center w-full">
+      <div className="flex w-full items-center justify-center rounded-xl">
         <PersonGrowth></PersonGrowth>
       </div>
-      {/* <GrowthScreen></GrowthScreen> */}
     </>
   )
 }

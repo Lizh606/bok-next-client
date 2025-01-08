@@ -1,4 +1,3 @@
-"use client"
 import Image from "next/image"
 import ArrowDown from "~/svgs/Arrow_down.svg"
 
@@ -10,14 +9,14 @@ import Screen from "../../components/Screen"
 const PersonScreen = ({ config }: { config: Config }) => {
   return (
     <Screen className="h-[95vh]">
-      <div className="h-full flex relative px-6">
-        <div className="flex-1 min-w-0 flex items-center justify-center">
+      <div className="relative flex h-full px-6">
+        <div className="flex min-w-0 flex-1 items-center justify-center">
           <InfoWriterAnimation
             config={config}
             showSocial={true}
           ></InfoWriterAnimation>
         </div>
-        <div className="flex-1 min-w-0 flex items-center justify-center">
+        <div className="flex min-w-0 flex-1 items-center justify-center">
           <Image
             className="rounded-full"
             src={"/images/avg.png"}
@@ -26,11 +25,11 @@ const PersonScreen = ({ config }: { config: Config }) => {
             height={300}
           ></Image>
         </div>
-        <div className="absolute bottom-0 w-full flex justify-center items-center">
-          <div className="flex flex-col gap-4 items-center">
+        <div className="absolute bottom-0 flex w-full items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
             <small className="tracking-widest">世间所有路都将与你相逢</small>
             {/* <BounceTransitionView> */}
-            <ArrowDown className="animate-bounce w-6 h-6 fill-highlight-light dark:fill-highlight-dark"></ArrowDown>
+            <ArrowDown className="h-6 w-6 animate-bounce fill-highlight-light dark:fill-highlight-dark"></ArrowDown>
             {/* </BounceTransitionView> */}
           </div>
         </div>
