@@ -30,14 +30,14 @@ body {
   }
 }
 
-@font-face {
+/* @font-face {
   font-family: "LXG";
   src: url("/fonts/LXGWWenKaiMonoScreen.ttf") format("truetype");
-}
+} */
 
-.lxg {
+/* .lxg {
   font-family: "LXG";
-}
+} */
 
 .underline-animation {
   position: relative;
