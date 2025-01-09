@@ -1,6 +1,9 @@
 "use client"
 
+import { Button } from "@nextui-org/react"
 import { useState } from "react"
+import CopiedIcon from "../../public/svgs/copied.svg"
+import CopyIcon from "../../public/svgs/copy.svg"
 
 export const CopyButton = ({ text }: { text: string }) => {
   const [isCopied, setIsCopied] = useState(false)
@@ -38,8 +41,19 @@ export const CopyButton1 = ({ id }: { id: string }) => {
   }
 
   return (
-    <button disabled={copied} onClick={onCopy}>
-      {copied ? "Copied!" : "Copy"}
-    </button>
+    <Button
+      disabled={copied}
+      onPress={onCopy}
+      isIconOnly
+      size="sm"
+      fullWidth
+      variant="light"
+    >
+      {copied ? (
+        <CopiedIcon className="h-6 w-6" />
+      ) : (
+        <CopyIcon className="h-6 w-6" />
+      )}
+    </Button>
   )
 }
