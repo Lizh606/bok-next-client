@@ -1,6 +1,7 @@
 "use client"
 import { clsxm } from "@/lib/helper"
 import { Tooltip } from "@nextui-org/react"
+import { motion } from "framer-motion"
 import Link from "next/link"
 
 import toast from "react-hot-toast"
@@ -26,15 +27,26 @@ const SocialLink = ({
   onClick
 }: SocialLinkProps) => {
   const commonClassName = clsxm("w-6 h-6 cursor-pointer", svgClassName)
+  const ToolCom = () => {
+    return (
+      <motion.div
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.8 }}
+        className={commonClassName}
+      >
+        <Icon />
+      </motion.div>
+    )
+  }
   return (
     <Tooltip placement="bottom" content={name}>
       {link ? (
         <Link href={link} target="_blank" rel="noopener noreferrer">
-          <Icon className={commonClassName} />
+          <ToolCom />
         </Link>
       ) : (
         <div onClick={onClick}>
-          <Icon className={commonClassName} />
+          <ToolCom />
         </div>
       )}
     </Tooltip>
@@ -82,7 +94,7 @@ export default function Social({
   return (
     <div
       style={{ display: "flex" }}
-      className="gap-4 justify-center items-center"
+      className="items-center justify-center gap-4"
     >
       {socialConfig.map((social) => {
         return (
