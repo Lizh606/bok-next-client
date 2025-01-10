@@ -1,9 +1,9 @@
 // next.config.mjs
-import createMDX from "@next/mdx"
-import rehypePrettyCode from "rehype-pretty-code"
-import rehypeSlug from "rehype-slug"
-import remarkFrontmatter from "remark-frontmatter"
-import { visit } from "unist-util-visit"
+import createMDX from "@next/mdx";
+import rehypePrettyCode from "rehype-pretty-code";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import { visit } from "unist-util-visit";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -22,7 +22,7 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   // Add markdown plugins here, as desired
   options: {
-    remarkPlugins: [remarkFrontmatter],
+    remarkPlugins: [remarkFrontmatter, remarkGfm],
     rehypePlugins: [
       () => (tree) => {
         visit(tree, (node) => {
@@ -34,19 +34,17 @@ const withMDX = createMDX({
         })
       },
       [
-        // @ts-ignore
         rehypePrettyCode,
         {
-          keepBackground: true
+          theme: "material-theme-lighter"
         }
       ],
-      rehypeSlug,
       () => (tree) => {
         visit(tree, (node) => {
           if (node?.type === "element") {
-            // if (!("data-rehype-pretty-code-fragment" in node.properties)) {
-            //   return
-            // }
+            if (!("data-rehype-pretty-code-fragment" in node.properties)) {
+              return
+            }
             for (const child of node.children) {
               if (child.tagName === "pre") {
                 child.properties["raw"] = node.raw
@@ -54,7 +52,7 @@ const withMDX = createMDX({
             }
           }
         })
-      }
+      },
     ]
   }
 })

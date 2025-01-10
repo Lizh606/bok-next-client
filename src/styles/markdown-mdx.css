@@ -1,5 +1,5 @@
 pre {
-  @apply bg-slate-100 !important;
+  /* @apply bg-slate-100; */
   overflow-x: auto;
   padding: 1rem 0;
 }
@@ -9,7 +9,7 @@ pre [data-line] {
 }
 
 code {
-  background-color: inherit !important; /* 子元素继承父元素的背景色 */
+  background-color: inherit; /* 子元素继承父元素的背景色 */
 }
 
 code {
@@ -37,7 +37,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 }
 
 [data-rehype-pretty-code-title] {
-  @apply text-slate-700 bg-slate-200 !important;
+  @apply bg-slate-200 text-slate-700;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   padding: 0.5rem 0.75rem;
