@@ -2,13 +2,27 @@ import Frontmatter from "@/components/Frontmatter"
 
 ## <Frontmatter date="2024-02-22" />
 
-## Vue3 编译宏
+## Vue3编译宏
+
+**宏是在编译时执行的代码，而不是运行时执行的代码。**
+
+- `vue`中的宏到底是什么？
+
+  `vue3`的宏是一种特殊的代码，在编译时会将这些特殊的代码转换为浏览器能够直接运行的指定代码，根据宏的功能不同，转换后的代码也不同。
+
+- 为什么这些宏不需要手动从`vue`中`import`？
+
+  因为在编译时已经将这些宏替换为指定的浏览器能够直接运行的代码，在运行时已经不存在这些宏相关的代码，自然不需要从`vue`中`import`。
+
+- 为什么只能在`setup`顶层中使用这些宏？
+
+  因为在编译时只会a去处理`setup`顶层的宏，其他地方的宏会原封不动的输出回来。在运行时由于我们没有在任何地方定义这些宏，当代码执行到宏的时候当然就会报错。
 
 ### defineProps
 
 - 父子组件传参
 
-```vue filename="index.js"
+```vue
 <template>
   <div>
     <Child name="xiaoman"></Child>
@@ -20,7 +34,7 @@ import Frontmatter from "@/components/Frontmatter"
 <style></style>
 ```
 
-子组件使用 defineProps 接受值
+子组件使用`defineProps`接受值
 
 ```vue
 <template>
@@ -35,7 +49,7 @@ import Frontmatter from "@/components/Frontmatter"
 </script>
 ```
 
-- 使用 TS 字面量模式
+- 使用TS字面量模式
 
 ```vue
 <template>
@@ -50,7 +64,7 @@ import Frontmatter from "@/components/Frontmatter"
 </script>
 ```
 
-- Vue3.3 新增 defineProps 可以接受泛型
+- `Vue3.3` 新增 defineProps 可以接受泛型
 
 ```vue
 <Child :name="['xiaoman']"></Child>
@@ -70,7 +84,7 @@ import Frontmatter from "@/components/Frontmatter"
 - 反应式 Props 解构
 
 ```vue
-const { msg = "hello" } = defineProps(["msg"])
+const { msg = 'hello' } = defineProps(['msg'])
 ```
 
 ### defineEmits
@@ -97,7 +111,7 @@ const { msg = "hello" } = defineProps(["msg"])
 没变化
 
 ```vue
-defineExpose({ name: "张三" })
+defineExpose({ name:"张三" })
 ```
 
 ### defineSlots
@@ -131,7 +145,7 @@ defineExpose({ name: "张三" })
 <style></style>
 ```
 
-子组件 defineSlots 只做声明不做实现 同时约束 slot 类型
+子组件 defineSlots只做声明不做实现 同时约束slot类型
 
 ```vue
 <template>
@@ -157,10 +171,10 @@ defineExpose({ name: "张三" })
 
 - 主要是用来定义 Options API 的选项
 
-常用的就是定义 name 在 seutp 语法糖模式发现 name 不好定义了需要在开启一个 script 自定义 name 现在有了 defineOptions 就可以随意定义 name 了
+常用的就是定义name 在seutp 语法糖模式发现name不好定义了需要在开启一个script自定义name现在有了defineOptions就可以随意定义name了
 
 ```vue
-defineOptions({ name: "Child", inheritAttrs: false })
+defineOptions({ name:"Child", inheritAttrs:false, })
 ```
 
 ### defineModel

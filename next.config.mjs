@@ -1,6 +1,7 @@
 // next.config.mjs
 import createMDX from "@next/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { visit } from "unist-util-visit";
@@ -24,6 +25,7 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkFrontmatter, remarkGfm],
     rehypePlugins: [
+      rehypeSlug,
       () => (tree) => {
         visit(tree, (node) => {
           if (node?.type === "element" && node?.tagName === "pre") {
