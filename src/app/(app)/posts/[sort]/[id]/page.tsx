@@ -38,4 +38,3 @@ export default async function Post({ params }: Props) {
     </div>
   )
 }
-// export { metadata }

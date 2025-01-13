@@ -1,8 +1,6 @@
 "use client"
 import clsx from "clsx"
-import { atom } from "jotai"
 import { useEffect, useState } from "react"
-const textAtom = atom("")
 
 export default function MarkdownNav(props: any) {
   const [isCurrent, setCurrent] = useState(false)
@@ -85,7 +83,7 @@ export default function MarkdownNav(props: any) {
               isCurrent
                 ? "text-highlight border-l-2 border-highlight-light dark:border-highlight-dark"
                 : "text-default-700",
-              "block p-2 text-sm font-medium text-highlight-hover focus:outline-none"
+              "text-highlight-hover block p-2 text-sm font-medium focus:outline-none"
             )}
           >
             {props.children.map((item: any, index: number) => {
