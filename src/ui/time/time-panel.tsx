@@ -18,6 +18,13 @@ export default function TimePanel() {
   // 获取今天已过百分比
   const [remainingPercentage, setRemainingPercentage] = useState(0)
 
+  const quotes = [
+    "原来时间最远 不是距离而是昨天",
+    "天空没有极限 你的未来无边",
+    "生命够曲折才够真实 人痛过才够坚持"
+  ]
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
+
   useEffect(() => {
     const today: Date = new Date()
     const startOfYear: Date = new Date(today.getFullYear(), 0, 0)
@@ -65,20 +72,39 @@ export default function TimePanel() {
       clearInterval(intervalId1)
     }
   }, [])
+
+  useEffect(() => {
+    const quoteInterval = setInterval(() => {
+      setCurrentQuoteIndex((prevIndex) =>
+        prevIndex === quotes.length - 1 ? 0 : prevIndex + 1
+      )
+    }, 4000)
+
+    return () => clearInterval(quoteInterval)
+  }, [])
+
   return (
     <div className="flex flex-col gap-2">
       <p>
-        今天是 <b>{currentYear}</b> 年的第 <b>{dayOfYear}</b> 天
+        今天是 <b className="text-red-500">{currentYear}</b> 年的第{" "}
+        <b className="text-red-500">{dayOfYear}</b> 天
       </p>
-      <p>今年已过 {PassDayPercent.toFixed(6)}%</p>
+      <p>
+        今年已过 <b className="text-red-500">{PassDayPercent.toFixed(6)}</b> %
+      </p>
       <p>
         今天已过{" "}
-        <span className="transition-all duration-[1] ease-linear">
+        <span className="text-red-500 transition-all duration-[1] ease-linear">
           {remainingPercentage.toFixed(6)}
-        </span>
+        </span>{" "}
         %
       </p>
-      <p>天空没有极限 我们的未来无边</p>
+      <p
+        key={currentQuoteIndex}
+        className="animate-slide-up mt-8 transform text-lg font-light italic tracking-wider text-amber-500 transition-all duration-500"
+      >
+        {quotes[currentQuoteIndex]}
+      </p>
     </div>
   )
 }

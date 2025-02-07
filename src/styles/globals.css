@@ -86,7 +86,7 @@ circle {
 .timeline {
   position: relative;
   list-style-type: none;
-  line-height: 2;
+  line-height: 2.8;
   &::before {
     @apply border border-solid border-highlight-light dark:border-highlight-dark;
     content: "";
