@@ -5,6 +5,7 @@ import { useTheme } from "next-themes"
 import { useCallback, useEffect, useState } from "react"
 import Morning from "../../public/svgs/太阳.svg"
 import Night from "../../public/svgs/月亮.svg"
+import { Tooltip } from "@nextui-org/react"
 enum Themes {
   "DARK" = "dark",
   "LIGHT" = "light"
@@ -60,21 +61,26 @@ export function ThemeSwitcher() {
   if (!mounted) return null
 
   return (
-    <div className="p-2">
-      <div
-        className="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-solid bg-gradient-to-b from-orange-400 to-yellow-400 p-2 dark:from-[#39598a] dark:to-[#79d7ed]"
-        onClick={() => debouncedChangeTheme(changeTheme)}
-      >
+    <Tooltip
+      content={theme === Themes.LIGHT ? "切换夜间模式" : "切换白天模式"}
+      placement="bottom"
+    >
+      <div className="relative p-1.5">
         <div
-          ref={callbackRef}
-          className="morning absolute h-6 w-6 transform duration-1000 ease-in-out"
+          className="relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none bg-gradient-to-b from-orange-300 to-yellow-300 p-1.5 shadow-sm transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-md dark:from-[#1e293b] dark:to-[#334155]"
+          onClick={() => debouncedChangeTheme(changeTheme)}
         >
-          <Morning className="h-full w-full"></Morning>
-        </div>
-        <div className="night absolute h-6 w-6 transform duration-1000 ease-in-out">
-          <Night className="h-full w-full"></Night>
+          <div
+            ref={callbackRef}
+            className="morning absolute h-5 w-5 transform duration-500 ease-in-out"
+          >
+            <Morning className="h-full w-full text-orange-600"></Morning>
+          </div>
+          <div className="night absolute h-5 w-5 transform duration-500 ease-in-out">
+            <Night className="h-full w-full text-slate-100"></Night>
+          </div>
         </div>
       </div>
-    </div>
+    </Tooltip>
   )
 }
