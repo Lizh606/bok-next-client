@@ -3,30 +3,31 @@ import Image from "next/image"
 
 export default function About() {
   return (
-    <div className="flex flex-col gap-4 mt-8">
-      <h1 className="text-4xl font-bold text-center pb-6 border-b border-solid border-gray-300">
+    <div className="mt-8 flex flex-col gap-4">
+      <h1 className="border-b border-solid border-gray-300 pb-6 text-center text-4xl font-bold">
         关于我
       </h1>
-      <div className="grid grid-cols-3 mt-4">
-        <div className="col-span-1 flex flex-col gap-4 items-center">
+      <div className="mt-4 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="flex flex-col items-center gap-4">
           <Image
-            className="rounded-full"
-            src={"/images/avg.png"}
+            className="rounded-full transition-transform hover:scale-105"
+            src="/images/avg.png"
             alt="头像"
             width={240}
             height={240}
-          ></Image>
-          <span className="text-2xl font-bold">{process.env.BOK_AUTHOR}</span>
-          <span className="text-default-500">Web/WebGIS前端工程师</span>
-          <span className="text-default-500">
+            priority
+          />
+          <h2 className="text-2xl font-bold">{process.env.BOK_AUTHOR}</h2>
+          <p className="text-default-500">Web/WebGIS前端工程师</p>
+          <p className="text-center text-default-500">
             积累工作与学习的经验，记录前端工程师的成长
-          </span>
-          <Social svgClassName="w-8 h-8"></Social>
+          </p>
+          <Social svgClassName="w-8 h-8" />
         </div>
-        <section className="col-span-2 ml-16">
+        <section className="col-span-1 md:col-span-2 md:ml-16">
           <ul
             role="list"
-            className="marker:text-primary-300 list-disc pl-5 space-y-3 text-default-600"
+            className="list-disc space-y-4 pl-5 text-default-600 marker:text-primary-300"
           >
             <li>
               <p className="font-bold">姓名：李泽航</p>
@@ -42,7 +43,7 @@ export default function About() {
             </li>
             <li>
               <p>技能：</p>
-              <ul className="marker:text-primary-300 list-disc pl-8 pt-4 space-y-3 text-default-600">
+              <ul className="list-disc space-y-3 pl-8 pt-4 text-default-600 marker:text-primary-300">
                 <li>
                   前端：Vue2/3、NextJS（React）、TailwindCSS、ElementUI、微前端
                 </li>
@@ -53,12 +54,12 @@ export default function About() {
             </li>
             <li>
               <p>工作历程：</p>
-              <ul className="marker:text-primary-300 list-disc pl-8 pt-4 space-y-3 text-default-600">
+              <ul className="list-disc space-y-3 pl-8 pt-4 text-default-600 marker:text-primary-300">
                 <li>
-                  <span className="font-bold text-default-700 text-[1.1rem]">
+                  <span className="text-[1.1rem] font-bold text-default-700">
                     2021.12-present
                   </span>{" "}
-                  上海数慧技术有限公司（超图软件）
+                  北京超图软件股份有限公司（上海数慧）
                 </li>
               </ul>
             </li>
