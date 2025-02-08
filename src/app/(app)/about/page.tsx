@@ -1,4 +1,5 @@
 import Social from "@/components/Social"
+import GiscusPanel from "@/ui/post/giscus-panel"
 import Image from "next/image"
 
 export default function About() {
@@ -65,6 +66,9 @@ export default function About() {
             </li>
           </ul>
         </section>
+      </div>
+      <div className="mt-4">
+        <GiscusPanel mapping={"url"} />
       </div>
     </div>
   )

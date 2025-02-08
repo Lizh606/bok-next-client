@@ -2,6 +2,7 @@ import type { Config } from "@/ui/home/Info-writer-animation"
 import PersonGrowth from "@/ui/home/person-growth"
 import PersonScreen from "@/ui/home/person-screen"
 import PostScreen from "@/ui/home/post-screen"
+import GiscusPanel from "@/ui/post/giscus-panel"
 
 export default function Home() {
   const { BOK_AUTHOR } = process.env
@@ -63,6 +64,9 @@ export default function Home() {
       <PostScreen></PostScreen>
       <div className="flex w-full items-center justify-center rounded-xl">
         <PersonGrowth></PersonGrowth>
+      </div>
+      <div className="mx-auto mt-4 max-w-5xl">
+        <GiscusPanel mapping={"url"} />
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 "use client"
-import Giscus from "@giscus/react"
-export default function GiscusPanel() {
+import Giscus, { type Mapping } from "@giscus/react"
+export default function GiscusPanel({ mapping }: { mapping: Mapping }) {
   return (
     <div className="mt-4">
       <Giscus
@@ -9,7 +9,7 @@ export default function GiscusPanel() {
         repoId="R_kgDOLfq9YQ"
         category="Announcements"
         categoryId="DIC_kwDOLfq9Yc4CmxU7"
-        mapping="title"
+        mapping={mapping}
         strict="0"
         reactionsEnabled="1"
         emitMetadata="0"
