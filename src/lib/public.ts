@@ -6,7 +6,7 @@ export const getToken = async () => {
   const { access_token } = await http.post<any>({
     url: "auth/signIn",
     data: {
-      username: "hanghang",
+      username: "wanyue",
       password: "123456"
     }
   })
