@@ -23,6 +23,7 @@ export default function RemoteMdxPage({
   }, [])
   if (!post) return <div>Post not found</div>
   const markdown = post.content
+  console.log(markdown)
   const mdxOptions = {
     mdxOptions: {
       remarkPlugins: [remarkGfm],

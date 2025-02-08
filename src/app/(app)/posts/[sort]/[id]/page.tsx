@@ -1,5 +1,6 @@
 import WithIconTime from "@/components/WithIconTime"
 import { getPostById } from "@/lib/post"
+import GiscusPanel from "@/ui/post/giscus-panel"
 import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
 import type { Metadata } from "next"
@@ -35,6 +36,7 @@ export default async function Post({ params }: Props) {
       <div className="relative mt-8 grid grid-cols-4 gap-6">
         <MarkDownPage post={post}></MarkDownPage>
       </div>
+      <GiscusPanel />
     </div>
   )
 }
