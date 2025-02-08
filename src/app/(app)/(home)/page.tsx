@@ -65,7 +65,7 @@ export default function Home() {
       <div className="flex w-full items-center justify-center rounded-xl">
         <PersonGrowth></PersonGrowth>
       </div>
-      <div className="mx-auto mt-4 max-w-5xl">
+      <div className="mx-auto mt-16 max-w-5xl">
         <GiscusPanel mapping={"url"} />
       </div>
     </>
