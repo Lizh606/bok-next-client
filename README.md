@@ -51,8 +51,8 @@
 
 ## 在线预览
 
-- 博客前台：[https://hang.izeper.icu](https://hang.izeper.icu)
-- 管理后台：[https://admin.izeper.icu](https://admin.izeper.icu)
+- 博客前台：[https://www.wanyue.me](https://www.wanyue.me)
+- 管理后台：[https://wanyue.me/admin](https://wanyue.me/admin)
 
 ## 本地开发
 
@@ -73,7 +73,7 @@ pnpm build
 
 - [ ] SEO全文搜索
 - [ ] 用户认证系统（OAuth 集成）
-- [ ] 评论互动功能
+- [ ✅ ] 评论互动功能
 
 ### 长期规划
 
