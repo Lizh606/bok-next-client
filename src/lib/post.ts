@@ -30,7 +30,7 @@ export const getPostList = async ({
   keyword?: string
 }) => {
   const { data } = await http.get<PageResponse<Post>>({
-    url: `posts?page=${page}&size=${size}${keyword ? `&keyword=${keyword}` : ""}`
+    url: `posts/list?page=${page}&size=${size}${keyword ? `&keyword=${keyword}` : ""}`
   })
   return data
 }
