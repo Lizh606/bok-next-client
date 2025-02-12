@@ -31,12 +31,13 @@ jobs:
           docker push lizh606/wanyue-blog:latest
 
       - name: SSH to remote server and deploy
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSHPWD }}
           port: 22
+          debug: true
           script: |
             # 登录后，拉取最新的 Docker 镜像并启动容器
             docker pull lizh606/wanyue-blog:latest
