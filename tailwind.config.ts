@@ -1,4 +1,4 @@
-import { nextui } from "@nextui-org/react"
+import { heroui } from "@heroui/react"
 import type { Config } from "tailwindcss"
 import {
   createVariableColors,
@@ -12,7 +12,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/ui/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
@@ -60,9 +60,9 @@ const config: Config = {
   darkMode: "class",
   plugins: [
     variableColorsPlugin(colors),
-    nextui({
-      prefix: "nextui",
-      addCommonColors: true
+    heroui({
+      prefix: "heroui",
+      addCommonColors: false
     })
   ]
 }

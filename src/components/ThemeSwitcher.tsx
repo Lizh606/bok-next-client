@@ -5,7 +5,7 @@ import { useTheme } from "next-themes"
 import { useCallback, useEffect, useState } from "react"
 import Morning from "../../public/svgs/太阳.svg"
 import Night from "../../public/svgs/月亮.svg"
-import { Tooltip } from "@nextui-org/react"
+import { Tooltip } from "@heroui/react"
 enum Themes {
   "DARK" = "dark",
   "LIGHT" = "light"

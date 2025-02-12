@@ -23,7 +23,6 @@ export default function RemoteMdxPage({
   }, [])
   if (!post) return <div>Post not found</div>
   const markdown = post.content
-  console.log(markdown)
   const mdxOptions = {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
@@ -128,7 +127,6 @@ export default function RemoteMdxPage({
     },
     pre: ({ children }: any) => <pre className="not-prose">{children}</pre>,
     img: (props: any) => {
-      console.log(props)
       return <img src={props.src} alt={props.alt} />
     },
     code: (info: any) => {

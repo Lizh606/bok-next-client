@@ -4,16 +4,10 @@ import WithIconTime from "@/components/WithIconTime"
 import useHover from "@/hooks/useHover"
 import type { Post } from "@/lib/post"
 import { calculateTimeDifference } from "@/utils/date"
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider
-} from "@nextui-org/react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import ReadTip from "../post/read-tip"
+import { Card, CardBody, CardFooter, CardHeader, Divider } from "@heroui/react"
 export default function PostHomeCard({
   post,
   index
@@ -33,13 +27,13 @@ export default function PostHomeCard({
         delay: index * 0.4
       }} // 过渡效果使用弹簧动画，根据索引延迟动画
     >
-      <Card className="w-[360px] cursor-pointer text-default-700 " {...bind}>
+      <Card className="w-[360px] cursor-pointer text-default-700" {...bind}>
         <CardHeader>
           <Link
             href={`posts/${post.sort}/${post.id}`}
-            className="w-full flex gap-5 justify-between"
+            className="flex w-full justify-between gap-5"
           >
-            <div className="flex flex-col gap-1 items-start justify-center">
+            <div className="flex flex-col items-start justify-center gap-1">
               <div className="text-xl font-semibold leading-none text-default-600">
                 {post.title}
               </div>

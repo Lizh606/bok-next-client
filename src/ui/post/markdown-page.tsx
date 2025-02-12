@@ -1,6 +1,6 @@
 "use client"
 import type { Post } from "@/lib/post"
-import { Card, CardBody } from "@nextui-org/react"
+import { Card, CardBody } from "@heroui/react"
 import "highlight.js/styles/atom-one-light.css"
 import { useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"

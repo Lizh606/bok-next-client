@@ -1,7 +1,7 @@
 "use client"
 
 import { getPostList, type Post } from "@/lib/post"
-import { Divider, Input } from "@nextui-org/react"
+import { Divider, Input } from "@heroui/react"
 import { debounce } from "lodash"
 import { useState } from "react"
 import SearchIcon from "~/svgs/搜索.svg"

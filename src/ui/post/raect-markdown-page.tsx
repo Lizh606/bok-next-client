@@ -64,7 +64,6 @@ export default function ReactMarkdownCom({ post }: { post: Post }) {
         pre: ({ children }) => <pre className="not-prose">{children}</pre>,
         code: ({ node, className, children, ...props }) => {
           const match = /language-(\w+)/.exec(className || "")
-          console.log(match)
           if (match?.length) {
             const id = Math.random().toString(36).substr(2, 9)
             return (

@@ -1,7 +1,7 @@
 "use client"
 import useScrolling from "@/hooks/useScrolling"
 import { clsxm } from "@/lib/helper"
-import { Tab, Tabs } from "@nextui-org/react"
+import { Tab, Tabs } from "@heroui/react"
 import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"

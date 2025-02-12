@@ -1,6 +1,6 @@
 "use client"
 import { clsxm } from "@/lib/helper"
-import { Tooltip } from "@nextui-org/react"
+import { Tooltip } from "@heroui/react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 
