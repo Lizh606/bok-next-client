@@ -9,6 +9,8 @@ import { visit } from "unist-util-visit"
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
+  outputFileTracing: true,
+
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   webpack(config) {
