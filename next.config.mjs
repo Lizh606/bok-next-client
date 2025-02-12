@@ -1,13 +1,14 @@
 // next.config.mjs
-import createMDX from "@next/mdx";
-import rehypePrettyCode from "rehype-pretty-code";
-import rehypeSlug from "rehype-slug";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
-import { visit } from "unist-util-visit";
+import createMDX from "@next/mdx"
+import rehypePrettyCode from "rehype-pretty-code"
+import rehypeSlug from "rehype-slug"
+import remarkFrontmatter from "remark-frontmatter"
+import remarkGfm from "remark-gfm"
+import { visit } from "unist-util-visit"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: "standalone",
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   webpack(config) {
@@ -54,7 +55,7 @@ const withMDX = createMDX({
             }
           }
         })
-      },
+      }
     ]
   }
 })
