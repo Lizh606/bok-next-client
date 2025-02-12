@@ -52,7 +52,8 @@
 ## 在线预览
 
 - 博客前台：[https://www.wanyue.me](https://www.wanyue.me)
-- 管理后台：[https://wanyue.me/admin](https://wanyue.me/admin)
+- 博客运维：[https://wanyue.me/admin](https://wanyue.me/admin)
+- Api文档：[https://wanyue.me/api/api-doc](https://wanyue.me/api/api-doc)
 
 ## 本地开发
 
