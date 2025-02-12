@@ -4,15 +4,16 @@ FROM node:18-alpine
 # 设置工作目录
 WORKDIR /app
 
-# 全局安装 pnpm 并设置镜像源
+# 全局安装 pnpm，更新到最新版本，并设置镜像源
 RUN npm install -g pnpm && \
+    npm install -g pnpm@latest && \
     pnpm config set registry https://registry.npmmirror.com/
 
 # 将 package.json 和 pnpm-lock.yaml 复制到容器中
-COPY package*.json pnpm*.yaml ./
+COPY package.json pnpm-lock.yaml ./
 
-# 安装依赖
-RUN pnpm install
+# 安装依赖（添加 --frozen-lockfile 标志）
+RUN pnpm install --frozen-lockfile
 
 # 将应用代码复制到容器中
 COPY . .
