@@ -12,8 +12,8 @@ RUN npm install -g pnpm && \
 # 将 package.json 和 pnpm-lock.yaml 复制到容器中
 COPY package.json pnpm-lock.yaml ./
 
-# 安装依赖（添加 --frozen-lockfile 标志）
-RUN pnpm install --frozen-lockfile
+# 安装依赖
+RUN pnpm install
 
 # 将应用代码复制到容器中
 COPY . .
