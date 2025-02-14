@@ -68,7 +68,7 @@ export default function About() {
         </section>
       </div>
       <div className="mt-4">
-        <GiscusPanel mapping={"url"} />
+        <GiscusPanel title="个人信息" />
       </div>
     </div>
   )

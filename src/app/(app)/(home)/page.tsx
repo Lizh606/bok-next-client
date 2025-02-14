@@ -66,7 +66,7 @@ export default function Home() {
         <PersonGrowth></PersonGrowth>
       </div>
       <div className="mx-auto mt-16 max-w-5xl">
-        <GiscusPanel mapping={"url"} />
+        <GiscusPanel title="博客首页" />
       </div>
     </>
   )

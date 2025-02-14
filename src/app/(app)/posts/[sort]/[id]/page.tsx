@@ -36,7 +36,7 @@ export default async function Post({ params }: Props) {
       <div className="relative mt-8 grid grid-cols-4 gap-6">
         <MarkDownPage post={post}></MarkDownPage>
       </div>
-      <GiscusPanel mapping={"title"} />
+      <GiscusPanel title={post.title} />
     </div>
   )
 }

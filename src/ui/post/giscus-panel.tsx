@@ -1,6 +1,6 @@
 "use client"
-import Giscus, { type Mapping } from "@giscus/react"
-export default function GiscusPanel({ mapping }: { mapping: Mapping }) {
+import Giscus from "@giscus/react"
+export default function GiscusPanel({ title }: { title: string }) {
   return (
     <div className="mt-4">
       <Giscus
@@ -8,8 +8,9 @@ export default function GiscusPanel({ mapping }: { mapping: Mapping }) {
         repo="Lizh606/bok-next-client"
         repoId="R_kgDOLfq9YQ"
         category="Announcements"
-        categoryId="DIC_kwDOLfq9Yc4CmxU7"
-        mapping={mapping}
+        categoryId="bok-comments"
+        mapping="specific"
+        term={title}
         strict="0"
         reactionsEnabled="1"
         emitMetadata="0"
