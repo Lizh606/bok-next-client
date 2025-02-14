@@ -8,7 +8,7 @@ export default function GiscusPanel({ title }: { title: string }) {
         repo="Lizh606/bok-next-client"
         repoId="R_kgDOLfq9YQ"
         category="Announcements"
-        categoryId="bok-comments"
+        categoryId="DIC_kwDOLfq9Yc4CmxU7"
         mapping="specific"
         term={title}
         strict="0"
