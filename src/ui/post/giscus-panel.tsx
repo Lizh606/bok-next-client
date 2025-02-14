@@ -1,6 +1,10 @@
 "use client"
 import Giscus from "@giscus/react"
 export default function GiscusPanel({ title }: { title: string }) {
+  // 在开发环境下给 title 添加 [DEV] 标识
+  const commentTitle =
+    process.env.NODE_ENV === "development" ? `[DEV] ${title}` : title
+
   return (
     <div className="mt-4">
       <Giscus
@@ -10,10 +14,10 @@ export default function GiscusPanel({ title }: { title: string }) {
         category="Announcements"
         categoryId="DIC_kwDOLfq9Yc4CmxU7"
         mapping="specific"
-        term={title}
+        term={commentTitle} // 使用添加了环境标识的标题
         strict="0"
         reactionsEnabled="1"
-        emitMetadata="0"
+        emitMetadata="1"
         inputPosition="top"
         theme="light"
         lang="zh-CN"
