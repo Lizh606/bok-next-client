@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
             <Social></Social>
-            <Link href={"/"} className="flex items-center gap-1">
+            <Link href={"/"} className="mt-2 flex items-center gap-1">
               <Site className="h-5 w-5" />
               {BOK_YEAR} • {BOK_AUTHOR}
             </Link>
