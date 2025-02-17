@@ -1,10 +1,12 @@
 "use client"
 import Screen from "@/components/Screen"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 import { useState } from "react"
 
 export default function PersonGrowth() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
+  const { theme } = useTheme()
 
   const growthArr = [
     {
@@ -126,8 +128,12 @@ export default function PersonGrowth() {
             onClick={() => setSelectedType(null)}
             className={`rounded-full px-3 py-1 text-sm transition-all ${
               !selectedType
-                ? "bg-blue-500 text-white"
-                : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                ? theme === "dark"
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-500 text-white"
+                : theme === "dark"
+                  ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
             全部
@@ -138,8 +144,12 @@ export default function PersonGrowth() {
               onClick={() => setSelectedType(type)}
               className={`rounded-full px-3 py-1 text-sm transition-all ${
                 selectedType === type
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                  ? theme === "dark"
+                    ? "bg-blue-600 text-white"
+                    : "bg-blue-500 text-white"
+                  : theme === "dark"
+                    ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               {getTypeLabel(type)}
@@ -171,14 +181,14 @@ export default function PersonGrowth() {
                 className="border-gradient-to-b group m-8 flex w-72 shrink-0 flex-col gap-4 border-l-4 from-highlight-light to-blue-500 pl-6 transition-all duration-300 hover:scale-105 hover:pl-8 dark:from-highlight-dark dark:to-blue-400"
                 key={index}
               >
-                <span className="text-xl font-bold text-default-800 dark:text-default-200">
+                <span className="text-xl font-bold text-default-800">
                   {growth.date}
                 </span>
                 <div className="flex items-center gap-3">
                   <span className="text-2xl transition-transform duration-300 group-hover:scale-110">
                     {growth.icon}
                   </span>
-                  <span className="text-sm text-default-500 transition-colors duration-300 group-hover:text-default-800 dark:text-default-400 dark:group-hover:text-default-200">
+                  <span className="text-sm text-default-500 transition-colors duration-300 group-hover:text-default-800">
                     {growth.event}
                   </span>
                 </div>
