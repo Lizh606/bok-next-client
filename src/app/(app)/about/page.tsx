@@ -8,7 +8,7 @@ export default function About() {
       <h1 className="border-b border-solid border-gray-300 pb-6 text-center text-4xl font-bold">
         关于我
       </h1>
-      <div className="mt-4 grid grid-cols-1 gap-8 md:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="flex flex-col items-center gap-4">
           <Image
             className="rounded-full transition-transform hover:scale-105"
@@ -46,8 +46,9 @@ export default function About() {
               <p>技能：</p>
               <ul className="list-disc space-y-3 pl-8 pt-4 text-default-600 marker:text-primary-300">
                 <li>
-                  前端：Vue2/3、NextJS（React）、TailwindCSS、ElementUI、微前端
+                  前端：Vue2/3、NextJS（React）、微前端、TailwindCSS、ElementUI
                 </li>
+                <li>GIS开发：ArcGIS API for JavaScript、OpenLayers</li>
                 <li>后端：NestJS、TypeORM</li>
                 <li>数据库：MySQL</li>
                 <li>其他：Vite、TypeScript</li>
@@ -67,7 +68,7 @@ export default function About() {
           </ul>
         </section>
       </div>
-      <div className="mt-4">
+      <div className="mt-20">
         <GiscusPanel title="个人信息" />
       </div>
     </div>
