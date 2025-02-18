@@ -1,6 +1,6 @@
 {
   "name": "bok-next-client",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,9 +12,9 @@
     "commit": "cz",
     "prepare": "husky",
     "release": "standard-version",
+    "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
-    "release:major": "standard-version --release-as major",
-    "release:patch": "standard-version --release-as patch"
+    "release:major": "standard-version --release-as major"
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",
