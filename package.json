@@ -15,7 +15,7 @@
     "version:patch": "npm version patch -m 'chore(release): %s [skip ci]'",
     "version:minor": "npm version minor -m 'chore(release): %s [skip ci]'",
     "version:major": "npm version major -m 'chore(release): %s [skip ci]'",
-    "release:prepare": "npm run changelog && git add CHANGELOG.md",
+    "release:prepare": "npm run changelog && git add CHANGELOG.md && git commit -m 'docs: update changelog'",
     "release:patch": "npm run release:prepare && npm run version:patch",
     "release:minor": "npm run release:prepare && npm run version:minor",
     "release:major": "npm run release:prepare && npm run version:major"
