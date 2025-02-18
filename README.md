@@ -101,8 +101,14 @@ pnpm build
    ```
 
 2. 确保依赖是最新的：
+
    ```bash
    pnpm install
+   ```
+
+3. 切换到release分支：
+   ```bash
+   git checkout -b release/v0.0.2
    ```
 
 #### 2. 执行发布命令
@@ -146,7 +152,7 @@ pnpm release
 
 ```bash
 git branch -d release/v0.0.2
-git push origin --delete release/v0.0.2
+git push origin --delete v0.0.2-20250218
 ```
 
 ### 注意事项
