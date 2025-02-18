@@ -82,16 +82,16 @@ pnpm build
 - [ ] SEO完善
 - [ ] 国际化支持
 
-# 版本发布流程
+## 版本发布流程
 
-## 前置条件
+### 前置条件
 
 - 确保已安装 pnpm (`npm install -g pnpm`)
 - 确保有 GitHub 仓库的推送权限
 
-## 发布步骤
+### 发布步骤
 
-### 1. 准备发布
+#### 1. 准备发布
 
 1. 确保当前分支代码是最新的：
 
@@ -105,7 +105,7 @@ pnpm build
    pnpm install
    ```
 
-### 2. 执行发布命令
+#### 2. 执行发布命令
 
 运行发布脚本：
 
@@ -124,7 +124,7 @@ pnpm release
 
 2. 确认发布版本
 
-### 3. 自动化步骤
+#### 3. 自动化步骤
 
 发布脚本会自动执行以下操作：
 
@@ -134,7 +134,7 @@ pnpm release
 4. 创建版本标签（格式：`v版本号-YYYYMMDD`）
 5. 推送代码和标签到 GitHub
 
-### 4. 验证发布
+#### 4. 验证发布
 
 发布完成后，请检查：
 
@@ -142,14 +142,14 @@ pnpm release
 2. CHANGELOG.md 是否已正确生成
 3. package.json 中的版本号是否已更新
 
-### 5. 删除release分支
+#### 5. 删除release分支
 
 ```bash
 git branch -d release/v0.0.2
 git push origin --delete release/v0.0.2
 ```
 
-## 注意事项
+### 注意事项
 
 1. 发布前请确保所有代码已经完成测试
 2. 可以使用 `--dry` 参数进行试运行：
@@ -158,7 +158,7 @@ git push origin --delete release/v0.0.2
    ```
 3. 如果发布过程中出现错误，系统会自动回滚版本号
 
-## 回滚方法
+### 回滚方法
 
 如果发布后发现问题需要回滚：
 
@@ -178,7 +178,7 @@ git push origin --delete release/v0.0.2
    - 手动修改 package.json 中的版本号
    - 或重新运行 release 命令选择正确的版本
 
-## 常见问题
+### 常见问题
 
 1. 如果提示权限错误，请检查 GitHub 账号权限设置
 2. 如果 CHANGELOG 生成失败，请确保 commit 信息格式符合规范
