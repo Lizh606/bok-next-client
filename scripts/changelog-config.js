@@ -9,11 +9,22 @@ const config = {
       }
 
       // 解析 conventional commit 格式
-      const match = commit.header.match(
-        /^(\w+)(?:\(([\w\$\.\-\* ]*)\))?:\s(.*)$/
-      )
+      const COMMIT_PATTERN = /^(\w+)(?:\(([\w\$\.\-\* ]*)\))?(!)?:\s(.*)$/
+      const match = commit.header.match(COMMIT_PATTERN)
       if (match) {
-        const [, type, scope, subject] = match
+        const [, type, scope, breaking, subject] = match
+
+        // 处理 BREAKING CHANGE
+        if (
+          breaking ||
+          (commit.body && commit.body.includes("BREAKING CHANGE"))
+        ) {
+          commit.notes.push({
+            title: "BREAKING CHANGES",
+            text: subject
+          })
+        }
+
         return {
           type: type,
           scope: scope,
