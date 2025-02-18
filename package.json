@@ -1,16 +1,23 @@
 {
   "name": "bok-next-client",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint",
     "set-commitlint": "node scripts/set-commitlint/index.mjs",
     "commit": "cz",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s -k scripts/changelog-config.mjs",
+    "version:patch": "npm version patch -m 'chore(release): %s [skip ci]'",
+    "version:minor": "npm version minor -m 'chore(release): %s [skip ci]'",
+    "version:major": "npm version major -m 'chore(release): %s [skip ci]'",
+    "release:prepare": "npm run changelog && git add CHANGELOG.md && git commit -m 'docs: update changelog'",
+    "release:patch": "npm run release:prepare && npm run version:patch",
+    "release:minor": "npm run release:prepare && npm run version:minor",
+    "release:major": "npm run release:prepare && npm run version:major"
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",
@@ -59,7 +66,10 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "commitizen": "^4.3.0",
+    "conventional-changelog": "^6.0.0",
+    "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
+    "conventional-changelog-custom-config": "^0.3.1",
     "husky": "^9.0.11",
     "postcss": "^8",
     "prettier": "^3.4.2",
