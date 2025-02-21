@@ -1,4 +1,4 @@
-import { getToken } from "@/lib/public"
+import { clearToken, getToken } from "@/lib/public"
 import type {
   AxiosError,
   AxiosInstance,
@@ -30,6 +30,10 @@ class Request {
         return response.data
       },
       (error: AxiosError) => {
+        // 处理401未授权错误
+        if (error.response?.status === 401) {
+          clearToken()
+        }
         return Promise.reject(error)
       }
     )

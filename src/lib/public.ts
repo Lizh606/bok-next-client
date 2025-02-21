@@ -1,6 +1,10 @@
 import { http } from "@/utils/request"
 let token = ""
 
+export const clearToken = () => {
+  token = ""
+}
+
 export const getToken = async () => {
   if (token) return token
   const { access_token } = await http.post<any>({
