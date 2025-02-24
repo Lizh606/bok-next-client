@@ -1,7 +1,9 @@
 import Social from "@/components/Social"
-import GiscusPanel from "@/ui/post/giscus-panel"
+import dynamic from "next/dynamic"
 import Image from "next/image"
-
+const GiscusPanel = dynamic(() => import("@/ui/post/giscus-panel"), {
+  ssr: false // Giscus评论组件在客户端渲染
+})
 export default function About() {
   return (
     <div className="mt-8 flex flex-col gap-4">
