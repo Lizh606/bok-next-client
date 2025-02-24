@@ -1,8 +1,15 @@
 import type { Config } from "@/ui/home/Info-writer-animation"
-import PersonGrowth from "@/ui/home/person-growth"
-import PersonScreen from "@/ui/home/person-screen"
-import PostScreen from "@/ui/home/post-screen"
-import GiscusPanel from "@/ui/post/giscus-panel"
+import dynamic from "next/dynamic"
+
+// 动态导入组件
+const PersonGrowth = dynamic(() => import("@/ui/home/person-growth"), {
+  loading: () => <div>Loading...</div>
+})
+const PersonScreen = dynamic(() => import("@/ui/home/person-screen"))
+const PostScreen = dynamic(() => import("@/ui/home/post-screen"))
+const GiscusPanel = dynamic(() => import("@/ui/post/giscus-panel"), {
+  ssr: false // Giscus评论组件在客户端渲染
+})
 
 export default function Home() {
   const { BOK_AUTHOR } = process.env
