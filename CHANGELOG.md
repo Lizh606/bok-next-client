@@ -1,3 +1,22 @@
+## [0.0.3](https://github.com/Lizh606/bok-next-client/compare/v0.0.2-20250218...v0.0.3) (2025-02-24)
+
+
+### Bug Fixes
+
+* **关于:** 修复首屏加载卡顿问题 ([7fc27ac](https://github.com/Lizh606/bok-next-client/commit/7fc27ac04eeb03e4334e44ab6beb5c29fdfc87bf))
+* **时光:** 修复首屏加载卡顿问题 ([274df0a](https://github.com/Lizh606/bok-next-client/commit/274df0a2f57e27126b0308a6f59182bc469d640a))
+* **首页:** 修复首屏加载慢的问题 ([35f52ff](https://github.com/Lizh606/bok-next-client/commit/35f52ff12c4e696af54737a461e7ec7e06b1650a))
+* **loading:** 懒加载统一loading组件 ([895dab9](https://github.com/Lizh606/bok-next-client/commit/895dab9a1df373ab18da36067b3233d13a37c3c1))
+* **markdown渲染优化:** 新增图片加载优化、懒加载 ([7857f30](https://github.com/Lizh606/bok-next-client/commit/7857f30776a1f7890efd9a29038935ab76aa9ac0))
+* **token校验:** 修复token过期导致页面渲染失败问题 ([5b5f243](https://github.com/Lizh606/bok-next-client/commit/5b5f243e334bd659b2a22dda92feaf7ea46300be))
+
+
+### Features
+
+* **axios:**  token 无感刷新以及错误重试机制 ([7f6630a](https://github.com/Lizh606/bok-next-client/commit/7f6630a893d5a0d92fa1d052d5a1e81927727750))
+
+
+
 ## 0.0.2 (2025-02-18)
 
 ### Bug Fixes
