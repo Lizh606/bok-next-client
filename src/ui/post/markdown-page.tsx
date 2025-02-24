@@ -1,10 +1,15 @@
 "use client"
+import Loading from "@/app/(app)/loading"
 import type { Post } from "@/lib/post"
 import { Card, CardBody } from "@heroui/react"
 import "highlight.js/styles/atom-one-light.css"
+import dynamic from "next/dynamic"
 import { useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"
-import RemoteMdxPage from "./mdx-remote-page"
+// import RemoteMdxPage from "./mdx-remote-page"
+const RemoteMdxPage = dynamic(() => import("./mdx-remote-page"), {
+  loading: () => <Loading></Loading>
+})
 export default function MarkDownPage({ post }: { post: Post }) {
   const [tocData, setTocData] = useState({})
   // // const { isAtTop } = useScrollToTop()

@@ -13,6 +13,14 @@ const nextConfig = {
 
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**" // 允许所有域名，建议根据实际需求限制
+      }
+    ]
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

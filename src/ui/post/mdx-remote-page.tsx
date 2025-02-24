@@ -4,6 +4,7 @@ import { CopyButton1 } from "@/components/CopyButton"
 import { type Post } from "@/lib/post"
 import toc from "@jsdevtools/rehype-toc"
 import { MDXRemote } from "next-mdx-remote/rsc"
+import Image from "next/image"
 import { useEffect } from "react"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
@@ -127,7 +128,17 @@ export default function RemoteMdxPage({
     },
     pre: ({ children }: any) => <pre className="not-prose">{children}</pre>,
     img: (props: any) => {
-      return <img src={props.src} alt={props.alt} />
+      return (
+        <Image
+          src={props.src}
+          alt={props.alt || ""}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }}
+          priority={false}
+        />
+      )
     },
     code: (info: any) => {
       const { children } = info

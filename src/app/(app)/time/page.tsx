@@ -1,7 +1,13 @@
+import Loading from "@/app/(app)/loading"
 import { getPostList } from "@/lib/post"
-import TimePanel from "@/ui/time/time-panel"
-import TimePosts from "@/ui/time/time-posts"
+import dynamic from "next/dynamic"
 
+const TimePanel = dynamic(() => import("@/ui/time/time-panel"), {
+  loading: () => <Loading></Loading>
+})
+const TimePosts = dynamic(() => import("@/ui/time/time-posts"), {
+  loading: () => <Loading></Loading>
+})
 export default async function Time() {
   const queryParams = { page: 1, size: 999 }
   const posts = await getPostList(queryParams)

@@ -20,6 +20,7 @@ export type SortInfo = {
   sort: string
   count: number
 }
+
 export const getPostList = async ({
   page,
   size,
@@ -30,14 +31,20 @@ export const getPostList = async ({
   keyword?: string
 }) => {
   const { data } = await http.get<PageResponse<Post>>({
-    url: `posts/list?page=${page}&size=${size}${keyword ? `&keyword=${keyword}` : ""}`
+    url: `posts/list?page=${page}&size=${size}${keyword ? `&keyword=${keyword}` : ""}`,
+    cache: {
+      key: `posts-list-${page}-${size}-${keyword || ""}`
+    }
   })
   return data
 }
 
 export const getPostById = async (id: number) => {
   const data = await http.get<Post>({
-    url: `posts/${id}`
+    url: `posts/${id}`,
+    cache: {
+      key: `post-detail-${id}`
+    }
   })
   return data
 }
