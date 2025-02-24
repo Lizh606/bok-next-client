@@ -1,4 +1,5 @@
 "use client"
+import Loading from "@/app/(app)/loading"
 import type { Post } from "@/lib/post"
 import { Card, CardBody } from "@heroui/react"
 import "highlight.js/styles/atom-one-light.css"
@@ -7,7 +8,7 @@ import { useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"
 // import RemoteMdxPage from "./mdx-remote-page"
 const RemoteMdxPage = dynamic(() => import("./mdx-remote-page"), {
-  loading: () => <div>加载中...</div>
+  loading: () => <Loading></Loading>
 })
 export default function MarkDownPage({ post }: { post: Post }) {
   const [tocData, setTocData] = useState({})

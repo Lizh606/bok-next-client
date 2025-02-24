@@ -1,9 +1,10 @@
+import Loading from "@/app/(app)/loading"
 import type { Config } from "@/ui/home/Info-writer-animation"
 import dynamic from "next/dynamic"
 
 // 动态导入组件
 const PersonGrowth = dynamic(() => import("@/ui/home/person-growth"), {
-  loading: () => <div>Loading...</div>
+  loading: () => <Loading></Loading>
 })
 const PersonScreen = dynamic(() => import("@/ui/home/person-screen"))
 const PostScreen = dynamic(() => import("@/ui/home/post-screen"))
