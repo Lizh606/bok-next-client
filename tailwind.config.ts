@@ -3,7 +3,6 @@ import type { Config } from "tailwindcss"
 import {
   createVariableColors,
   variableColorsPlugin
-  //@ts-ignore
 } from "tailwindcss-variable-colors"
 import colors from "tailwindcss/colors"
 const config: Config = {
@@ -62,7 +61,7 @@ const config: Config = {
     variableColorsPlugin(colors),
     heroui({
       prefix: "heroui",
-      addCommonColors: false
+      addCommonColors: true
     })
   ]
 }
