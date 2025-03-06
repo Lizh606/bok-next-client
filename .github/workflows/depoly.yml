@@ -22,6 +22,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Create version info
+        run: |
+          echo "{\"version\": \"$(date +%s)\", \"buildTime\": \"$(date)\"}" > public/version.json
+
       - name: Build Docker image
         run: |
           docker build -t lizh606/wanyue-blog:latest .
