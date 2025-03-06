@@ -1,3 +1,13 @@
+## [0.0.4](https://github.com/Lizh606/bok-next-client/compare/v0.0.3-20250224...v0.0.4) (2025-03-06)
+
+
+### Features
+
+* **Toast:** 移除React Toast插件，采用heroui taost ([cab608c](https://github.com/Lizh606/bok-next-client/commit/cab608c7f9397bf5b26b1bc2334f38212d3c51bc))
+* **version:** 新增版本更新检测机制 ([e438607](https://github.com/Lizh606/bok-next-client/commit/e438607a8c89c0e3bf2e418d6ea51e1ae0f61ece))
+
+
+
 ## [0.0.3](https://github.com/Lizh606/bok-next-client/compare/v0.0.2-20250218...v0.0.3) (2025-02-24)
 
 
