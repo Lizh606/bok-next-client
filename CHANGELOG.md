@@ -1,3 +1,12 @@
+## [0.0.5](https://github.com/Lizh606/bok-next-client/compare/v0.0.4-20250306...v0.0.5) (2025-03-06)
+
+
+### Bug Fixes
+
+* toast插件代码错乱问题 ([910bf77](https://github.com/Lizh606/bok-next-client/commit/910bf778bc76c402f45225620549ff6c9190bea6))
+
+
+
 ## [0.0.4](https://github.com/Lizh606/bok-next-client/compare/v0.0.3-20250224...v0.0.4) (2025-03-06)
 
 
