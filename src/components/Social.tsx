@@ -1,10 +1,10 @@
 "use client"
 import { clsxm } from "@/lib/helper"
 import { Tooltip } from "@heroui/react"
+import { addToast } from "@heroui/toast"
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-import toast from "react-hot-toast"
 import Bilibili from "~/svgs/Bilibili.svg"
 import Email from "~/svgs/QQ邮箱.svg"
 import Github from "~/svgs/github.svg"
@@ -68,10 +68,20 @@ export default function Social({
           await navigator.clipboard.writeText(
             process.env.NEXT_PUBLIC_BOK_WECHAT as string
           )
-          toast.success("微信号已复制到剪切板啦🫡")
+          addToast({
+            title: "微信号已复制到剪切板啦🫡",
+            color: "success",
+            variant: "bordered",
+            timeout: 3000
+          })
           console.log("微信号已复制到剪切板啦🫡")
         } catch (err) {
-          toast.error(`复制到剪贴板失败:, ${err}`)
+          addToast({
+            title: "复制到剪贴板失败",
+            description: `复制到剪贴板失败:, ${err}`,
+            color: "danger",
+            variant: "bordered"
+          })
         }
       }
     },
