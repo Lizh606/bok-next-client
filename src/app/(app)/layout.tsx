@@ -1,4 +1,3 @@
-import { Toaster } from "react-hot-toast"
 import { Providers } from "../../providers/providers"
 import Footer from "../../ui/layout/footer"
 import Header from "../../ui/layout/header"
