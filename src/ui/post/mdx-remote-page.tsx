@@ -137,9 +137,11 @@ export default function RemoteMdxPage({
           sizes="100vw"
           style={{ width: "100%", height: "auto" }}
           priority={false}
+          loading="lazy"
         />
       )
     },
+
     code: (info: any) => {
       const { children } = info
       const id = Math.random().toString(36).substr(2, 9)
@@ -167,7 +169,7 @@ export default function RemoteMdxPage({
         return (
           <code
             {...info}
-            className="not-prose rounded bg-gray-100 px-1 dark:bg-zinc-900"
+            className="not-prose rounded bg-gray-200 px-1 text-slate-500 dark:bg-gray-900"
           >
             {children}
           </code>

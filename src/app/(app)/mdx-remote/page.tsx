@@ -161,7 +161,7 @@ export default async function RemoteMdxPage() {
         return (
           <code
             {...info}
-            className="not-prose rounded bg-gray-100 px-1 dark:bg-zinc-900"
+            className="not-prose rounded bg-gray-100 px-1 dark:bg-gray-800"
           >
             {children}
           </code>

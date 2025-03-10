@@ -19,7 +19,7 @@ const useScrollToTop = (): { isAtTop: boolean; scrollPercentage: number } => {
         scrollPercentage: scrollPercentage
       })
     }
-
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
 
     return () => window.removeEventListener("scroll", handleScroll)

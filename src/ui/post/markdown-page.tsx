@@ -4,7 +4,7 @@ import type { Post } from "@/lib/post"
 import { Card, CardBody } from "@heroui/react"
 import "highlight.js/styles/atom-one-light.css"
 import dynamic from "next/dynamic"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"
 // import RemoteMdxPage from "./mdx-remote-page"
 const RemoteMdxPage = dynamic(() => import("./mdx-remote-page"), {
@@ -38,7 +38,19 @@ export default function MarkDownPage({ post }: { post: Post }) {
   //   }
   // }, [scrollYProgress]) // 依赖于 scrollYProgress 的变化
   const ref = useRef(null)
-
+  useEffect(() => {
+    const hash = decodeURIComponent(window.location.hash)
+    const navElement = document.querySelector(`nav a[href='${hash}']`)
+    if (navElement) {
+      navElement.scrollIntoView({
+        behavior: "auto",
+        block: "center"
+      })
+      setTimeout(() => {
+        document.getElementById(hash)?.click()
+      }, 500)
+    }
+  }, [tocData])
   return (
     <>
       <div className="markdown col-span-3" ref={ref}>
