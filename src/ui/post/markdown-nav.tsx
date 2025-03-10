@@ -1,98 +1,118 @@
 "use client"
 import clsx from "clsx"
-import { useEffect, useState } from "react"
-
+import { debounce } from "lodash"
+import { useCallback, useEffect, useMemo, useState } from "react"
 export default function MarkdownNav(props: any) {
   const [isCurrent, setCurrent] = useState(false)
-
-  useEffect(() => {
-    // 定义处理 hash 变化的函数
-    const handleHashChange = () => {
+  // 使用 useCallback 优化路由变化处理函数
+  const handleRouteChange = useCallback(() => {
+    if (props.tagName === "a" && props.properties.href) {
       const newHash = decodeURIComponent(window.location.hash)
-      if (props.tagName === "a") {
-        if (props.properties.href.toLowerCase() === newHash) {
-          document.getElementById(props.properties.href)?.click()
-          setCurrent(true)
-        } else {
-          setCurrent(false)
-        }
-      }
+      const isCurrenHash = props.properties.href.toLowerCase() === newHash
+      setCurrent(isCurrenHash)
     }
+  }, [props.tagName, props.properties?.href])
 
-    // 初始化时检查一次 hash
-    handleHashChange()
+  // 使用 useMemo 缓存 DOM 选择器
+  const getHashList = useCallback(() => {
+    const allLinks = document.querySelectorAll("a[href^='#']")
+    return Array.from(allLinks)
+      .map((link) => (link as HTMLAnchorElement).href.split("#")[1])
+      .filter(Boolean)
+      .map((hash) => decodeURIComponent(hash))
+      .map((hash) => `#${hash}`)
+  }, [])
 
-    // 添加 hashchange 事件监听器
-    window.addEventListener("hashchange", handleHashChange)
-    const handleScroll = () => {
-      if (props.tagName === "a") {
-        const id = props.properties.href
-        const element = document.getElementById(id)
-        const offsetTop = element?.getBoundingClientRect().top
-        if (offsetTop && offsetTop > 96 && offsetTop < 100) {
-          console.log("当前范围在：", props.properties.href)
-          window.location.hash = props.properties.href.toLowerCase()
+  // 优化滚动处理函数
+  const handleScroll = useMemo(
+    () =>
+      debounce(async () => {
+        if (props.tagName !== "a") return
+        const hashList = getHashList()
+        const inRangeHashList = hashList.filter((hash) => {
+          const element = document.getElementById(hash)
+          if (!element) return false
+          const rect = element.getBoundingClientRect()
+          return rect.top > 72 && rect.top < 150
+        })
+
+        // 使用 Set 去重并找出最近的 hash
+        const closestHash = [...new Set(inRangeHashList)].reduce(
+          (closest, hash) => {
+            const element = document.getElementById(hash)
+            if (!element) return closest
+            const distance = Math.abs(element.getBoundingClientRect().top - 70)
+            return distance < closest.distance ? { hash, distance } : closest
+          },
+          { hash: "", distance: Infinity }
+        ).hash
+        // 更新 URL
+        if (closestHash) {
+          if (props.properties.href === closestHash) {
+            const newUrl = `${window.location.pathname}${window.location.search}${props.properties.href.toLowerCase()}`
+            history.replaceState(null, "", newUrl)
+          }
         }
         if (window.scrollY === 0) {
-          window.location.hash = ""
+          history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search
+          )
         }
-      }
-    }
+        setTimeout(() => {
+          handleRouteChange()
+        }, 200)
+      }, 200), // 减少防抖时间以提高响应性
+    [props.tagName, props.properties?.href, handleRouteChange, getHashList]
+  )
+  useEffect(() => {
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
-    // 在组件卸载时移除事件监听器
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange)
-      window.removeEventListener("scroll", handleScroll)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [handleScroll])
+
   switch (props.tagName) {
-    case "nav": {
+    case "nav":
       return (
         <nav {...props.properties}>
-          {props.children.map((item: any, index: number) => {
-            return <MarkdownNav {...item} key={index} />
-          })}
+          {props.children.map((item: any, index: number) => (
+            <MarkdownNav {...item} key={index} />
+          ))}
         </nav>
       )
-    }
-    case "ol": {
+    case "ol":
       return (
         <ol {...props.properties}>
-          {props.children.map((item: any, index: number) => {
-            return <MarkdownNav {...item} key={index} />
-          })}
+          {props.children.map((item: any, index: number) => (
+            <MarkdownNav {...item} key={index} />
+          ))}
         </ol>
       )
-    }
-    case "li": {
+    case "li":
       return (
         <li {...props.properties}>
-          {props.children.map((item: any, index: number) => {
-            return <MarkdownNav {...item} key={index} />
-          })}
+          {props.children.map((item: any, index: number) => (
+            <MarkdownNav {...item} key={index} />
+          ))}
         </li>
       )
-    }
-    case "a": {
+    case "a":
       return (
-        <>
-          <a
-            {...props.properties}
-            className={clsx(
-              isCurrent
-                ? "text-highlight border-l-2 border-highlight-light dark:border-highlight-dark"
-                : "text-default-700",
-              "text-highlight-hover block p-2 text-sm font-medium focus:outline-none"
-            )}
-          >
-            {props.children.map((item: any, index: number) => {
-              return <MarkdownNav {...item} key={index} />
-            })}
-          </a>
-        </>
+        <a
+          {...props.properties}
+          className={clsx(
+            isCurrent
+              ? "text-highlight border-l-2 border-highlight-light dark:border-highlight-dark"
+              : "text-default-700",
+            "text-highlight-hover block p-2 text-sm font-medium focus:outline-none"
+          )}
+        >
+          {props.children.map((item: any, index: number) => (
+            <MarkdownNav {...item} key={index} />
+          ))}
+        </a>
       )
-    }
     default:
       return <>{props.value}</>
   }

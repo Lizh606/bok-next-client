@@ -3,7 +3,7 @@ import { microReboundPreset } from "@/constants/spring"
 import { motion } from "framer-motion"
 import { createElement } from "react"
 import Social from "../../components/Social"
-import { TextUpTransitionView } from "../../components/TextUpTransitionView"
+import { TextUpTransitionView } from "../../components/animation/TextUpTransitionView"
 
 interface Template {
   type: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "br" | "code" | "span"

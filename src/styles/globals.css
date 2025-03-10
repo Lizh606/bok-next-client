@@ -1,4 +1,5 @@
 @import url("./markdown.css");
+@import "highlight.js/styles/atom-one-light.css";
 
 @tailwind base;
 @tailwind components;

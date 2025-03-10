@@ -33,7 +33,7 @@ export default function Header() {
     {
       label: "关于",
       value: "/about"
-    },
+    }
     // {
     //   label: "mdx",
     //   value: "/mdx"
@@ -52,16 +52,17 @@ export default function Header() {
     <>
       {pathName.includes("mdx") ? null : (
         <header
-          className={`fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden transition-shadow duration-200 ${isAtTop
+          className={`fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden transition-shadow duration-200 ${
+            isAtTop
               ? ""
-              : "shadow-none shadow-neutral-100 dark:shadow-neutral-800/50 lg:shadow-sm "
-            } `}
+              : "shadow-none shadow-neutral-100 dark:shadow-neutral-800/50 lg:shadow-sm"
+          } `}
         >
           <div
             style={isAtTop ? { opacity: 0 } : {}}
-            className="absolute inset-0 grid transform-gpu [-webkit-backdrop-filter:saturate(180%)_blur(20px)] [backdrop-filter:saturate(180%)_blur(20px)] [backface-visibility:hidden] [border-bottom:1px_solid_rgb(187_187_187_/_20%)] "
+            className="absolute inset-0 grid transform-gpu [-webkit-backdrop-filter:saturate(180%)_blur(20px)] [backdrop-filter:saturate(180%)_blur(20px)] [backface-visibility:hidden] [border-bottom:1px_solid_rgb(187_187_187_/_20%)]"
           ></div>
-          <div className="relative mx-auto grid h-full max-w-7xl grid-cols-[4.5rem_auto_4.5rem] px-8 ">
+          <div className="relative mx-auto grid h-full max-w-7xl grid-cols-[4.5rem_auto_4.5rem] px-8">
             <div className="flex items-center gap-2">
               <Image
                 className="rounded-xl shadow-lg"
@@ -89,7 +90,7 @@ export default function Header() {
 
             <div
               className={clsxm(
-                "flex items-center justify-center ",
+                "flex items-center justify-center",
                 !scrolling || pathName === "/"
                   ? "animate-[dropDown_1s_ease-in-out]"
                   : "opacity-0"
@@ -100,11 +101,12 @@ export default function Header() {
                 color="primary"
                 variant="underlined"
                 classNames={{
-                  tabList: `gap-6 w-full relative py-0 px-6  border-divider  ${isAtTop
+                  tabList: `gap-6 w-full relative py-0 px-6  border-divider  ${
+                    isAtTop
                       ? "shadow-lg rounded-full  border-b border-[#eee] border dark:border-[#373436]"
                       : ""
-                    }`,
-                  cursor: "w-full bg-highlight-light dark:bg-highlight-dark",
+                  }`,
+                  cursor: "w-full bg-highlight",
                   tab: "max-w-fit",
                   tabContent:
                     "group-data-[selected=true]:text-highlight-light dark:group-data-[selected=true]:text-highlight-dark"

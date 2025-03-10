@@ -1,11 +1,11 @@
 "use client"
 
+import { Tooltip } from "@heroui/react"
 import * as lodash from "lodash"
 import { useTheme } from "next-themes"
 import { useCallback, useEffect, useState } from "react"
 import Morning from "../../public/svgs/太阳.svg"
 import Night from "../../public/svgs/月亮.svg"
-import { Tooltip } from "@heroui/react"
 enum Themes {
   "DARK" = "dark",
   "LIGHT" = "light"
@@ -17,20 +17,28 @@ export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
-  // 简化 changeAnimation 函数
   const changeAnimation = useCallback(() => {
     const morningDom = document.getElementsByClassName(
       "morning"
     )[0] as HTMLElement
     const nightDom = document.getElementsByClassName("night")[0] as HTMLElement
-    const ANIMATION_CLASSES = ["-translate-y-full", "opacity-0"]
+    const ANIMATION_CLASSES = [
+      "-translate-y-full",
+      "opacity-0",
+      "rotate-90",
+      "scale-75"
+    ]
 
     if (theme === Themes.LIGHT) {
       nightDom.classList.add(...ANIMATION_CLASSES)
       morningDom.classList.remove(...ANIMATION_CLASSES)
+      morningDom.classList.add("rotate-0", "scale-100")
+      setTimeout(() => morningDom.classList.remove("rotate-0"), 500)
     } else {
       nightDom.classList.remove(...ANIMATION_CLASSES)
+      nightDom.classList.add("rotate-0", "scale-100")
       morningDom.classList.add(...ANIMATION_CLASSES)
+      setTimeout(() => nightDom.classList.remove("rotate-0"), 500)
     }
   }, [theme])
 

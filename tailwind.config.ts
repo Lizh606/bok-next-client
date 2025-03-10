@@ -40,10 +40,23 @@ const config: Config = {
             opacity: "1",
             transform: "translateY(0)"
           }
+        },
+        typing: {
+          from: { width: "0" },
+          to: { width: "100%" }
+        },
+        blink: {
+          "50%": { "border-color": "transparent" }
+        },
+        fade: {
+          "0%, 100%": { opacity: "0" },
+          "10%, 90%": { opacity: "1" }
         }
       },
       animation: {
-        "slide-up": "slide-up 2s ease-out"
+        "slide-up": "slide-up 2s ease-out",
+        "typing-fade":
+          "typing 2s steps(40), blink 1s steps(1) infinite, fade 4s ease-in-out"
       }
     },
     colors: {
@@ -52,6 +65,10 @@ const config: Config = {
         highlight: {
           light: "#61B9AF",
           dark: "pink"
+        },
+        gloria: {
+          light: "#8A2BE2",
+          dark: "#BD33A4"
         }
       }
     }
