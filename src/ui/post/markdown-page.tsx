@@ -2,6 +2,7 @@
 import Loading from "@/app/(app)/loading"
 import type { Post } from "@/lib/post"
 import { Card, CardBody } from "@heroui/react"
+import hljs from "highlight.js/lib/core"
 import "highlight.js/styles/atom-one-light.css"
 import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"

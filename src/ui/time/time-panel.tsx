@@ -99,12 +99,14 @@ export default function TimePanel() {
         </span>{" "}
         %
       </p>
-      <p
-        key={currentQuoteIndex}
-        className="text-highlight mt-8 transform animate-slide-up text-xl font-light italic tracking-wider transition-all duration-500"
-      >
-        {quotes[currentQuoteIndex]}
-      </p>
+      <div className="w-fit">
+        <p
+          key={currentQuoteIndex}
+          className="text-highlight animate-typing-fade border-highlight relative mt-8 overflow-hidden whitespace-nowrap border-r-2 text-xl font-light italic tracking-wider"
+        >
+          {quotes[currentQuoteIndex]} -- G.E.M.邓紫棋
+        </p>
+      </div>
     </div>
   )
 }
