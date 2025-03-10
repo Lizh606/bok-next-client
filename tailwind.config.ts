@@ -52,6 +52,10 @@ const config: Config = {
         highlight: {
           light: "#61B9AF",
           dark: "pink"
+        },
+        gloria: {
+          light: "#8A2BE2",
+          dark: "#BD33A4"
         }
       }
     }

@@ -86,22 +86,22 @@ export default function TimePanel() {
   return (
     <div className="flex flex-col gap-2">
       <p>
-        今天是 <b className="text-teal-500">{currentYear}</b> 年的第{" "}
-        <b className="text-teal-500">{dayOfYear}</b> 天
+        今天是 <b className="text-highlight">{currentYear}</b> 年的第{" "}
+        <b className="text-highlight">{dayOfYear}</b> 天
       </p>
       <p>
-        今年已过 <b className="text-teal-500">{PassDayPercent.toFixed(6)}</b> %
+        今年已过 <b className="text-highlight">{PassDayPercent.toFixed(6)}</b> %
       </p>
       <p>
         今天已过{" "}
-        <span className="text-teal-500 transition-all duration-[1] ease-linear">
+        <span className="text-highlight transition-all duration-[1] ease-linear">
           {remainingPercentage.toFixed(6)}
         </span>{" "}
         %
       </p>
       <p
         key={currentQuoteIndex}
-        className="mt-8 transform animate-slide-up text-lg font-light italic tracking-wider text-teal-400 transition-all duration-500"
+        className="text-highlight mt-8 transform animate-slide-up text-xl font-light italic tracking-wider transition-all duration-500"
       >
         {quotes[currentQuoteIndex]}
       </p>

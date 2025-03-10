@@ -1,6 +1,9 @@
 .text-highlight {
   @apply text-highlight-light dark:text-highlight-dark;
 }
+.bg-highlight {
+  @apply bg-highlight-light dark:bg-highlight-dark;
+}
 
 .text-highlight-hover {
   @apply hover:text-highlight-light dark:hover:text-highlight-dark;

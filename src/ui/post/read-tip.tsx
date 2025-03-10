@@ -6,7 +6,7 @@ export default function ReadTip({ show }: { show: boolean }) {
   return (
     <div
       style={{ opacity: show ? "1" : "0" }}
-      className="flex items-center gap-1 whitespace-nowrap text-highlight-light dark:text-highlight-dark"
+      className="text-highlight flex items-center gap-1 whitespace-nowrap"
     >
       阅读全文
       <ArrowRight

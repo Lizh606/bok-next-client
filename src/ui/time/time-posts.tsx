@@ -32,10 +32,10 @@ export default function TimePosts({ posts }: { posts: Post[] }) {
         .map(([year, items]) => (
           <div key={year}>
             <div className="mb-8 flex items-center">
-              <span className="text-4xl font-extrabold tracking-wider text-highlight-light dark:text-highlight-dark">
+              <span className="text-highlight text-4xl font-extrabold tracking-wider">
                 {year}
               </span>
-              <div className="ml-4 h-[1px] flex-1 bg-highlight-light dark:bg-highlight-dark"></div>
+              <div className="bg-highlight ml-4 h-[1px] flex-1"></div>
             </div>
 
             <ul>
