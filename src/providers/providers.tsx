@@ -7,7 +7,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <HeroUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="light">
+      <NextThemesProvider attribute="class" enableSystem={true}>
         <ToastProvider></ToastProvider>
         {children}
       </NextThemesProvider>

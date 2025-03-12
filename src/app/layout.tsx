@@ -26,7 +26,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en">
       <body
         className={`${myFont.className} relative m-0 h-full overflow-y-auto overflow-x-hidden p-0 text-default-700`}
       >
