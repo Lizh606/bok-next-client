@@ -9,17 +9,16 @@ type Props = {
   params: { id: number; sort: string }
   // searchParams: { [key: string]: string | string[] | undefined }
 }
-let title: string = ""
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // const post = await getPostById(params.id)
+  const post = await getPostById(params.id)
   return {
-    title: title
+    title: post.title
   }
 }
 
 export default async function Post({ params }: Props) {
   const post = await getPostById(params.id)
-  title = post.title
+
   return (
     <div className="mt-20">
       <h1 className="mb-4 text-balance text-center text-4xl font-bold">

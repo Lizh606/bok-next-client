@@ -21,7 +21,8 @@ export default function TimePanel() {
   const quotes = [
     "原来时间最远 不是距离而是昨天",
     "天空没有极限 你的未来无边",
-    "生命够曲折才够真实 人痛过才够坚持"
+    "生命够曲折才够真实 人痛过才够坚持",
+    "成长要学会独处 虽然有一点孤独"
   ]
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
 
@@ -102,7 +103,7 @@ export default function TimePanel() {
       <div className="w-fit">
         <p
           key={currentQuoteIndex}
-          className="text-highlight animate-typing-fade border-highlight relative mt-8 overflow-hidden whitespace-nowrap border-r-2 text-xl font-light italic tracking-wider"
+          className="text-highlight border-highlight relative mt-8 animate-typing-fade overflow-hidden whitespace-nowrap border-r-2 text-xl font-light italic tracking-wider"
         >
           {quotes[currentQuoteIndex]} -- G.E.M.邓紫棋
         </p>
