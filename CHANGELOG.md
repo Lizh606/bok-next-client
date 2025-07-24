@@ -1,3 +1,23 @@
+## [0.0.6](https://github.com/Lizh606/bok-next-client/compare/v0.0.5-20250306...v0.0.6) (2025-07-24)
+
+
+### Bug Fixes
+
+* **时光页面:** 修改页面字体样式 ([d9d4ed6](https://github.com/Lizh606/bok-next-client/commit/d9d4ed625c156192cc1af9e2e4fa9605921b3c7e))
+* **文章管理:** 修复浏览器标签名称异常问题 ([dff626d](https://github.com/Lizh606/bok-next-client/commit/dff626d2236ab160fc7ce002188e99a9e95fb054))
+* **文章页面:** 修改目录高亮逻辑 ([cccb129](https://github.com/Lizh606/bok-next-client/commit/cccb129bb7731fe92b1546ddd4a0971f5f3dc0da))
+* **主题切换:** 统一hook适配主题切换问题 ([51b2fba](https://github.com/Lizh606/bok-next-client/commit/51b2fba287f2c05b2af152cde36faf713af304fc))
+* **主题切换:** 修复跟随系统主题导致的主题样式错乱问题 ([a62e12f](https://github.com/Lizh606/bok-next-client/commit/a62e12f815f1e9123c48f0eefe1de843b69d12fd))
+* **主题切换:** 修改主题切换组件动画 ([d605d02](https://github.com/Lizh606/bok-next-client/commit/d605d020bd5133887220eed518c6e5c0a06ce9a5))
+
+
+### Features
+
+* **时光页面:** 增加打字机效果 ([383c254](https://github.com/Lizh606/bok-next-client/commit/383c254726f1c1a0bdbc29dbd9f55d93b5328090))
+* **主题:** 首次加载默认跟随系统主题 ([5d6cbca](https://github.com/Lizh606/bok-next-client/commit/5d6cbca99a4665716d250227d3c601e775d107e0))
+
+
+
 ## [0.0.5](https://github.com/Lizh606/bok-next-client/compare/v0.0.4-20250306...v0.0.5) (2025-03-06)
 
 
