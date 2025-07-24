@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # 获取完整的git历史记录，用于版本信息
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -22,17 +24,27 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Create version info
+      - name: Extract version info
+        id: version
         run: |
-          echo "{\"version\": \"$(date +%s)\", \"buildTime\": \"$(date)\"}" > public/version.json
+          VERSION=$(node -p "require('./package.json').version")
+          TIMESTAMP=$(date +%s)
+          BUILD_TIME=$(date)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+          echo "BUILD_TIME=$BUILD_TIME" >> $GITHUB_ENV
+          echo "{\"version\": \"$VERSION-$TIMESTAMP\", \"buildTime\": \"$BUILD_TIME\"}" > public/version.json
+          cat public/version.json
 
       - name: Build Docker image
         run: |
-          docker build -t lizh606/wanyue-blog:latest .
+          # 使用缓存破坏参数确保每次构建都使用最新代码
+          docker build --no-cache --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t lizh606/wanyue-blog:latest -t lizh606/wanyue-blog:${{ env.VERSION }}-${{ env.TIMESTAMP }} .
 
       - name: Push Docker image to Docker Hub
         run: |
           docker push lizh606/wanyue-blog:latest
+          docker push lizh606/wanyue-blog:${{ env.VERSION }}-${{ env.TIMESTAMP }}
 
       - name: SSH to remote server and deploy
         uses: appleboy/ssh-action@master
@@ -47,4 +59,5 @@ jobs:
             docker pull lizh606/wanyue-blog:latest
             docker stop next-client || true
             docker rm next-client || true
-            docker run -d --name next-client -p 3000:3000 lizh606/wanyue-blog:latest
+            # 使用 --no-cache 选项启动容器，并设置环境变量禁用缓存
+            docker run -d --name next-client -p 3000:3000 -e NODE_ENV=production -e NEXT_DISABLE_CACHE=1 lizh606/wanyue-blog:latest
