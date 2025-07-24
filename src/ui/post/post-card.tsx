@@ -4,8 +4,8 @@ import type { Post } from "@/lib/post"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
 import Link from "next/link"
+import { useAppTheme } from "../../hooks/useAppTheme"
 import ReadTip from "./read-tip"
 export default function PostCard({
   post,
@@ -15,13 +15,7 @@ export default function PostCard({
   index: number
 }) {
   const { isHover, bind } = useHover()
-  const { theme } = useTheme()
-  const currentTheme =
-    theme === "system"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme
+  const { currentTheme } = useAppTheme()
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }} // 初始状态，透明度为0，缩放为0.5

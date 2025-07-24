@@ -2,26 +2,16 @@
 
 import { Tooltip } from "@heroui/react"
 import * as lodash from "lodash"
-import { useTheme } from "next-themes"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback } from "react"
 import Morning from "../../public/svgs/太阳.svg"
 import Night from "../../public/svgs/月亮.svg"
-enum Themes {
-  "DARK" = "dark",
-  "LIGHT" = "light"
-}
+import { useAppTheme } from "../hooks/useAppTheme"
 
 const debouncedChangeTheme = lodash.debounce((fn: () => void) => fn(), 200)
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const currentTheme =
-    theme === "system"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme
+  const { currentTheme, toggleTheme, mounted, Themes } = useAppTheme()
+
   const changeAnimation = useCallback(() => {
     const morningDom = document.getElementsByClassName(
       "morning"
@@ -45,19 +35,10 @@ export function ThemeSwitcher() {
       morningDom.classList.add(...ANIMATION_CLASSES)
       setTimeout(() => nightDom.classList.remove("rotate-0"), 500)
     }
-  }, [theme])
+  }, [currentTheme, Themes])
 
   const changeTheme = () => {
-    switch (theme) {
-      case Themes.DARK:
-        setTheme(Themes.LIGHT)
-        break
-      case Themes.LIGHT:
-        setTheme(Themes.DARK)
-        break
-      default:
-        setTheme(Themes.LIGHT)
-    }
+    toggleTheme()
     changeAnimation()
   }
   const callbackRef = useCallback(
@@ -67,15 +48,12 @@ export function ThemeSwitcher() {
     },
     [changeAnimation]
   )
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   if (!mounted) return null
 
   return (
     <Tooltip
-      content={theme === Themes.LIGHT ? "切换夜间模式" : "切换白天模式"}
+      content={currentTheme === Themes.LIGHT ? "切换夜间模式" : "切换白天模式"}
       placement="bottom"
     >
       <div className="relative p-1.5">

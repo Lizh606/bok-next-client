@@ -2,18 +2,18 @@
 import useScrolling from "@/hooks/useScrolling"
 import { clsxm } from "@/lib/helper"
 import { Tab, Tabs } from "@heroui/react"
-import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ThemeSwitcher } from "../../components/ThemeSwitcher"
+import { useAppTheme } from "../../hooks/useAppTheme"
 import useScrollToTop from "../../hooks/useScrollToTop"
 
 export default function Header() {
   const { isAtTop } = useScrollToTop()
   const pathName = usePathname()
-  const { theme } = useTheme()
+  const { currentTheme } = useAppTheme()
   const router = useRouter()
   const scrolling = useScrolling()
 
@@ -44,17 +44,10 @@ export default function Header() {
     // }
   ]
   const [isShowName, setShow] = useState(false)
-  // 判断当前主题
-  const currentTheme =
-    theme === "system"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme
 
   useEffect(() => {
-    theme && setShow(true)
-  }, [theme])
+    currentTheme && setShow(true)
+  }, [currentTheme])
   return (
     <>
       {pathName.includes("mdx") ? null : (

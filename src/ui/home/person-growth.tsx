@@ -1,18 +1,12 @@
 "use client"
 import Screen from "@/components/Screen"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
 import { useState } from "react"
+import { useAppTheme } from "../../hooks/useAppTheme"
 
 export default function PersonGrowth() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
-  const { theme } = useTheme()
-  const currentTheme =
-    theme === "system"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme
+  const { currentTheme } = useAppTheme()
   const growthArr = [
     {
       date: "2025-02-16",
