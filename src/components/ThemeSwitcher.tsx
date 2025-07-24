@@ -16,7 +16,12 @@ const debouncedChangeTheme = lodash.debounce((fn: () => void) => fn(), 200)
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
-
+  const currentTheme =
+    theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme
   const changeAnimation = useCallback(() => {
     const morningDom = document.getElementsByClassName(
       "morning"
@@ -29,7 +34,7 @@ export function ThemeSwitcher() {
       "scale-75"
     ]
 
-    if (theme === Themes.LIGHT) {
+    if (currentTheme === Themes.LIGHT) {
       nightDom.classList.add(...ANIMATION_CLASSES)
       morningDom.classList.remove(...ANIMATION_CLASSES)
       morningDom.classList.add("rotate-0", "scale-100")

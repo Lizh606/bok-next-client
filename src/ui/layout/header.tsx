@@ -44,6 +44,13 @@ export default function Header() {
     // }
   ]
   const [isShowName, setShow] = useState(false)
+  // 判断当前主题
+  const currentTheme =
+    theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme
 
   useEffect(() => {
     theme && setShow(true)
@@ -77,7 +84,7 @@ export default function Header() {
               {isShowName && (
                 <Image
                   src={
-                    theme === "light"
+                    currentTheme === "light"
                       ? "/images/XiaoHang.png"
                       : "/images/XiaoHang-dark.png"
                   }

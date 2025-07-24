@@ -7,6 +7,12 @@ export default function GiscusPanel({ title }: { title: string }) {
   const commentTitle =
     process.env.NODE_ENV === "development" ? `[DEV] ${title}` : title
   const { theme } = useTheme()
+  const currentTheme =
+    theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme
   return (
     <div className="mt-4">
       <Giscus
@@ -21,7 +27,7 @@ export default function GiscusPanel({ title }: { title: string }) {
         reactionsEnabled="1"
         emitMetadata="1"
         inputPosition="top"
-        theme={theme === "dark" ? "dark" : "light"}
+        theme={currentTheme === "dark" ? "dark" : "light"}
         lang="zh-CN"
       />
     </div>
