@@ -4,8 +4,8 @@ import type { Post } from "@/lib/post"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
 import Link from "next/link"
+import { useAppTheme } from "../../hooks/useAppTheme"
 import ReadTip from "./read-tip"
 export default function PostCard({
   post,
@@ -15,7 +15,7 @@ export default function PostCard({
   index: number
 }) {
   const { isHover, bind } = useHover()
-  const { theme } = useTheme()
+  const { currentTheme } = useAppTheme()
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }} // 初始状态，透明度为0，缩放为0.5
@@ -30,18 +30,18 @@ export default function PostCard({
       <div className="relative p-4">
         <Link
           href={`/posts/${post.sort}/${post.id}`}
-          className="flex flex-col gap-2 overflow-hidden cursor-pointer no-underline transition fade-in-up"
+          className="fade-in-up flex cursor-pointer flex-col gap-2 overflow-hidden no-underline transition"
           {...bind}
         >
           <div
             className={clsx(
-              "text-2xl font-bold truncate ease-in duration-300 text-default-600"
+              "truncate text-2xl font-bold text-default-600 duration-300 ease-in"
             )}
           >
             {post.title}
           </div>
-          <span className="text-zinc-400 text-sm h-16">{post.description}</span>
-          <div className="flex justify-between items-center text-zinc-400 text-base">
+          <span className="h-16 text-sm text-zinc-400">{post.description}</span>
+          <div className="flex items-center justify-between text-base text-zinc-400">
             <div className="flex items-center gap-4">
               <div className="flex gap-1">
                 {post.sort}
@@ -57,9 +57,9 @@ export default function PostCard({
         <div
           className={clsx(
             isHover
-              ? `${theme === "light" ? " bg-highlight-light" : "bg-highlight-dark"} opacity-20 shadow-xl`
+              ? `${currentTheme === "light" ? "bg-highlight-light" : "bg-highlight-dark"} opacity-20 shadow-xl`
               : "opacity-0",
-            "-z-10 rounded-xl absolute w-full h-full left-0 top-0 transition-opacity duration-400 ease-in-out"
+            "absolute left-0 top-0 -z-10 h-full w-full rounded-xl transition-opacity duration-400 ease-in-out"
           )}
         ></div>
       </div>

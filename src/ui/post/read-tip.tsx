@@ -1,8 +1,8 @@
 import { clsxm } from "@/lib/helper"
-import { useTheme } from "next-themes"
 import ArrowRight from "~/svgs/右箭头.svg"
+import { useAppTheme } from "../../hooks/useAppTheme"
 export default function ReadTip({ show }: { show: boolean }) {
-  const { theme = "light" } = useTheme()
+  const { currentTheme } = useAppTheme()
   return (
     <div
       style={{ opacity: show ? "1" : "0" }}
@@ -12,7 +12,9 @@ export default function ReadTip({ show }: { show: boolean }) {
       <ArrowRight
         className={clsxm(
           "h-4 w-4",
-          theme === "light" ? "fill-highlight-light" : "fill-highlight-dark"
+          currentTheme === "light"
+            ? "fill-highlight-light"
+            : "fill-highlight-dark"
         )}
       ></ArrowRight>
     </div>

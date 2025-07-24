@@ -1,13 +1,12 @@
 "use client"
 import Screen from "@/components/Screen"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
 import { useState } from "react"
+import { useAppTheme } from "../../hooks/useAppTheme"
 
 export default function PersonGrowth() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
-  const { theme } = useTheme()
-
+  const { currentTheme } = useAppTheme()
   const growthArr = [
     {
       date: "2025-02-16",
@@ -128,10 +127,10 @@ export default function PersonGrowth() {
             onClick={() => setSelectedType(null)}
             className={`rounded-full px-3 py-1 text-sm transition-all ${
               !selectedType
-                ? theme === "dark"
+                ? currentTheme === "dark"
                   ? "bg-blue-600 text-white"
                   : "bg-blue-500 text-white"
-                : theme === "dark"
+                : currentTheme === "dark"
                   ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
@@ -144,10 +143,10 @@ export default function PersonGrowth() {
               onClick={() => setSelectedType(type)}
               className={`rounded-full px-3 py-1 text-sm transition-all ${
                 selectedType === type
-                  ? theme === "dark"
+                  ? currentTheme === "dark"
                     ? "bg-blue-600 text-white"
                     : "bg-blue-500 text-white"
-                  : theme === "dark"
+                  : currentTheme === "dark"
                     ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}

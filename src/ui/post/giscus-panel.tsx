@@ -1,12 +1,12 @@
 "use client"
 import Giscus from "@giscus/react"
-import { useTheme } from "next-themes"
+import { useAppTheme } from "../../hooks/useAppTheme"
 
 export default function GiscusPanel({ title }: { title: string }) {
   // 在开发环境下给 title 添加 [DEV] 标识
   const commentTitle =
     process.env.NODE_ENV === "development" ? `[DEV] ${title}` : title
-  const { theme } = useTheme()
+  const { currentTheme } = useAppTheme()
   return (
     <div className="mt-4">
       <Giscus
@@ -21,7 +21,7 @@ export default function GiscusPanel({ title }: { title: string }) {
         reactionsEnabled="1"
         emitMetadata="1"
         inputPosition="top"
-        theme={theme === "dark" ? "dark" : "light"}
+        theme={currentTheme === "dark" ? "dark" : "light"}
         lang="zh-CN"
       />
     </div>
