@@ -56,7 +56,28 @@ jobs:
           debug: true
           script: |
             # 登录后，拉取最新的 Docker 镜像并启动容器
-            docker pull lizh606/wanyue-blog:latest
+            # 添加重试逻辑，最多尝试5次
+            max_attempts=5
+            attempt=1
+
+            while [ $attempt -le $max_attempts ]
+            do
+              echo "Attempt $attempt to pull Docker image..."
+              if docker pull lizh606/wanyue-blog:latest; then
+                echo "Successfully pulled Docker image"
+                break
+              else
+                echo "Pull failed, waiting before retry..."
+                if [ $attempt -eq $max_attempts ]; then
+                  echo "Maximum attempts reached. Exiting."
+                  exit 1
+                fi
+                # 指数退避，等待时间随尝试次数增加
+                sleep $((2 ** $attempt))
+              fi
+              attempt=$((attempt + 1))
+            done
+
             docker stop next-client || true
             docker rm next-client || true
             # 使用 --no-cache 选项启动容器，并设置环境变量禁用缓存
