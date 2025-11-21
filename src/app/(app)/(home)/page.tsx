@@ -19,37 +19,25 @@ export default function Home() {
       template: [
         {
           type: "h1",
-          text: "Hi, I'm ",
-          class: "text-4xl"
-        },
-        {
-          type: "h1",
-          text: `${BOK_AUTHOR}`,
-          class: "font-bold mx-2 text-4xl"
-        },
-        {
-          type: "h1",
-          text: "🫡",
-          class: "font-light text-4xl"
+          text: `👋 HI, I'M ${BOK_AUTHOR}`,
+          class:
+            "inline-flex items-center gap-1.5 self-start rounded-full border border-slate-200 bg-white/90 px-6 py-1 text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 shadow-sm shadow-slate-200/70 dark:border-white/50 dark:bg-white/15 dark:text-white dark:shadow-[0_12px_28px_-12px_rgba(0,0,0,0.85)] mb-7 md:mb-9"
         },
         {
           type: "br"
         },
+
         {
           type: "h1",
           text: "A Fighting Web",
-          class: "font-light text-4xl"
+          class:
+            "block text-5xl font-black leading-tight text-slate-900 md:text-6xl lg:text-7xl dark:text-white dark:drop-shadow-[0_8px_28px_rgba(0,0,0,0.65)]"
         },
         {
           type: "code",
           text: "<Developer />",
           class:
-            "font-medium mx-2 text-3xl rounded p-1 bg-gray-200 dark:bg-gray-800/0 hover:dark:bg-gray-800/100 bg-opacity-0 hover:bg-opacity-100 transition-background duration-200"
-        },
-        {
-          type: "span",
-          class:
-            "inline-block w-[1px] h-8 -bottom-2 relative bg-gray-800/80 dark:bg-gray-200/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 group-hover:animation-blink"
+            "block italic text-5xl font-semibold leading-tight text-slate-600 md:text-6xl lg:text-7xl dark:text-white dark:drop-shadow-[0_8px_28px_rgba(0,0,0,0.6)]"
         },
         {
           type: "br"
@@ -57,7 +45,8 @@ export default function Home() {
         {
           type: "span",
           text: "Going to A NodeJS Full Stack Developer",
-          class: "font-light"
+          class:
+            "text-xl font-medium text-slate-500 md:text-2xl dark:text-white/90 dark:drop-shadow-[0_6px_20px_rgba(0,0,0,0.55)]"
         },
         {
           type: "br"
