@@ -1,3 +1,18 @@
+## [0.0.7](https://github.com/Lizh606/bok-next-client/compare/v0.0.6-20250724...v0.0.7) (2025-12-04)
+
+
+### Bug Fixes
+
+* **时光:** 歌词版样式修改 ([e9f8f90](https://github.com/Lizh606/bok-next-client/commit/e9f8f9092941dfb50d81da9cc6306d584f838aa7))
+* **首页:** 文章卡片样式重构 ([e1cd151](https://github.com/Lizh606/bok-next-client/commit/e1cd151ac432b2085adc6532e4c0be8448c040ad))
+
+
+### Features
+
+* **首页:** 样式重构 ([ee4ca44](https://github.com/Lizh606/bok-next-client/commit/ee4ca4475ba3cda1d91702656f5ac7de1cfc70e6))
+
+
+
 ## [0.0.6](https://github.com/Lizh606/bok-next-client/compare/v0.0.5-20250306...v0.0.6) (2025-07-24)
 
 
