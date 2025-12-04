@@ -2,6 +2,8 @@ import { getPostList } from "@/lib/post"
 import PostList from "@/ui/post/post-list"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 type Props = {
   params: { sort: string }
   // searchParams: { [key: string]: string | string[] | undefined }

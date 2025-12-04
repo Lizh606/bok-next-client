@@ -1,11 +1,13 @@
 import Loading from "@/app/(app)/loading"
 import { getPostList } from "@/lib/post"
-import dynamic from "next/dynamic"
+import dynamicImport from "next/dynamic"
 
-const TimePanel = dynamic(() => import("@/ui/time/time-panel"), {
+export const dynamic = "force-dynamic"
+
+const TimePanel = dynamicImport(() => import("@/ui/time/time-panel"), {
   loading: () => <Loading></Loading>
 })
-const TimePosts = dynamic(() => import("@/ui/time/time-posts"), {
+const TimePosts = dynamicImport(() => import("@/ui/time/time-posts"), {
   loading: () => <Loading></Loading>
 })
 export default async function Time() {

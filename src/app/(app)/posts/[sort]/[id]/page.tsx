@@ -5,6 +5,8 @@ import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
 import type { Metadata } from "next"
 
+export const dynamic = "force-dynamic"
+
 type Props = {
   params: { id: number; sort: string }
   // searchParams: { [key: string]: string | string[] | undefined }

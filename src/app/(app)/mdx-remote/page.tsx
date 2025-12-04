@@ -5,6 +5,8 @@ import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import { visit } from "unist-util-visit"
 
+export const dynamic = "force-dynamic"
+
 export default async function RemoteMdxPage() {
   const post = await getPostById(3)
   if (!post) return <div>Post not found</div>

@@ -1,14 +1,16 @@
 import Loading from "@/app/(app)/loading"
 import type { Config } from "@/ui/home/Info-writer-animation"
-import dynamic from "next/dynamic"
+import dynamicImport from "next/dynamic"
+
+export const dynamic = "force-dynamic"
 
 // 动态导入组件
-const PersonGrowth = dynamic(() => import("@/ui/home/person-growth"), {
+const PersonGrowth = dynamicImport(() => import("@/ui/home/person-growth"), {
   loading: () => <Loading></Loading>
 })
-const PersonScreen = dynamic(() => import("@/ui/home/person-screen"))
-const PostScreen = dynamic(() => import("@/ui/home/post-screen"))
-const GiscusPanel = dynamic(() => import("@/ui/post/giscus-panel"), {
+const PersonScreen = dynamicImport(() => import("@/ui/home/person-screen"))
+const PostScreen = dynamicImport(() => import("@/ui/home/post-screen"))
+const GiscusPanel = dynamicImport(() => import("@/ui/post/giscus-panel"), {
   ssr: false // Giscus评论组件在客户端渲染
 })
 
