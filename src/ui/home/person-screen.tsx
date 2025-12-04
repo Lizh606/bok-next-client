@@ -8,7 +8,7 @@ import Screen from "../../components/Screen"
 
 const PersonScreen = ({ config }: { config: Config }) => {
   return (
-    <Screen className="h-[95vh]">
+    <Screen className="h-[92vh]">
       <div className="relative mx-64 flex h-full">
         <div className="flex min-w-0 flex-1 items-center justify-center">
           <InfoWriterAnimation
@@ -48,8 +48,8 @@ const PersonScreen = ({ config }: { config: Config }) => {
               </div>
             </div>
             <div className="pointer-events-none absolute -right-3 top-8 z-20 h-5 w-5 rounded-full bg-white/85 shadow-lg shadow-indigo-500/20 backdrop-blur dark:bg-white/10">
-              <span className="animate-breathe-ring absolute inset-[-3px] rounded-full bg-emerald-400/0 dark:bg-emerald-400/0"></span>
-              <span className="animate-breathe-dot absolute inset-[3px] rounded-full bg-emerald-400 shadow-[0_0_0_2px_rgba(16,185,129,0.12)] dark:shadow-[0_0_0_2px_rgba(16,185,129,0.1)]"></span>
+              <span className="absolute inset-[-3px] animate-breathe-ring rounded-full bg-emerald-400/0 dark:bg-emerald-400/0"></span>
+              <span className="absolute inset-[3px] animate-breathe-dot rounded-full bg-emerald-400 shadow-[0_0_0_2px_rgba(16,185,129,0.12)] dark:shadow-[0_0_0_2px_rgba(16,185,129,0.1)]"></span>
             </div>
           </div>
         </div>
