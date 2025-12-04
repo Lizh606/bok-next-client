@@ -51,12 +51,26 @@ const config: Config = {
         fade: {
           "0%, 100%": { opacity: "0" },
           "10%, 90%": { opacity: "1" }
+        },
+        breatheRing: {
+          "0%": { opacity: "0", transform: "scale(0.8)" },
+          "30%": { opacity: "0.5", transform: "scale(1.2)" },
+          "70%": { opacity: "0", transform: "scale(1.6)" },
+          "100%": { opacity: "0", transform: "scale(1.8)" }
+        },
+        breatheDot: {
+          "0%": { opacity: "0", transform: "scale(0.8)" },
+          "30%": { opacity: "1", transform: "scale(1)" },
+          "60%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(0.9)" }
         }
       },
       animation: {
         "slide-up": "slide-up 2s ease-out",
         "typing-fade":
-          "typing 2s steps(40), blink 1s steps(1) infinite, fade 4s ease-in-out"
+          "typing 2s steps(40), blink 1s steps(1) infinite, fade 4s ease-in-out",
+        "breathe-ring": "breatheRing 3s ease-in-out infinite",
+        "breathe-dot": "breatheDot 3s ease-in-out infinite"
       }
     },
     colors: {

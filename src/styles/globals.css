@@ -25,9 +25,35 @@ body {
   }
 }
 
+@keyframes blinkCursor {
+  0%,
+  100% {
+    border-color: currentColor;
+  }
+  50% {
+    border-color: transparent;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .typed-line {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    min-height: 1.8rem;
+  }
+  .typed-line--active {
+    border-right: 2px solid currentColor;
+    animation: blinkCursor 0.9s steps(1) infinite;
+  }
+  .typed-line--done {
+    border-right-color: transparent;
+  }
+  .typed-line--singer {
+    min-height: 1.1rem;
   }
 }
 
