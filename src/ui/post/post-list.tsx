@@ -3,8 +3,8 @@
 import { getPostList, type Post } from "@/lib/post"
 import { Divider, Input } from "@heroui/react"
 import { debounce } from "lodash"
+import Image from "next/image"
 import { useState } from "react"
-import SearchIcon from "~/svgs/搜索.svg"
 import PostCard from "./post-card"
 import PostSortList from "./post-sort-list"
 export default function PostList({
@@ -32,7 +32,16 @@ export default function PostList({
                 "h-full text-default-300 bg-default-400/10 dark:bg-default-500/20 hover:bg-default-400/20"
             }}
             placeholder="搜索文章"
-            startContent={<SearchIcon size="18" className="p-1" />}
+            startContent={
+              <Image
+                src="/svgs/搜索.svg"
+                alt="搜索"
+                width={18}
+                height={18}
+                className="p-1"
+                priority
+              />
+            }
             type="search"
             onValueChange={debounce(async (value) => {
               const params = {

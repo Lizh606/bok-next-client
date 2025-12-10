@@ -1,9 +1,8 @@
 "use client"
 
 import { Button } from "@heroui/react"
+import Image from "next/image"
 import { useState } from "react"
-import CopiedIcon from "../../public/svgs/copied.svg"
-import CopyIcon from "../../public/svgs/copy.svg"
 
 export const CopyButton = ({ text }: { text: string }) => {
   const [isCopied, setIsCopied] = useState(false)
@@ -50,9 +49,23 @@ export const CopyButton1 = ({ id }: { id: string }) => {
       variant="light"
     >
       {copied ? (
-        <CopiedIcon className="h-6 w-6" />
+        <Image
+          src="/svgs/copied.svg"
+          alt="已复制"
+          width={24}
+          height={24}
+          className="h-6 w-6"
+          priority
+        />
       ) : (
-        <CopyIcon className="h-6 w-6" />
+        <Image
+          src="/svgs/copy.svg"
+          alt="复制"
+          width={24}
+          height={24}
+          className="h-6 w-6"
+          priority
+        />
       )}
     </Button>
   )

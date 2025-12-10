@@ -1,7 +1,7 @@
 "use client"
 import useScrollToTop from "@/hooks/useScrollToTop"
 import { clsxm } from "@/lib/helper"
-import BackTop from "~/svgs/回到顶部.svg"
+import Image from "next/image"
 export default function BackToTop() {
   const { isAtTop } = useScrollToTop()
   return (
@@ -18,7 +18,14 @@ export default function BackToTop() {
         isAtTop ? "hidden" : "flex"
       )}
     >
-      <BackTop className="w-12 h-12" />
+      <Image
+        src="/svgs/回到顶部.svg"
+        alt="Back to top"
+        width={48}
+        height={48}
+        className="w-12 h-12"
+        priority
+      />
     </div>
   )
 }

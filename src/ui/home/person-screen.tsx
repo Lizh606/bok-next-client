@@ -1,5 +1,5 @@
+import MaskIcon from "@/components/MaskIcon"
 import Image from "next/image"
-import ArrowDown from "~/svgs/Arrow_down.svg"
 
 import InfoWriterAnimation, {
   type Config
@@ -57,7 +57,12 @@ const PersonScreen = ({ config }: { config: Config }) => {
           <div className="flex flex-col items-center gap-4">
             <small className="tracking-widest">世间所有路都将与你相逢</small>
             {/* <BounceTransitionView> */}
-            <ArrowDown className="h-6 w-6 animate-bounce fill-highlight-light dark:fill-highlight-dark"></ArrowDown>
+            <MaskIcon
+              src="/svgs/Arrow_down.svg"
+              size={24}
+              className="h-6 w-6 animate-bounce text-highlight-light dark:text-highlight-dark"
+              alt="向下"
+            />
             {/* </BounceTransitionView> */}
           </div>
         </div>

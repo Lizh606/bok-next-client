@@ -1,5 +1,6 @@
 import Loading from "@/app/(app)/loading"
 import type { Config } from "@/ui/home/Info-writer-animation"
+import GiscusPanel from "@/ui/post/giscus-panel-client"
 import dynamicImport from "next/dynamic"
 
 export const dynamic = "force-dynamic"
@@ -10,9 +11,6 @@ const PersonGrowth = dynamicImport(() => import("@/ui/home/person-growth"), {
 })
 const PersonScreen = dynamicImport(() => import("@/ui/home/person-screen"))
 const PostScreen = dynamicImport(() => import("@/ui/home/post-screen"))
-const GiscusPanel = dynamicImport(() => import("@/ui/post/giscus-panel"), {
-  ssr: false // Giscus评论组件在客户端渲染
-})
 
 export default function Home() {
   const { BOK_AUTHOR } = process.env

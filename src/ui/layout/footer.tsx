@@ -1,8 +1,6 @@
 import Link from "next/link"
-
-import ICP from "~/svgs/备案.svg"
-import Site from "~/svgs/网站.svg"
 import Social from "../../components/Social"
+import Image from "next/image"
 
 export default function Footer() {
   const { BOK_YEAR, BOK_AUTHOR, BOK_ICP } = process.env
@@ -13,12 +11,27 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Social></Social>
             <Link href={"/"} className="mt-2 flex items-center gap-1">
-              <Site className="h-5 w-5" />
+              <Image
+                src="/svgs/网站.svg"
+                alt="网站"
+                width={20}
+                height={20}
+                className="h-5 w-5"
+                priority
+              />
               {BOK_YEAR} • {BOK_AUTHOR}
             </Link>
             <Link target="_blank" href="https://beian.miit.gov.cn">
               <span className="flex items-center gap-1">
-                <ICP className="h-5 w-5" /> {BOK_ICP}
+                <Image
+                  src="/svgs/备案.svg"
+                  alt="备案"
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                  priority
+                />{" "}
+                {BOK_ICP}
               </span>
             </Link>
           </div>

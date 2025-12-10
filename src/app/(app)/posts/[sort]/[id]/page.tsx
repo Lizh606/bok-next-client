@@ -8,17 +8,19 @@ import type { Metadata } from "next"
 export const dynamic = "force-dynamic"
 
 type Props = {
-  params: { id: number; sort: string }
+  params: Promise<{ id: number; sort: string }>
   // searchParams: { [key: string]: string | string[] | undefined }
 }
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const post = await getPostById(params.id)
   return {
     title: post.title
   }
 }
 
-export default async function Post({ params }: Props) {
+export default async function Post(props: Props) {
+  const params = await props.params;
   const post = await getPostById(params.id)
 
   return (

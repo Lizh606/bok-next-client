@@ -3,16 +3,19 @@ import { clsxm } from "@/lib/helper"
 import { Tooltip } from "@heroui/react"
 import { addToast } from "@heroui/toast"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import Link from "next/link"
 
-import Bilibili from "~/svgs/Bilibili.svg"
-import Email from "~/svgs/QQ邮箱.svg"
-import Github from "~/svgs/github.svg"
-import WeChat from "~/svgs/微信.svg"
+const icons = {
+  bilibili: "/svgs/Bilibili.svg",
+  email: "/svgs/QQ邮箱.svg",
+  github: "/svgs/github.svg",
+  wechat: "/svgs/微信.svg"
+} as const
 
 interface SocialLinkProps {
   name: string
-  icon: React.ComponentType<{ className?: string }> // 或者使用具体的SVG组件类型，如typeof Bilibili
+  iconSrc: string
   link?: string // 使用问号表示link是可选的
   svgClassName?: string // 使用问号表示svgClassName是可选的，默认值已经在组件内部处理
   onClick?: () => Promise<void>
@@ -21,7 +24,7 @@ interface SocialLinkProps {
 // 封装Tooltip和链接逻辑成一个独立的组件
 const SocialLink = ({
   name,
-  icon: Icon,
+  iconSrc,
   link,
   svgClassName = "w-6 h-6",
   onClick
@@ -34,7 +37,14 @@ const SocialLink = ({
         whileTap={{ scale: 0.8 }}
         className={commonClassName}
       >
-        <Icon />
+        <Image
+          src={iconSrc}
+          alt={name}
+          width={24}
+          height={24}
+          className={svgClassName}
+          priority
+        />
       </motion.div>
     )
   }
@@ -61,7 +71,7 @@ export default function Social({
   const socialConfig = [
     {
       name: "WeChat",
-      icon: WeChat,
+      iconSrc: icons.wechat,
       onClick: async () => {
         try {
           // TODO：消息弹窗暂用react-hot-toast，后续等nextUI出Toast组件更新
@@ -87,17 +97,17 @@ export default function Social({
     },
     {
       name: "Email",
-      icon: Email,
+      iconSrc: icons.email,
       link: `mailto:${process.env.NEXT_PUBLIC_BOK_EMAIL}`
     },
     {
       name: "Github",
-      icon: Github,
+      iconSrc: icons.github,
       link: process.env.NEXT_PUBLIC_BOK_GITHUB
     },
     {
       name: "Bilibili",
-      icon: Bilibili,
+      iconSrc: icons.bilibili,
       link: process.env.NEXT_PUBLIC_BOK_BILIBILI
     }
   ]
@@ -111,7 +121,7 @@ export default function Social({
           <SocialLink
             key={social.name}
             name={social.name}
-            icon={social.icon}
+            iconSrc={social.iconSrc}
             link={social.link}
             svgClassName={svgClassName}
             onClick={social.onClick}

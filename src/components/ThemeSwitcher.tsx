@@ -2,10 +2,14 @@
 
 import { Tooltip } from "@heroui/react"
 import * as lodash from "lodash"
+import Image from "next/image"
 import { useCallback } from "react"
-import Morning from "../../public/svgs/太阳.svg"
-import Night from "../../public/svgs/月亮.svg"
 import { useAppTheme } from "../hooks/useAppTheme"
+
+const iconSrc = {
+  morning: "/svgs/太阳.svg",
+  night: "/svgs/月亮.svg"
+} as const
 
 const debouncedChangeTheme = lodash.debounce((fn: () => void) => fn(), 200)
 
@@ -65,10 +69,24 @@ export function ThemeSwitcher() {
             ref={callbackRef}
             className="morning absolute h-5 w-5 transform duration-500 ease-in-out"
           >
-            <Morning className="h-full w-full text-orange-600"></Morning>
+            <Image
+              src={iconSrc.morning}
+              alt="切换到夜间模式"
+              width={20}
+              height={20}
+              className="h-full w-full text-orange-600"
+              priority
+            />
           </div>
           <div className="night absolute h-5 w-5 transform duration-500 ease-in-out">
-            <Night className="h-full w-full text-slate-100"></Night>
+            <Image
+              src={iconSrc.night}
+              alt="切换到白天模式"
+              width={20}
+              height={20}
+              className="h-full w-full text-slate-100"
+              priority
+            />
           </div>
         </div>
       </div>

@@ -4,8 +4,8 @@ import useHover from "@/hooks/useHover"
 import type { Post } from "@/lib/post"
 import clsx from "clsx"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import Link from "next/link"
-import DateIcon from "~/svgs/时间.svg"
 import ReadTip from "../post/read-tip"
 
 const getMonthDay = (date: string) => {
@@ -72,7 +72,14 @@ export default function PostHomeCard({
                   "dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100 dark:shadow-black/40"
                 )}
               >
-                <DateIcon className="h-5 w-5" />
+                <Image
+                  src="/svgs/时间.svg"
+                  alt="发布时间"
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                  priority
+                />
                 <span className="text-base font-semibold tracking-[0.08em]">
                   {displayDate || "--/--"}
                 </span>
