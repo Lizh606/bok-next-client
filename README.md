@@ -85,74 +85,47 @@ pnpm build
 ## 版本发布流程
 
 ### 前置条件
+- 已安装 pnpm (`npm install -g pnpm`)
+- 有仓库推送权限，工作区干净
 
-- 确保已安装 pnpm (`npm install -g pnpm`)
-- 确保有 GitHub 仓库的推送权限
+### 发布分支策略
+- 发布在 release 分支（如 `release/vX.Y.Z`），避免未完成的提交影响发布。
+- 发布后将 release 分支合并回 `main`（或 cherry-pick 发布提交），让版本号/CHANGELOG 回流主干。
 
 ### 发布步骤
+1) 准备发布分支
+```bash
+git checkout main
+git pull origin main
+git checkout -b release/vX.Y.Z
+pnpm install
+```
 
-#### 1. 准备发布
-
-1. 确保当前分支代码是最新的：
-
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
-
-2. 确保依赖是最新的：
-
-   ```bash
-   pnpm install
-   ```
-
-3. 切换到release分支：
-   ```bash
-   git checkout -b release/v0.0.2
-   ```
-
-#### 2. 执行发布命令
-
-运行发布脚本：
-
+2) 执行发布
 ```bash
 pnpm release
 ```
+- 选择版本类型（patch/minor/major/custom）
+- 确认版本号
 
-系统会提示以下步骤：
+3) 自动化步骤
+- 更新 `package.json` 版本号
+- 生成/更新 `CHANGELOG.md`
+- 提交变更并创建标签（`v版本号-YYYYMMDD`）
+- 推送代码和标签
 
-1. 选择版本类型：
-
-   - `patch`: 修复版本 (x.x.1)
-   - `minor`: 特性版本 (x.1.x)
-   - `major`: 主版本 (1.x.x)
-   - `custom`: 自定义版本号
-
-2. 确认发布版本
-
-#### 3. 自动化步骤
-
-发布脚本会自动执行以下操作：
-
-1. 更新 `package.json` 中的版本号
-2. 生成 CHANGELOG.md 更新日志
-3. 提交变更到 Git
-4. 创建版本标签（格式：`v版本号-YYYYMMDD`）
-5. 推送代码和标签到 GitHub
-
-#### 4. 验证发布
-
-发布完成后，请检查：
-
-1. GitHub 仓库的 Tags 是否已更新
-2. CHANGELOG.md 是否已正确生成
-3. package.json 中的版本号是否已更新
-
-#### 5. 删除release分支
-
+4) 合并回主干
 ```bash
-git branch -d release/v0.0.2
-git push origin --delete v0.0.2-20250218
+git checkout main
+git pull origin main
+git merge --no-ff release/vX.Y.Z   # 或 cherry-pick 发布提交
+git push origin main
+```
+
+5) 清理 release 分支
+```bash
+git branch -d release/vX.Y.Z
+git push origin --delete release/vX.Y.Z  # 若已推送
 ```
 
 ### 注意事项
