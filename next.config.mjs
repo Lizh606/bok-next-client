@@ -1,5 +1,11 @@
 // next.config.mjs
 import createMDX from "@next/mdx"
+import { dirname, resolve } from "path"
+import { fileURLToPath } from "url"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -31,14 +37,14 @@ const withMDX = createMDX({
     remarkPlugins: ["remark-frontmatter", "remark-gfm"],
     rehypePlugins: [
       "rehype-slug",
-      "./scripts/mdx/rehype-extract-raw.mjs",
+      resolve(__dirname, "./scripts/mdx/rehype-extract-raw.mjs"),
       [
         "rehype-pretty-code",
         {
           theme: "material-theme-lighter"
         }
       ],
-      "./scripts/mdx/rehype-attach-raw-to-pre.mjs"
+      resolve(__dirname, "./scripts/mdx/rehype-attach-raw-to-pre.mjs")
     ]
   }
 })
