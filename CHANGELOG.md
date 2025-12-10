@@ -1,76 +1,69 @@
 # [1.0.0](https://github.com/Lizh606/bok-next-client/compare/v0.0.6-20250724...v1.0.0) (2025-12-10)
 
-
 ### Bug Fixes
 
-* **时光:** 歌词版样式修改 ([e9f8f90](https://github.com/Lizh606/bok-next-client/commit/e9f8f9092941dfb50d81da9cc6306d584f838aa7))
-* **首页:** 文章卡片样式重构 ([e1cd151](https://github.com/Lizh606/bok-next-client/commit/e1cd151ac432b2085adc6532e4c0be8448c040ad))
-* **error:** 更新后组件用法修改 ([43c2a7a](https://github.com/Lizh606/bok-next-client/commit/43c2a7a47e0bb6a82cefa273ffd39e5f88c8980e))
-
+- **时光:** 歌词版样式修改 ([e9f8f90](https://github.com/Lizh606/bok-next-client/commit/e9f8f9092941dfb50d81da9cc6306d584f838aa7))
+- **首页:** 文章卡片样式重构 ([e1cd151](https://github.com/Lizh606/bok-next-client/commit/e1cd151ac432b2085adc6532e4c0be8448c040ad))
+- **error:** 更新后组件用法修改 ([43c2a7a](https://github.com/Lizh606/bok-next-client/commit/43c2a7a47e0bb6a82cefa273ffd39e5f88c8980e))
 
 ### Features
 
-* **首页:** 样式重构 ([ee4ca44](https://github.com/Lizh606/bok-next-client/commit/ee4ca4475ba3cda1d91702656f5ac7de1cfc70e6))
+- **首页:** 样式重构 ([ee4ca44](https://github.com/Lizh606/bok-next-client/commit/ee4ca4475ba3cda1d91702656f5ac7de1cfc70e6))
 
+## [0.0.7](https://github.com/Lizh606/bok-next-client/compare/v0.0.6-20250724...v0.0.7) (2025-12-04)
 
+### Bug Fixes
+
+- **时光:** 歌词版样式修改 ([e9f8f90](https://github.com/Lizh606/bok-next-client/commit/e9f8f9092941dfb50d81da9cc6306d584f838aa7))
+- **首页:** 文章卡片样式重构 ([e1cd151](https://github.com/Lizh606/bok-next-client/commit/e1cd151ac432b2085adc6532e4c0be8448c040ad))
+
+### Features
+
+- **首页:** 样式重构 ([ee4ca44](https://github.com/Lizh606/bok-next-client/commit/ee4ca4475ba3cda1d91702656f5ac7de1cfc70e6))
 
 ## [0.0.6](https://github.com/Lizh606/bok-next-client/compare/v0.0.5-20250306...v0.0.6) (2025-07-24)
 
-
 ### Bug Fixes
 
-* **时光页面:** 修改页面字体样式 ([d9d4ed6](https://github.com/Lizh606/bok-next-client/commit/d9d4ed625c156192cc1af9e2e4fa9605921b3c7e))
-* **文章管理:** 修复浏览器标签名称异常问题 ([dff626d](https://github.com/Lizh606/bok-next-client/commit/dff626d2236ab160fc7ce002188e99a9e95fb054))
-* **文章页面:** 修改目录高亮逻辑 ([cccb129](https://github.com/Lizh606/bok-next-client/commit/cccb129bb7731fe92b1546ddd4a0971f5f3dc0da))
-* **主题切换:** 统一hook适配主题切换问题 ([51b2fba](https://github.com/Lizh606/bok-next-client/commit/51b2fba287f2c05b2af152cde36faf713af304fc))
-* **主题切换:** 修复跟随系统主题导致的主题样式错乱问题 ([a62e12f](https://github.com/Lizh606/bok-next-client/commit/a62e12f815f1e9123c48f0eefe1de843b69d12fd))
-* **主题切换:** 修改主题切换组件动画 ([d605d02](https://github.com/Lizh606/bok-next-client/commit/d605d020bd5133887220eed518c6e5c0a06ce9a5))
-
+- **时光页面:** 修改页面字体样式 ([d9d4ed6](https://github.com/Lizh606/bok-next-client/commit/d9d4ed625c156192cc1af9e2e4fa9605921b3c7e))
+- **文章管理:** 修复浏览器标签名称异常问题 ([dff626d](https://github.com/Lizh606/bok-next-client/commit/dff626d2236ab160fc7ce002188e99a9e95fb054))
+- **文章页面:** 修改目录高亮逻辑 ([cccb129](https://github.com/Lizh606/bok-next-client/commit/cccb129bb7731fe92b1546ddd4a0971f5f3dc0da))
+- **主题切换:** 统一hook适配主题切换问题 ([51b2fba](https://github.com/Lizh606/bok-next-client/commit/51b2fba287f2c05b2af152cde36faf713af304fc))
+- **主题切换:** 修复跟随系统主题导致的主题样式错乱问题 ([a62e12f](https://github.com/Lizh606/bok-next-client/commit/a62e12f815f1e9123c48f0eefe1de843b69d12fd))
+- **主题切换:** 修改主题切换组件动画 ([d605d02](https://github.com/Lizh606/bok-next-client/commit/d605d020bd5133887220eed518c6e5c0a06ce9a5))
 
 ### Features
 
-* **时光页面:** 增加打字机效果 ([383c254](https://github.com/Lizh606/bok-next-client/commit/383c254726f1c1a0bdbc29dbd9f55d93b5328090))
-* **主题:** 首次加载默认跟随系统主题 ([5d6cbca](https://github.com/Lizh606/bok-next-client/commit/5d6cbca99a4665716d250227d3c601e775d107e0))
-
-
+- **时光页面:** 增加打字机效果 ([383c254](https://github.com/Lizh606/bok-next-client/commit/383c254726f1c1a0bdbc29dbd9f55d93b5328090))
+- **主题:** 首次加载默认跟随系统主题 ([5d6cbca](https://github.com/Lizh606/bok-next-client/commit/5d6cbca99a4665716d250227d3c601e775d107e0))
 
 ## [0.0.5](https://github.com/Lizh606/bok-next-client/compare/v0.0.4-20250306...v0.0.5) (2025-03-06)
 
-
 ### Bug Fixes
 
-* toast插件代码错乱问题 ([910bf77](https://github.com/Lizh606/bok-next-client/commit/910bf778bc76c402f45225620549ff6c9190bea6))
-
-
+- toast插件代码错乱问题 ([910bf77](https://github.com/Lizh606/bok-next-client/commit/910bf778bc76c402f45225620549ff6c9190bea6))
 
 ## [0.0.4](https://github.com/Lizh606/bok-next-client/compare/v0.0.3-20250224...v0.0.4) (2025-03-06)
 
-
 ### Features
 
-* **Toast:** 移除React Toast插件，采用heroui taost ([cab608c](https://github.com/Lizh606/bok-next-client/commit/cab608c7f9397bf5b26b1bc2334f38212d3c51bc))
-* **version:** 新增版本更新检测机制 ([e438607](https://github.com/Lizh606/bok-next-client/commit/e438607a8c89c0e3bf2e418d6ea51e1ae0f61ece))
-
-
+- **Toast:** 移除React Toast插件，采用heroui taost ([cab608c](https://github.com/Lizh606/bok-next-client/commit/cab608c7f9397bf5b26b1bc2334f38212d3c51bc))
+- **version:** 新增版本更新检测机制 ([e438607](https://github.com/Lizh606/bok-next-client/commit/e438607a8c89c0e3bf2e418d6ea51e1ae0f61ece))
 
 ## [0.0.3](https://github.com/Lizh606/bok-next-client/compare/v0.0.2-20250218...v0.0.3) (2025-02-24)
 
-
 ### Bug Fixes
 
-* **关于:** 修复首屏加载卡顿问题 ([7fc27ac](https://github.com/Lizh606/bok-next-client/commit/7fc27ac04eeb03e4334e44ab6beb5c29fdfc87bf))
-* **时光:** 修复首屏加载卡顿问题 ([274df0a](https://github.com/Lizh606/bok-next-client/commit/274df0a2f57e27126b0308a6f59182bc469d640a))
-* **首页:** 修复首屏加载慢的问题 ([35f52ff](https://github.com/Lizh606/bok-next-client/commit/35f52ff12c4e696af54737a461e7ec7e06b1650a))
-* **loading:** 懒加载统一loading组件 ([895dab9](https://github.com/Lizh606/bok-next-client/commit/895dab9a1df373ab18da36067b3233d13a37c3c1))
-* **markdown渲染优化:** 新增图片加载优化、懒加载 ([7857f30](https://github.com/Lizh606/bok-next-client/commit/7857f30776a1f7890efd9a29038935ab76aa9ac0))
-* **token校验:** 修复token过期导致页面渲染失败问题 ([5b5f243](https://github.com/Lizh606/bok-next-client/commit/5b5f243e334bd659b2a22dda92feaf7ea46300be))
-
+- **关于:** 修复首屏加载卡顿问题 ([7fc27ac](https://github.com/Lizh606/bok-next-client/commit/7fc27ac04eeb03e4334e44ab6beb5c29fdfc87bf))
+- **时光:** 修复首屏加载卡顿问题 ([274df0a](https://github.com/Lizh606/bok-next-client/commit/274df0a2f57e27126b0308a6f59182bc469d640a))
+- **首页:** 修复首屏加载慢的问题 ([35f52ff](https://github.com/Lizh606/bok-next-client/commit/35f52ff12c4e696af54737a461e7ec7e06b1650a))
+- **loading:** 懒加载统一loading组件 ([895dab9](https://github.com/Lizh606/bok-next-client/commit/895dab9a1df373ab18da36067b3233d13a37c3c1))
+- **markdown渲染优化:** 新增图片加载优化、懒加载 ([7857f30](https://github.com/Lizh606/bok-next-client/commit/7857f30776a1f7890efd9a29038935ab76aa9ac0))
+- **token校验:** 修复token过期导致页面渲染失败问题 ([5b5f243](https://github.com/Lizh606/bok-next-client/commit/5b5f243e334bd659b2a22dda92feaf7ea46300be))
 
 ### Features
 
-* **axios:**  token 无感刷新以及错误重试机制 ([7f6630a](https://github.com/Lizh606/bok-next-client/commit/7f6630a893d5a0d92fa1d052d5a1e81927727750))
-
-
+- **axios:** token 无感刷新以及错误重试机制 ([7f6630a](https://github.com/Lizh606/bok-next-client/commit/7f6630a893d5a0d92fa1d052d5a1e81927727750))
 
 ## 0.0.2 (2025-02-18)
 
