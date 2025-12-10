@@ -12,7 +12,7 @@ export default function Footer() {
             <Social></Social>
             <Link href={"/"} className="mt-2 flex items-center gap-1">
               <Image
-                src="/svgs/网站.svg"
+                src="/svgs/site.svg"
                 alt="网站"
                 width={20}
                 height={20}
@@ -24,7 +24,7 @@ export default function Footer() {
             <Link target="_blank" href="https://beian.miit.gov.cn">
               <span className="flex items-center gap-1">
                 <Image
-                  src="/svgs/备案.svg"
+                  src="/svgs/record.svg"
                   alt="备案"
                   width={20}
                   height={20}

@@ -46,7 +46,9 @@ export class TokenHandler {
   async addTokenToRequest(config: any) {
     if (config.url?.includes("auth")) return config
     const token = await getToken()
-    config.headers["Authorization"] = "Bearer " + token
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token
+    }
     return config
   }
 }

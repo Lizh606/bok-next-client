@@ -73,7 +73,7 @@ export default function PostHomeCard({
                 )}
               >
                 <Image
-                  src="/svgs/时间.svg"
+                  src="/svgs/time.svg"
                   alt="发布时间"
                   width={20}
                   height={20}

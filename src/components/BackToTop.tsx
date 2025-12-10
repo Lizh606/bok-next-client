@@ -19,7 +19,7 @@ export default function BackToTop() {
       )}
     >
       <Image
-        src="/svgs/回到顶部.svg"
+        src="/svgs/back-to-top.svg"
         alt="Back to top"
         width={48}
         height={48}

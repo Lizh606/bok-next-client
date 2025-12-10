@@ -34,7 +34,7 @@ export default function PostList({
             placeholder="搜索文章"
             startContent={
               <Image
-                src="/svgs/搜索.svg"
+                src="/svgs/search.svg"
                 alt="搜索"
                 width={18}
                 height={18}

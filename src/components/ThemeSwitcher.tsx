@@ -7,8 +7,8 @@ import { useCallback } from "react"
 import { useAppTheme } from "../hooks/useAppTheme"
 
 const iconSrc = {
-  morning: "/svgs/太阳.svg",
-  night: "/svgs/月亮.svg"
+  morning: "/svgs/sun.svg",
+  night: "/svgs/moon.svg"
 } as const
 
 const debouncedChangeTheme = lodash.debounce((fn: () => void) => fn(), 200)

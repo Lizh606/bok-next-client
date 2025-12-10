@@ -8,9 +8,9 @@ import Link from "next/link"
 
 const icons = {
   bilibili: "/svgs/Bilibili.svg",
-  email: "/svgs/QQ邮箱.svg",
+  email: "/svgs/qq-mail.svg",
   github: "/svgs/github.svg",
-  wechat: "/svgs/微信.svg"
+  wechat: "/svgs/wechat.svg"
 } as const
 
 interface SocialLinkProps {

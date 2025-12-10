@@ -1,77 +1,15 @@
 "use client"
 
 import { CopyButton1 } from "@/components/CopyButton"
-import { type Post } from "@/lib/post"
-import toc from "@jsdevtools/rehype-toc"
-import { MDXRemote } from "next-mdx-remote/rsc"
+import type { MDXRemoteSerializeResult } from "next-mdx-remote"
+import { MDXRemote } from "next-mdx-remote"
 import Image from "next/image"
-import { useEffect } from "react"
-import rehypePrettyCode from "rehype-pretty-code"
-import rehypeSlug from "rehype-slug"
-import remarkGfm from "remark-gfm"
-import { visit } from "unist-util-visit"
 
-export default function RemoteMdxPage({
-  post,
-  setTocData
-}: {
-  post: Post
-  setTocData: (data: any) => void
-}) {
-  let data = {}
-  useEffect(() => {
-    setTocData(data)
-  }, [])
-  if (!post) return <div>Post not found</div>
-  const markdown = post.content
-  const mdxOptions = {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        rehypeSlug,
-        () => (tree: any) => {
-          visit(tree, (node: any) => {
-            if (node?.type === "element" && node?.tagName === "pre") {
-              const [codeEl] = node.children
-              if (codeEl.tagName !== "code") return
-              node.raw = codeEl.children?.[0].value
-            }
-          })
-        },
-        [
-          rehypePrettyCode,
-          {
-            theme: "material-theme-lighter"
-          }
-        ],
-        () => (tree: any) => {
-          visit(tree, (node: any) => {
-            if (node?.type === "element") {
-              if (!("data-rehype-pretty-code-fragment" in node.properties)) {
-                return
-              }
-              for (const child of node.children) {
-                if (child.tagName === "pre") {
-                  child.properties["raw"] = node.raw
-                }
-              }
-            }
-          })
-        },
-        [
-          //@ts-ignore
-          toc,
-          {
-            headings: ["h1", "h2", "h3", "h4", "h5"],
-            customizeTOC: (tocAll: any) => {
-              data = tocAll
-              return false
-            }
-          }
-        ]
-      ]
-    }
-  }
+type Props = {
+  mdxSource: MDXRemoteSerializeResult
+}
+
+export default function RemoteMdxPage({ mdxSource }: Props) {
   const components = {
     h1: (props: any) => {
       return (
@@ -178,11 +116,6 @@ export default function RemoteMdxPage({
     }
   }
   return (
-    <MDXRemote
-      source={markdown}
-      // @ts-ignore
-      options={mdxOptions}
-      components={components}
-    />
+    <MDXRemote {...mdxSource} components={components} />
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 import Loading from "@/app/(app)/loading"
 import type { Post } from "@/lib/post"
+import type { MDXRemoteSerializeResult } from "next-mdx-remote"
 import { Card, CardBody } from "@heroui/react"
 import hljs from "highlight.js/lib/core"
 import "highlight.js/styles/atom-one-light.css"
@@ -11,7 +12,15 @@ import MarkdownNav from "./markdown-nav"
 const RemoteMdxPage = dynamic(() => import("./mdx-remote-page"), {
   loading: () => <Loading></Loading>
 })
-export default function MarkDownPage({ post }: { post: Post }) {
+export default function MarkDownPage({
+  post,
+  mdxSource,
+  initialToc
+}: {
+  post: Post
+  mdxSource: MDXRemoteSerializeResult
+  initialToc: any
+}) {
   const [tocData, setTocData] = useState({})
   // // const { isAtTop } = useScrollToTop()
   // const circleRef = useRef(null)
@@ -52,10 +61,14 @@ export default function MarkDownPage({ post }: { post: Post }) {
       }, 500)
     }
   }, [tocData])
+  useEffect(() => {
+    setTocData(initialToc || {})
+  }, [initialToc])
+
   return (
     <>
       <div className="markdown col-span-3" ref={ref}>
-        <RemoteMdxPage post={post} setTocData={setTocData}></RemoteMdxPage>
+        <RemoteMdxPage mdxSource={mdxSource}></RemoteMdxPage>
       </div>
       <div className="block">
         <Card className="sticky top-24">

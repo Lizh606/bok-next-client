@@ -10,7 +10,7 @@ export default function ReadTip({ show }: { show: boolean }) {
     >
       阅读全文
       <MaskIcon
-        src="/svgs/右箭头.svg"
+        src="/svgs/arrow-right.svg"
         size={16}
         className={clsxm(
           "h-4 w-4",
