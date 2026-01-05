@@ -1,6 +1,6 @@
 import Social from "@/components/Social"
-import Image from "next/image"
 import GiscusPanel from "@/ui/post/giscus-panel-client"
+import Image from "next/image"
 export default function About() {
   return (
     <div className="mt-8 flex flex-col gap-4">
@@ -47,7 +47,7 @@ export default function About() {
                 <li>
                   前端：Vue2/3、NextJS（React）、微前端、TailwindCSS、ElementUI
                 </li>
-                <li>GIS开发：ArcGIS API for JavaScript、OpenLayers</li>
+                <li>GIS开发：ArcGIS API for JavaScript、OpenLayers、Cesium</li>
                 <li>后端：NestJS、TypeORM</li>
                 <li>数据库：MySQL</li>
                 <li>其他：Vite、TypeScript</li>
@@ -58,9 +58,21 @@ export default function About() {
               <ul className="list-disc space-y-3 pl-8 pt-4 text-default-600 marker:text-primary-300">
                 <li>
                   <span className="text-[1.1rem] font-bold text-default-700">
-                    2021.12-present
+                    2021.12-2025.05
                   </span>{" "}
                   北京超图软件股份有限公司（上海数慧）
+                </li>
+                <li>
+                  <span className="text-[1.1rem] font-bold text-default-700">
+                    2025.05-2025.11
+                  </span>{" "}
+                  上海城市地理信息发展有限公司
+                </li>
+                <li>
+                  <span className="text-[1.1rem] font-bold text-default-700">
+                    2025.11-present
+                  </span>{" "}
+                  湖南韶峰应用数字研究院
                 </li>
               </ul>
             </li>
