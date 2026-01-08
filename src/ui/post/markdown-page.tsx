@@ -1,5 +1,5 @@
 "use client"
-import Loading from "@/app/(app)/loading"
+import Loading from "@/app/[locale]/(app)/loading"
 import type { Post } from "@/lib/post"
 import type { MDXRemoteSerializeResult } from "next-mdx-remote"
 import { Card, CardBody } from "@heroui/react"

@@ -5,7 +5,15 @@ import clsx from "clsx"
 import Link from "next/link"
 import { useMemo } from "react"
 import { usePathname } from "next/navigation"
-export default function PostSortList({ posts }: { posts: Post[] }) {
+import type { Locale } from "@/i18n/config"
+
+export default function PostSortList({
+  posts,
+  locale
+}: {
+  posts: Post[]
+  locale: Locale
+}) {
   const sorts = useMemo(() => {
     const groupedBySort = posts.reduce((acc: Record<string, number>, item) => {
       acc[item.sort] = (acc[item.sort] || 0) + 1
@@ -22,7 +30,7 @@ export default function PostSortList({ posts }: { posts: Post[] }) {
     <>
       {sorts.map((sort, i) => {
         return (
-          <Link href={`/posts/${sort.sort}`} key={i}>
+          <Link href={`/${locale}/posts/${sort.sort}`} key={i}>
             <div
               className={clsx(
                 "inline-block cursor-pointer",

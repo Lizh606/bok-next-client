@@ -1,0 +1,204 @@
+{
+  "header": {
+    "home": "首页",
+    "posts": "文章",
+    "time": "时光",
+    "about": "关于",
+    "switchToEn": "EN",
+    "switchToZh": "中"
+  },
+  "home": {
+    "hero": {
+      "greeting": "👋 你好，我是 {author}",
+      "title": "A Fighting Web",
+      "tag": "<Developer />",
+      "subtitle": "Going to A NodeJS Full Stack Developer"
+    },
+    "personScreen": {
+      "tagline": "世间所有路都将与你相逢",
+      "avatarAlt": "头像",
+      "arrowAlt": "向下"
+    },
+    "postScreen": {
+      "title": "积跬步，行千里",
+      "publishedAlt": "发布时间",
+      "readMore": "阅读全文",
+      "readMoreAlt": "阅读全文"
+    },
+    "growth": {
+      "title": "站点历程",
+      "allLabel": "全部",
+      "swipeHint": "「 左右滑动查看 」",
+      "growingLabel": "💪 GROWING...",
+      "typeLabels": {
+        "feature": "新功能",
+        "deploy": "部署",
+        "domain": "域名",
+        "server": "服务器",
+        "backend": "后端",
+        "frontend": "前端",
+        "security": "安全"
+      },
+      "items": [
+        {
+          "date": "2025-02-16",
+          "event": "引入Giscus评论系统",
+          "type": "feature",
+          "icon": "💭",
+          "milestone": true
+        },
+        {
+          "date": "2025-02-15",
+          "event": "网站整体迁移至wanyue.me",
+          "type": "deploy",
+          "icon": "🚀",
+          "milestone": true
+        },
+        {
+          "date": "2025-02-13",
+          "event": "新域名wanyue.me备案成功",
+          "type": "domain",
+          "icon": "📝"
+        },
+        {
+          "date": "2025-02-12",
+          "event": "前后端成功部署到服务器",
+          "type": "deploy",
+          "icon": "📦",
+          "milestone": true
+        },
+        {
+          "date": "2025-02-10",
+          "event": "服务器迁移至47.102.86.191",
+          "type": "server",
+          "icon": "🖥️"
+        },
+        {
+          "date": "2024-04-19",
+          "event": "整体接入NestJS接口",
+          "type": "backend",
+          "icon": "🔌",
+          "milestone": true
+        },
+        {
+          "date": "2024-04-18",
+          "event": "博客后台管理发布",
+          "type": "frontend",
+          "icon": "⚙️",
+          "milestone": true
+        },
+        {
+          "date": "2024-04-10",
+          "event": "博客前端初版发布",
+          "type": "frontend",
+          "icon": "🎨",
+          "milestone": true
+        },
+        {
+          "date": "2024-03-19",
+          "event": "使用域名部署Vercel",
+          "type": "deploy",
+          "icon": "🚀"
+        },
+        {
+          "date": "2024-03-18",
+          "event": "域名备案通过",
+          "type": "domain",
+          "icon": "📝"
+        },
+        {
+          "date": "2024-03-13",
+          "event": "NestJS博客框架搭建",
+          "type": "backend",
+          "icon": "🏗️",
+          "milestone": true
+        },
+        {
+          "date": "2024-03-08",
+          "event": "全面升级为HTTPS",
+          "type": "security",
+          "icon": "🔒"
+        },
+        {
+          "date": "2024-03-07",
+          "event": "域名izeper.icu注册",
+          "type": "domain",
+          "icon": "🌐"
+        },
+        {
+          "date": "2024-02-20",
+          "event": "云服务器开通",
+          "type": "server",
+          "icon": "☁️",
+          "milestone": true
+        }
+      ]
+    },
+    "giscusTitle": "博客首页"
+  },
+  "about": {
+    "title": "关于我",
+    "avatarAlt": "头像",
+    "role": "Web/WebGIS前端工程师",
+    "intro": "积累工作与学习的经验，记录前端工程师的成长",
+    "nameLabel": "姓名",
+    "nameValue": "李泽航",
+    "locationLabel": "坐标",
+    "locationValue": "上海",
+    "hometownLabel": "籍贯",
+    "hometownValue": "福建莆田",
+    "bioLabel": "自述",
+    "bioValue": "前端工程师一枚，正在努力学习Node全栈",
+    "skillsLabel": "技能",
+    "skills": [
+      "前端：Vue2/3、NextJS（React）、微前端、TailwindCSS、ElementUI",
+      "GIS开发：ArcGIS API for JavaScript、OpenLayers、Cesium",
+      "后端：NestJS、TypeORM",
+      "数据库：MySQL",
+      "其他：Vite、TypeScript"
+    ],
+    "workLabel": "工作历程",
+    "work": [
+      {
+        "range": "2021.12-2025.05",
+        "company": "北京超图软件股份有限公司（上海数慧）"
+      },
+      {
+        "range": "2025.05-2025.11",
+        "company": "上海城市地理信息发展有限公司"
+      },
+      {
+        "range": "2025.11-present",
+        "company": "湖南韶峰应用数字研究院"
+      }
+    ],
+    "giscusTitle": "个人信息"
+  },
+  "posts": {
+    "searchPlaceholder": "搜索文章",
+    "searchAlt": "搜索",
+    "categoriesLabel": "文章分类",
+    "readMore": "阅读全文",
+    "readMoreAlt": "阅读全文"
+  },
+  "time": {
+    "title": "时间线",
+    "countLabel": "共有 {count} 篇文章，再接再厉",
+    "dayOfYearLabel": "今天是 {year} 年的第 {day} 天",
+    "yearProgressLabel": "今年已过 {percent} %",
+    "todayProgressLabel": "今天已过 {percent} %",
+    "nowPlayingLabel": "正在播放"
+  },
+  "postDetail": {
+    "timeAlt": "时间"
+  },
+  "notFound": {
+    "title": "404 Not Found",
+    "backHome": "返回首页"
+  },
+  "metadata": {
+    "aboutTitle": "关于",
+    "timeTitle": "时光",
+    "postsTitle": "文章"
+  }
+}

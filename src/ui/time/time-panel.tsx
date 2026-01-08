@@ -1,5 +1,26 @@
 "use client"
+import type React from "react"
 import { useEffect, useState } from "react"
+
+type TimePanelProps = {
+  dayOfYearLabel: string
+  yearProgressLabel: string
+  todayProgressLabel: string
+  nowPlayingLabel: string
+}
+
+const renderTemplate = (
+  template: string,
+  values: Record<string, React.ReactNode>
+) => {
+  const pattern = /(\{year\}|\{day\}|\{percent\})/g
+  return template.split(pattern).map((part, index) => {
+    if (values[part]) {
+      return <span key={`${part}-${index}`}>{values[part]}</span>
+    }
+    return <span key={`${part}-${index}`}>{part}</span>
+  })
+}
 
 const quotes = [
   "原来时间最远 不是距离而是昨天",
@@ -9,7 +30,12 @@ const quotes = [
 ]
 const singerText = "-- G.E.M.邓紫棋"
 
-export default function TimePanel() {
+export default function TimePanel({
+  dayOfYearLabel,
+  yearProgressLabel,
+  todayProgressLabel,
+  nowPlayingLabel
+}: TimePanelProps) {
   // 获取当前年份
   const currentYear: number = new Date().getFullYear()
 
@@ -26,6 +52,7 @@ export default function TimePanel() {
   // 获取今天已过百分比
   const [remainingPercentage, setRemainingPercentage] = useState(0)
 
+  const safeQuotes = quotes.length ? quotes : [""]
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
   const [displayedLyric, setDisplayedLyric] = useState("")
   const [displayedSinger, setDisplayedSinger] = useState("")
@@ -84,7 +111,7 @@ export default function TimePanel() {
   useEffect(() => {
     const quoteInterval = setInterval(() => {
       setCurrentQuoteIndex((prevIndex) =>
-        prevIndex === quotes.length - 1 ? 0 : prevIndex + 1
+        prevIndex === safeQuotes.length - 1 ? 0 : prevIndex + 1
       )
     }, 4000)
 
@@ -92,7 +119,7 @@ export default function TimePanel() {
   }, [])
 
   useEffect(() => {
-    const lyricChars = quotes[currentQuoteIndex].split("")
+    const lyricChars = safeQuotes[currentQuoteIndex].split("")
     const singerChars = singerText.split("")
     const timers: ReturnType<typeof setTimeout>[] = []
     const lyricInterval = 70
@@ -141,18 +168,26 @@ export default function TimePanel() {
   return (
     <div className="flex flex-col gap-2">
       <p>
-        今天是 <b className="text-highlight">{currentYear}</b> 年的第{" "}
-        <b className="text-highlight">{dayOfYear}</b> 天
+        {renderTemplate(dayOfYearLabel, {
+          "{year}": <b className="text-highlight">{currentYear}</b>,
+          "{day}": <b className="text-highlight">{dayOfYear}</b>
+        })}
       </p>
       <p>
-        今年已过 <b className="text-highlight">{PassDayPercent.toFixed(6)}</b> %
+        {renderTemplate(yearProgressLabel, {
+          "{percent}": (
+            <b className="text-highlight">{PassDayPercent.toFixed(6)}</b>
+          )
+        })}
       </p>
       <p>
-        今天已过{" "}
-        <span className="text-highlight transition-all duration-[1] ease-linear">
-          {remainingPercentage.toFixed(6)}
-        </span>{" "}
-        %
+        {renderTemplate(todayProgressLabel, {
+          "{percent}": (
+            <span className="text-highlight transition-all duration-[1] ease-linear">
+              {remainingPercentage.toFixed(6)}
+            </span>
+          )
+        })}
       </p>
       <div className="mt-8 flex w-full max-w-xl justify-center">
         <div className="relative w-full overflow-hidden rounded-[30px] border px-6 py-8 text-left shadow-[0_6px_20px_rgba(15,23,42,0.1)] dark:shadow-[0_30px_90px_rgba(15,23,42,0.65)] dark:border-white/10 dark:text-white md:px-8">
@@ -162,7 +197,7 @@ export default function TimePanel() {
           <span className="pointer-events-none absolute -bottom-6 -left-4 h-24 w-24 rounded-full bg-[#61B9AF]/30 blur-3xl dark:bg-purple-300/50" aria-hidden="true" />
           <div className="relative z-10 space-y-3">
             <p className="text-xs uppercase tracking-[0.6em] text-slate-700 dark:text-white/60">
-              now playing
+              {nowPlayingLabel}
             </p>
             <div className="space-y-3 text-slate-800 drop-shadow-[0_0_20px_rgba(97,185,175,0.8)] dark:text-white min-h-[4.5rem]">
               <span

@@ -5,17 +5,27 @@ import { formatDate } from "@/utils/date"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useAppTheme } from "../../hooks/useAppTheme"
 import ReadTip from "./read-tip"
+import type { Locale } from "@/i18n/config"
 export default function PostCard({
   post,
-  index
+  index,
+  locale,
+  readMore,
+  readMoreAlt
 }: {
   post: Post
   index: number
+  locale: Locale
+  readMore: string
+  readMoreAlt: string
 }) {
   const { isHover, bind } = useHover()
   const { currentTheme } = useAppTheme()
+  const router = useRouter()
+  const href = `/${locale}/posts/${post.sort}/${post.id}`
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }} // 初始状态，透明度为0，缩放为0.5
@@ -29,9 +39,15 @@ export default function PostCard({
     >
       <div className="relative p-4">
         <Link
-          href={`/posts/${post.sort}/${post.id}`}
+          href={href}
           className="fade-in-up flex cursor-pointer flex-col gap-2 overflow-hidden no-underline transition"
-          {...bind}
+          ref={bind.ref}
+          onMouseEnter={() => {
+            bind.onMouseEnter()
+            router.prefetch(href)
+          }}
+          onMouseLeave={bind.onMouseLeave}
+          onFocus={() => router.prefetch(href)}
         >
           <div
             className={clsx(
@@ -50,7 +66,11 @@ export default function PostCard({
               </div>
               <div> {post.date ? formatDate(post.date) : ""}</div>
             </div>
-            <ReadTip show={isHover}></ReadTip>
+            <ReadTip
+              show={isHover}
+              label={readMore}
+              iconAlt={readMoreAlt}
+            ></ReadTip>
           </div>
         </Link>
 

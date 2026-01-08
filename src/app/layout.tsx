@@ -1,5 +1,6 @@
 import BackToTop from "@/components/BackToTop"
 import UpdateNotificationClient from "@/components/UpdateNotificationClient"
+import { defaultLocale, isLocale } from "@/i18n/config"
 import "@/styles/globals.css"
 import { Metadata } from "next"
 import localFont from "next/font/local"
@@ -15,12 +16,18 @@ export const metadata: Metadata = {
   description: process.env.NEXT_PUBLIC_BOK_NAME
 }
 export default async function RootLayout({
-  children
+  children,
+  params
 }: Readonly<{
   children: React.ReactNode
+  params?: { locale?: string }
 }>) {
+  const locale = isLocale(params?.locale ?? "")
+    ? params?.locale ?? defaultLocale
+    : defaultLocale
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${myFont.className} relative m-0 h-full overflow-y-auto overflow-x-hidden p-0 text-default-700`}
       >

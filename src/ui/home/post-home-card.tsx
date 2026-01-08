@@ -2,10 +2,12 @@
 
 import useHover from "@/hooks/useHover"
 import type { Post } from "@/lib/post"
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import ReadTip from "../post/read-tip"
 
 const getMonthDay = (date: string) => {
@@ -19,12 +21,25 @@ const getMonthDay = (date: string) => {
 
 export default function PostHomeCard({
   post,
-  index
+  index,
+  publishedAlt,
+  readMore,
+  readMoreAlt
 }: {
   post: Post
   index: number
+  publishedAlt: string
+  readMore: string
+  readMoreAlt: string
 }) {
   const { isHover, bind } = useHover()
+  const router = useRouter()
+  const pathname = usePathname()
+  const segments = pathname.split("/").filter(Boolean)
+  const locale = (isLocale(segments[0] ?? "")
+    ? segments[0]
+    : defaultLocale) as Locale
+  const href = `/${locale}/posts/${post.sort}/${post.id}`
   const displayDate = post.date ? getMonthDay(post.date) : ""
   const tags =
     post.tag
@@ -44,9 +59,15 @@ export default function PostHomeCard({
       }}
     >
       <Link
-        href={`posts/${post.sort}/${post.id}`}
+        href={href}
         className="block w-full max-w-[420px]"
-        {...bind}
+        ref={bind.ref}
+        onMouseEnter={() => {
+          bind.onMouseEnter()
+          router.prefetch(href)
+        }}
+        onMouseLeave={bind.onMouseLeave}
+        onFocus={() => router.prefetch(href)}
       >
         <div className="group relative">
           <div
@@ -74,7 +95,7 @@ export default function PostHomeCard({
               >
                 <Image
                   src="/svgs/time.svg"
-                  alt="发布时间"
+                  alt={publishedAlt}
                   width={20}
                   height={20}
                   className="h-5 w-5"
@@ -114,7 +135,11 @@ export default function PostHomeCard({
                   ))}
                 </div>
                 <div className="flex items-center gap-2 text-slate-500 transition-colors duration-200 group-hover:text-highlight-light dark:text-slate-200 dark:group-hover:text-highlight-dark">
-                  <ReadTip show={isHover}></ReadTip>
+                  <ReadTip
+                    show={isHover}
+                    label={readMore}
+                    iconAlt={readMoreAlt}
+                  ></ReadTip>
                 </div>
               </div>
             </div>

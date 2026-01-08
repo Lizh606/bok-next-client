@@ -1,0 +1,204 @@
+{
+  "header": {
+    "home": "Home",
+    "posts": "Posts",
+    "time": "Timeline",
+    "about": "About",
+    "switchToEn": "EN",
+    "switchToZh": "中"
+  },
+  "home": {
+    "hero": {
+      "greeting": "👋 HI, I'M {author}",
+      "title": "A Fighting Web",
+      "tag": "<Developer />",
+      "subtitle": "Going to A NodeJS Full Stack Developer"
+    },
+    "personScreen": {
+      "tagline": "All roads will meet you",
+      "avatarAlt": "Avatar",
+      "arrowAlt": "Scroll down"
+    },
+    "postScreen": {
+      "title": "Step by step, miles ahead",
+      "publishedAlt": "Published at",
+      "readMore": "Read more",
+      "readMoreAlt": "Read more"
+    },
+    "growth": {
+      "title": "Site Journey",
+      "allLabel": "All",
+      "swipeHint": "Swipe to view",
+      "growingLabel": "💪 GROWING...",
+      "typeLabels": {
+        "feature": "Feature",
+        "deploy": "Deploy",
+        "domain": "Domain",
+        "server": "Server",
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "security": "Security"
+      },
+      "items": [
+        {
+          "date": "2025-02-16",
+          "event": "Giscus comments system introduced",
+          "type": "feature",
+          "icon": "💭",
+          "milestone": true
+        },
+        {
+          "date": "2025-02-15",
+          "event": "Site migrated to wanyue.me",
+          "type": "deploy",
+          "icon": "🚀",
+          "milestone": true
+        },
+        {
+          "date": "2025-02-13",
+          "event": "ICP filing approved for wanyue.me",
+          "type": "domain",
+          "icon": "📝"
+        },
+        {
+          "date": "2025-02-12",
+          "event": "Backend and frontend deployed to server",
+          "type": "deploy",
+          "icon": "📦",
+          "milestone": true
+        },
+        {
+          "date": "2025-02-10",
+          "event": "Server migrated to 47.102.86.191",
+          "type": "server",
+          "icon": "🖥️"
+        },
+        {
+          "date": "2024-04-19",
+          "event": "NestJS APIs integrated",
+          "type": "backend",
+          "icon": "🔌",
+          "milestone": true
+        },
+        {
+          "date": "2024-04-18",
+          "event": "Admin dashboard released",
+          "type": "frontend",
+          "icon": "⚙️",
+          "milestone": true
+        },
+        {
+          "date": "2024-04-10",
+          "event": "Frontend initial release",
+          "type": "frontend",
+          "icon": "🎨",
+          "milestone": true
+        },
+        {
+          "date": "2024-03-19",
+          "event": "Deployed to Vercel with custom domain",
+          "type": "deploy",
+          "icon": "🚀"
+        },
+        {
+          "date": "2024-03-18",
+          "event": "ICP filing approved",
+          "type": "domain",
+          "icon": "📝"
+        },
+        {
+          "date": "2024-03-13",
+          "event": "NestJS blog framework built",
+          "type": "backend",
+          "icon": "🏗️",
+          "milestone": true
+        },
+        {
+          "date": "2024-03-08",
+          "event": "Full HTTPS upgrade",
+          "type": "security",
+          "icon": "🔒"
+        },
+        {
+          "date": "2024-03-07",
+          "event": "Domain izeper.icu registered",
+          "type": "domain",
+          "icon": "🌐"
+        },
+        {
+          "date": "2024-02-20",
+          "event": "Cloud server launched",
+          "type": "server",
+          "icon": "☁️",
+          "milestone": true
+        }
+      ]
+    },
+    "giscusTitle": "Blog Home"
+  },
+  "about": {
+    "title": "About Me",
+    "avatarAlt": "Avatar",
+    "role": "Web/WebGIS Frontend Engineer",
+    "intro": "Collecting work and study experience, recording the growth of a frontend engineer.",
+    "nameLabel": "Name",
+    "nameValue": "Zehang Li",
+    "locationLabel": "Location",
+    "locationValue": "Shanghai",
+    "hometownLabel": "Hometown",
+    "hometownValue": "Putian, Fujian",
+    "bioLabel": "Bio",
+    "bioValue": "Frontend engineer, working on Node full-stack.",
+    "skillsLabel": "Skills",
+    "skills": [
+      "Frontend: Vue2/3, Next.js (React), Micro-frontend, Tailwind CSS, Element UI",
+      "GIS: ArcGIS API for JavaScript, OpenLayers, Cesium",
+      "Backend: NestJS, TypeORM",
+      "Database: MySQL",
+      "Others: Vite, TypeScript"
+    ],
+    "workLabel": "Work Experience",
+    "work": [
+      {
+        "range": "2021.12-2025.05",
+        "company": "北京超图软件股份有限公司（上海数慧）"
+      },
+      {
+        "range": "2025.05-2025.11",
+        "company": "上海城市地理信息发展有限公司"
+      },
+      {
+        "range": "2025.11-present",
+        "company": "湖南韶峰应用数字研究院"
+      }
+    ],
+    "giscusTitle": "Profile"
+  },
+  "posts": {
+    "searchPlaceholder": "Search posts",
+    "searchAlt": "Search",
+    "categoriesLabel": "Categories",
+    "readMore": "Read more",
+    "readMoreAlt": "Read more"
+  },
+  "time": {
+    "title": "Timeline",
+    "countLabel": "Total {count} posts, keep going",
+    "dayOfYearLabel": "Today is day {day} of {year}",
+    "yearProgressLabel": "Year progress {percent} %",
+    "todayProgressLabel": "Today's progress {percent} %",
+    "nowPlayingLabel": "Now playing"
+  },
+  "postDetail": {
+    "timeAlt": "Time"
+  },
+  "notFound": {
+    "title": "404 Not Found",
+    "backHome": "Back Home"
+  },
+  "metadata": {
+    "aboutTitle": "About",
+    "timeTitle": "Timeline",
+    "postsTitle": "Posts"
+  }
+}

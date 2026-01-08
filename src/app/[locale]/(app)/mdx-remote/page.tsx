@@ -5,7 +5,7 @@ import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import { visit } from "unist-util-visit"
 
-export const dynamic = "force-dynamic"
+export const revalidate = 1800
 
 export default async function RemoteMdxPage() {
   const post = await getPostById(3)
