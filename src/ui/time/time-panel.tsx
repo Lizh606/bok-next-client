@@ -1,12 +1,18 @@
 "use client"
 import type React from "react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+
+type QuoteEntry = {
+  text: string
+  singer: string
+}
 
 type TimePanelProps = {
   dayOfYearLabel: string
   yearProgressLabel: string
   todayProgressLabel: string
   nowPlayingLabel: string
+  quotes?: QuoteEntry[]
 }
 
 const renderTemplate = (
@@ -22,19 +28,31 @@ const renderTemplate = (
   })
 }
 
-const quotes = [
-  "原来时间最远 不是距离而是昨天",
-  "天空没有极限 你的未来无边",
-  "生命够曲折才够真实 人痛过才够坚持",
-  "成长要学会独处 虽然有一点孤独"
+const defaultQuotes: QuoteEntry[] = [
+  {
+    text: "原来时间最远 不是距离而是昨天",
+    singer: "-- G.E.M.邓紫棋"
+  },
+  {
+    text: "天空没有极限 你的未来无边",
+    singer: "-- G.E.M.邓紫棋"
+  },
+  {
+    text: "生命够曲折才够真实 人痛过才够坚持",
+    singer: "-- G.E.M.邓紫棋"
+  },
+  {
+    text: "成长要学会独处 虽然有一点孤独",
+    singer: "-- G.E.M.邓紫棋"
+  }
 ]
-const singerText = "-- G.E.M.邓紫棋"
 
 export default function TimePanel({
   dayOfYearLabel,
   yearProgressLabel,
   todayProgressLabel,
-  nowPlayingLabel
+  nowPlayingLabel,
+  quotes
 }: TimePanelProps) {
   // 获取当前年份
   const currentYear: number = new Date().getFullYear()
@@ -52,7 +70,10 @@ export default function TimePanel({
   // 获取今天已过百分比
   const [remainingPercentage, setRemainingPercentage] = useState(0)
 
-  const safeQuotes = quotes.length ? quotes : [""]
+  const safeQuotes = useMemo(
+    () => (quotes && quotes.length ? quotes : defaultQuotes),
+    [quotes]
+  )
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
   const [displayedLyric, setDisplayedLyric] = useState("")
   const [displayedSinger, setDisplayedSinger] = useState("")
@@ -116,11 +137,13 @@ export default function TimePanel({
     }, 4000)
 
     return () => clearInterval(quoteInterval)
-  }, [])
+  }, [safeQuotes.length])
 
   useEffect(() => {
-    const lyricChars = safeQuotes[currentQuoteIndex].split("")
-    const singerChars = singerText.split("")
+    const currentQuote =
+      safeQuotes[currentQuoteIndex] ?? defaultQuotes[0]
+    const lyricChars = currentQuote.text.split("")
+    const singerChars = currentQuote.singer.split("")
     const timers: ReturnType<typeof setTimeout>[] = []
     const lyricInterval = 70
     const singerInterval = 60
@@ -163,7 +186,7 @@ export default function TimePanel({
     return () => {
       timers.forEach((timer) => clearTimeout(timer))
     }
-  }, [currentQuoteIndex])
+  }, [currentQuoteIndex, safeQuotes])
 
   return (
     <div className="flex flex-col gap-2">

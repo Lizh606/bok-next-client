@@ -3,22 +3,24 @@ import type { Config } from "@/ui/home/Info-writer-animation"
 import InfoWriterAnimation from "@/ui/home/Info-writer-animation"
 import Screen from "../../components/Screen"
 import PostHomeCard from "./post-home-card"
+import type { Locale } from "@/i18n/config"
 
 type PostScreenProps = {
   title: string
   publishedAlt: string
   readMore: string
   readMoreAlt: string
+  locale: Locale
 }
 
 export default async function PostScreen({
   title,
   publishedAlt,
   readMore,
-  readMoreAlt
+  readMoreAlt,
+  locale
 }: PostScreenProps) {
-  const queryParams = { page: 1, size: 3 }
-  const posts = await getPostList(queryParams)
+  const posts = await getPostList({ page: 1, size: 3, locale })
   const config = {
     title: {
       template: [

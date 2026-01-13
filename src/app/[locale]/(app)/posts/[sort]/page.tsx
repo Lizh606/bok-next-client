@@ -21,8 +21,7 @@ type Props = {
 export default async function Sort(props: Props) {
   const params = await props.params
   const dictionary = await getDictionary(params.locale)
-  const queryParams = { page: 1, size: 999 }
-  const posts = await getPostList(queryParams)
+  const posts = await getPostList({ page: 1, size: 999, locale })
   const postsBySort = posts.filter(
     (post) => post.sort === decodeURIComponent(params.sort)
   )

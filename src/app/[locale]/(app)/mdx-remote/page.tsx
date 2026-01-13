@@ -4,11 +4,18 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import { visit } from "unist-util-visit"
+import type { Locale } from "@/i18n/config"
 
 export const revalidate = 1800
 
-export default async function RemoteMdxPage() {
-  const post = await getPostById(3)
+type RemoteMdxProps = {
+  params: {
+    locale: Locale
+  }
+}
+
+export default async function RemoteMdxPage({ params }: RemoteMdxProps) {
+  const post = await getPostById(3, params.locale)
   if (!post) return <div>Post not found</div>
   const markdown = post.content
   const mdxOptions = {

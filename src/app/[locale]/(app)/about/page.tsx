@@ -1,8 +1,10 @@
 import Social from "@/components/Social"
+import type { Locale } from "@/i18n/config"
+import { getDictionary } from "@/i18n/get-dictionary"
+import { getMediaFile, resolveAvatarMediaId } from "@/lib/media"
+import { fetchPersonProfile } from "@/lib/person"
 import GiscusPanel from "@/ui/post/giscus-panel-client"
 import Image from "next/image"
-import { getDictionary } from "@/i18n/get-dictionary"
-import type { Locale } from "@/i18n/config"
 
 export default async function About({
   params
@@ -11,7 +13,11 @@ export default async function About({
 }>) {
   const { locale } = await params
   const dictionary = await getDictionary(locale)
-  const about = dictionary.about
+  const profile = await fetchPersonProfile(locale)
+  const about = profile ?? dictionary.about
+  const avatarMedia = await getMediaFile(resolveAvatarMediaId())
+  const avatarSrc = avatarMedia?.url
+  const avatarAlt = avatarMedia?.alt as string
   return (
     <div className="mt-8 flex flex-col gap-4">
       <h1 className="border-b border-solid border-gray-300 pb-6 text-center text-4xl font-bold">
@@ -21,11 +27,12 @@ export default async function About({
         <div className="flex flex-col items-center gap-4">
           <Image
             className="rounded-full transition-transform hover:scale-105"
-            src="/images/avg.png"
-            alt={about.avatarAlt}
+            src={avatarSrc ?? "/images/avg.png"}
+            alt={avatarAlt}
             width={240}
             height={240}
             priority
+            unoptimized={process.env.NODE_ENV !== "production"}
           />
           <h2 className="text-2xl font-bold">{process.env.BOK_AUTHOR}</h2>
           <p className="text-default-500">{about.role}</p>

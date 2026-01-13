@@ -1,16 +1,9 @@
 "use client"
 import Screen from "@/components/Screen"
+import type { SiteGrowthEvent } from "@/lib/site-growth"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { useAppTheme } from "../../hooks/useAppTheme"
-
-type GrowthItem = {
-  date: string
-  event: string
-  type: string
-  icon: string
-  milestone?: boolean
-}
 
 type PersonGrowthProps = {
   title: string
@@ -18,7 +11,7 @@ type PersonGrowthProps = {
   swipeHint: string
   growingLabel: string
   typeLabels: Record<string, string>
-  items: GrowthItem[]
+  items: SiteGrowthEvent[]
 }
 
 export default function PersonGrowth({
@@ -33,7 +26,9 @@ export default function PersonGrowth({
   const { currentTheme } = useAppTheme()
 
   // 提取所有独特的类型
-  const types = Array.from(new Set(items.map((item) => item.type)))
+  const types = Array.from(
+    new Set(items.map((item) => item.type).filter(Boolean))
+  )
 
   // 根据类型筛选数据
   const filteredGrowthArr = selectedType
@@ -115,7 +110,7 @@ export default function PersonGrowth({
                 </span>
                 <div className="flex items-center gap-3">
                   <span className="text-2xl transition-transform duration-300 group-hover:scale-110">
-                    {growth.icon}
+                    {growth.icon ?? "📌"}
                   </span>
                   <span className="text-sm text-default-500 transition-colors duration-300 group-hover:text-default-800">
                     {growth.event}
@@ -130,6 +125,9 @@ export default function PersonGrowth({
   )
 }
 
-function getTypeLabel(type: string, typeLabels: Record<string, string>): string {
+function getTypeLabel(
+  type: string,
+  typeLabels: Record<string, string>
+): string {
   return typeLabels[type] || type
 }

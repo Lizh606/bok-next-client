@@ -1,7 +1,7 @@
 "use client"
+import type { Locale } from "@/i18n/config"
 import type { Post } from "@/lib/post"
 import Link from "next/link"
-import type { Locale } from "@/i18n/config"
 
 export default function TimePosts({
   posts,
@@ -53,14 +53,17 @@ export default function TimePosts({
                 >
                   <Link
                     href={`/${locale}/posts/${item.sort}/${item.id}`}
-                    className="flex cursor-pointer items-center"
+                    className="flex min-w-0 cursor-pointer items-center"
                   >
                     <div className="flex items-center gap-4">
                       {/* <span className="h-2 w-2 rounded-full bg-highlight-light dark:bg-highlight-dark"></span> */}
                       <span className="tracking-wide">
                         {item.month}/{item.day}
                       </span>
-                      <span className="text-highlight-hover underline-animation">
+                      <span
+                        className="text-highlight-hover underline-animation max-w-[400px] truncate whitespace-nowrap"
+                        title={item.title}
+                      >
                         {item.title}
                       </span>
                     </div>

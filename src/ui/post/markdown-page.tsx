@@ -1,16 +1,16 @@
 "use client"
 import Loading from "@/app/[locale]/(app)/loading"
 import type { Post } from "@/lib/post"
-import type { MDXRemoteSerializeResult } from "next-mdx-remote"
 import { Card, CardBody } from "@heroui/react"
-import hljs from "highlight.js/lib/core"
 import "highlight.js/styles/atom-one-light.css"
+import type { MDXRemoteSerializeResult } from "next-mdx-remote"
 import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"
 import MarkdownNav from "./markdown-nav"
 // import RemoteMdxPage from "./mdx-remote-page"
 const RemoteMdxPage = dynamic(() => import("./mdx-remote-page"), {
-  loading: () => <Loading></Loading>
+  loading: () => <Loading></Loading>,
+  ssr: false
 })
 export default function MarkDownPage({
   post,

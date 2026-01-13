@@ -1,7 +1,8 @@
-import { getPostList } from "@/lib/post"
-import PostList from "@/ui/post/post-list"
-import { getDictionary } from "@/i18n/get-dictionary"
 import type { Locale } from "@/i18n/config"
+import { getDictionary } from "@/i18n/get-dictionary"
+import { getPostList } from "@/lib/post"
+
+import PostList from "@/ui/post/post-list-csr"
 
 export const revalidate = 1800
 
@@ -12,8 +13,7 @@ export default async function Posts({
 }>) {
   const { locale } = await params
   const dictionary = await getDictionary(locale)
-  const queryParams = { page: 1, size: 999 }
-  const posts = await getPostList(queryParams)
+  const posts = await getPostList({ page: 1, size: 999, locale })
   return (
     <PostList
       posts={posts}

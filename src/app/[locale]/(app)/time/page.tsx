@@ -1,4 +1,5 @@
 import Loading from "@/app/[locale]/(app)/loading"
+import { fetchPersonProfile } from "@/lib/person"
 import { getPostList } from "@/lib/post"
 import dynamicImport from "next/dynamic"
 import { getDictionary } from "@/i18n/get-dictionary"
@@ -34,8 +35,8 @@ export default async function Time({
 }>) {
   const { locale } = await params
   const dictionary = await getDictionary(locale)
-  const queryParams = { page: 1, size: 999 }
-  const posts = await getPostList(queryParams)
+  const personProfile = await fetchPersonProfile(locale)
+  const posts = await getPostList({ page: 1, size: 999, locale })
   return (
     <div className="flex flex-col gap-4">
       <div className="text-5xl font-extrabold">{dictionary.time.title}</div>
@@ -48,6 +49,7 @@ export default async function Time({
         yearProgressLabel={dictionary.time.yearProgressLabel}
         todayProgressLabel={dictionary.time.todayProgressLabel}
         nowPlayingLabel={dictionary.time.nowPlayingLabel}
+        quotes={personProfile?.quotes}
       ></TimePanel>
       <TimePosts posts={posts} locale={locale}></TimePosts>
     </div>

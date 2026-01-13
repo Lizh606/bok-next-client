@@ -1,6 +1,8 @@
 import Loading from "@/app/[locale]/(app)/loading"
-import { getDictionary } from "@/i18n/get-dictionary"
 import type { Locale } from "@/i18n/config"
+import { getDictionary } from "@/i18n/get-dictionary"
+import { getMediaFile, resolveAvatarMediaId } from "@/lib/media"
+import { getSiteGrowthList, type SiteGrowthEvent } from "@/lib/site-growth"
 import type { Config } from "@/ui/home/Info-writer-animation"
 import GiscusPanel from "@/ui/post/giscus-panel-client"
 import dynamicImport from "next/dynamic"
@@ -22,10 +24,23 @@ export default async function Home({
   const { BOK_AUTHOR } = process.env
   const dictionary = await getDictionary(resolvedParams.locale)
   const { hero, personScreen, postScreen, growth } = dictionary.home
-  const greeting = hero.greeting.replace(
-    "{author}",
-    BOK_AUTHOR ?? ""
-  )
+  const greeting = hero.greeting.replace("{author}", BOK_AUTHOR ?? "")
+  const avatarId = resolveAvatarMediaId()
+  let avatarSrc: string | undefined
+  try {
+    const avatarMedia = await getMediaFile(avatarId)
+    avatarSrc = avatarMedia?.url
+  } catch {
+    avatarSrc = undefined
+  }
+  let growthItems: SiteGrowthEvent[] = []
+  try {
+    growthItems = await getSiteGrowthList(resolvedParams.locale)
+  } catch (error) {
+    console.error("Failed to fetch site growths", error)
+  }
+  const growthList =
+    growthItems.length > 0 ? growthItems : (growth.items as SiteGrowthEvent[])
 
   const config = {
     title: {
@@ -73,6 +88,7 @@ export default async function Home({
         config={config}
         tagline={personScreen.tagline}
         avatarAlt={personScreen.avatarAlt}
+        avatarSrc={avatarSrc}
         arrowAlt={personScreen.arrowAlt}
       ></PersonScreen>
       <PostScreen
@@ -80,6 +96,7 @@ export default async function Home({
         publishedAlt={postScreen.publishedAlt}
         readMore={postScreen.readMore}
         readMoreAlt={postScreen.readMoreAlt}
+        locale={resolvedParams.locale}
       ></PostScreen>
       <div className="flex w-full items-center justify-center rounded-xl">
         <PersonGrowth
@@ -88,7 +105,7 @@ export default async function Home({
           swipeHint={growth.swipeHint}
           growingLabel={growth.growingLabel}
           typeLabels={growth.typeLabels}
-          items={growth.items}
+          items={growthList}
         ></PersonGrowth>
       </div>
       <div className="mx-auto mt-16 max-w-5xl">

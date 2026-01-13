@@ -1,3 +1,5 @@
+"use client"
+
 import { useTheme } from "next-themes"
 import { useCallback, useEffect, useState } from "react"
 
@@ -8,16 +10,9 @@ enum Themes {
 
 export function useAppTheme() {
   const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
 
-  const currentTheme =
-    typeof window !== "undefined"
-      ? theme === "system"
-        ? window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light"
-        : theme
-      : undefined
+  const currentTheme = mounted ? resolvedTheme : undefined
 
   const toggleTheme = useCallback(() => {
     switch (theme) {

@@ -4,6 +4,7 @@ import { CopyButton1 } from "@/components/CopyButton"
 import type { MDXRemoteSerializeResult } from "next-mdx-remote"
 import { MDXRemote } from "next-mdx-remote"
 import Image from "next/image"
+import { useId } from "react"
 
 type Props = {
   mdxSource: MDXRemoteSerializeResult
@@ -76,13 +77,14 @@ export default function RemoteMdxPage({ mdxSource }: Props) {
           style={{ width: "100%", height: "auto" }}
           priority={false}
           loading="lazy"
+          unoptimized={process.env.NODE_ENV !== "production"}
         />
       )
     },
 
-    code: (info: any) => {
+    code: function Code(info: any) {
       const { children } = info
-      const id = Math.random().toString(36).substr(2, 9)
+      const id = useId()
       // @ts-ignore
       if (info["data-language"]) {
         return (
@@ -115,7 +117,5 @@ export default function RemoteMdxPage({ mdxSource }: Props) {
       }
     }
   }
-  return (
-    <MDXRemote {...mdxSource} components={components} />
-  )
+  return <MDXRemote {...mdxSource} components={components} />
 }

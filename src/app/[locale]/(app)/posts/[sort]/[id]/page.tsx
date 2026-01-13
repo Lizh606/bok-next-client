@@ -1,17 +1,18 @@
 import WithIconTime from "@/components/WithIconTime"
-import { getPostById, getPostList } from "@/lib/post"
-import toc from "@jsdevtools/rehype-toc"
-import remarkGfm from "remark-gfm"
-import rehypeSlug from "rehype-slug"
-import rehypePrettyCode from "rehype-pretty-code"
-import { visit } from "unist-util-visit"
-import { serialize } from "next-mdx-remote/serialize"
+import type { Locale } from "@/i18n/config"
+import { getDictionary } from "@/i18n/get-dictionary"
+import { getPostById, getPostList, type Post } from "@/lib/post"
 import GiscusPanel from "@/ui/post/giscus-panel"
 import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
+import toc from "@jsdevtools/rehype-toc"
 import type { Metadata } from "next"
-import type { Locale } from "@/i18n/config"
-import { getDictionary } from "@/i18n/get-dictionary"
+import { serialize } from "next-mdx-remote/serialize"
+import { draftMode } from "next/headers"
+import rehypePrettyCode from "rehype-pretty-code"
+import rehypeSlug from "rehype-slug"
+import remarkGfm from "remark-gfm"
+import { visit } from "unist-util-visit"
 
 export const revalidate = 1800
 
@@ -22,15 +23,16 @@ type Props = {
 export async function generateStaticParams() {
   const posts = await getPostList({ page: 1, size: 999 })
   return posts
-    .filter((post) => post.id && post.sort)
-    .map((post) => ({
-      id: String(post.id),
+    .filter((post: Post) => post.id && post.sort)
+    .map((post: Post) => ({
+      id: post.id,
       sort: post.sort
     }))
 }
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
-  const post = await getPostById(Number(params.id))
+  const { isEnabled } = await draftMode()
+  const post = await getPostById(params.id, params.locale, isEnabled)
   return {
     title: post.title
   }
@@ -39,7 +41,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function Post(props: Props) {
   const params = await props.params
   const dictionary = await getDictionary(params.locale)
-  const post = await getPostById(Number(params.id))
+  const { isEnabled } = await draftMode()
+  const post = await getPostById(params.id, params.locale, isEnabled)
 
   // Serialize MDX on the server to avoid client-side async suspension
   let tocData: any = {}

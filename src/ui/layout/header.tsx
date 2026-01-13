@@ -1,9 +1,9 @@
 "use client"
+import MaskIcon from "@/components/MaskIcon"
 import useScrolling from "@/hooks/useScrolling"
 import { getClientDictionary } from "@/i18n/client"
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config"
 import { clsxm } from "@/lib/helper"
-import MaskIcon from "@/components/MaskIcon"
 import { Tab, Tabs } from "@heroui/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -20,14 +20,19 @@ export default function Header() {
   const router = useRouter()
   const scrolling = useScrolling()
   const segments = pathName.split("/").filter(Boolean)
-  const locale = (isLocale(segments[0] ?? "")
-    ? segments[0]
-    : defaultLocale) as Locale
-  const restSegments = isLocale(segments[0] ?? "") ? segments.slice(1) : segments
+  const locale = (
+    isLocale(segments[0] ?? "") ? segments[0] : defaultLocale
+  ) as Locale
+  const restSegments = isLocale(segments[0] ?? "")
+    ? segments.slice(1)
+    : segments
   const restPath = `/${restSegments.join("/")}`
-  const currentBasePath =
-    restSegments.length > 0 ? `/${restSegments[0]}` : "/"
+  const currentBasePath = restSegments.length > 0 ? `/${restSegments[0]}` : "/"
   const dictionary = getClientDictionary(locale)
+  const [avatarSrc, setAvatarSrc] = useState<string | undefined>()
+  const [avatarAlt, setAvatarAlt] = useState(
+    dictionary.home.personScreen.avatarAlt
+  )
   const zhPath = restPath === "/" ? "/zh" : `/zh${restPath}`
   const enPath = restPath === "/" ? "/en" : `/en${restPath}`
 
@@ -68,6 +73,34 @@ export default function Header() {
   useEffect(() => {
     currentTheme && setShow(true)
   }, [currentTheme])
+  useEffect(() => {
+    setAvatarAlt(dictionary.home.personScreen.avatarAlt)
+  }, [dictionary.home.personScreen.avatarAlt])
+  useEffect(() => {
+    const controller = new AbortController()
+    const loadAvatar = async () => {
+      try {
+        const response = await fetch("/api/avatar", {
+          signal: controller.signal
+        })
+        if (!response.ok) {
+          return
+        }
+        const data = await response.json()
+        if (data?.url) {
+          setAvatarSrc(data.url)
+        }
+        if (data?.alt) {
+          setAvatarAlt(data.alt)
+        }
+      } catch (error) {
+        if ((error as Error).name === "AbortError") return
+        console.error("Failed to load avatar media", error)
+      }
+    }
+    loadAvatar()
+    return () => controller.abort()
+  }, [locale])
   return (
     <>
       {pathName.includes("mdx") ? null : (
@@ -86,10 +119,11 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <Image
                 className="rounded-xl shadow-lg"
-                src={"/images/avg.png"}
-                alt="头像"
+                src={avatarSrc ?? "/images/avg.png"}
+                alt={avatarAlt}
                 width={40}
                 height={40}
+                unoptimized={process.env.NODE_ENV !== "production"}
               ></Image>
               {/* <span className="text-default-700 font-bold"> */}
               {/* {process.env.NEXT_PUBLIC_BOK_NAME} */}
@@ -157,6 +191,8 @@ export default function Header() {
                 href={locale === "zh" ? enPath : zhPath}
                 className="flex h-10 items-center gap-2 rounded-[20px] border border-default-200 bg-white px-3 text-xs font-semibold uppercase tracking-wide text-default-700 transition hover:border-default-300 dark:border-default-700 dark:bg-slate-900/60 dark:text-default-100"
                 aria-label="Language switch"
+                scroll={true}
+                prefetch={true}
               >
                 <MaskIcon
                   src="/svgs/site.svg"

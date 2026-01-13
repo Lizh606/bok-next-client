@@ -1,13 +1,13 @@
 "use client"
 
+import type { Locale } from "@/i18n/config"
 import { getPostList, type Post } from "@/lib/post"
 import { Divider, Input } from "@heroui/react"
 import { debounce } from "lodash"
 import Image from "next/image"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import PostCard from "./post-card"
 import PostSortList from "./post-sort-list"
-import type { Locale } from "@/i18n/config"
 export default function PostList({
   posts,
   allPosts,
@@ -29,7 +29,7 @@ export default function PostList({
 }) {
   const [showPosts, setShowPosts] = useState(posts)
   return (
-    <div className="m-auto grid grid-cols-4 gap-8 mt-8">
+    <div className="m-auto mt-8 grid grid-cols-4 gap-8">
       <div className="col-span-3 flex flex-col gap-4">
         {showPosts?.map((post: Post, i: number) => {
           return (
@@ -65,15 +65,19 @@ export default function PostList({
               />
             }
             type="search"
-            onValueChange={debounce(async (value) => {
-              const params = {
-                page: 1,
-                size: 99,
-                keyword: value
-              }
-              const postList = await getPostList(params)
-              setShowPosts(postList)
-            }, 500)}
+            onValueChange={useMemo(
+              () =>
+                debounce(async (value) => {
+                  const params = {
+                    page: 1,
+                    size: 99,
+                    keyword: value
+                  }
+                  const postList = await getPostList({ ...params, locale })
+                  setShowPosts(postList)
+                }, 500),
+              [locale]
+            )}
           />
           <span>{categoriesLabel}</span>
           <Divider className="my-1"></Divider>

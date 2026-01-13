@@ -19,12 +19,22 @@ class Request {
   private tokenHandler: TokenHandler
   private retryHandler: RetryHandler
   private cacheHandler: CacheHandler
+  private disableCache: boolean
+  private disableToken: boolean
 
-  constructor(config: AxiosRequestConfig) {
+  constructor(
+    config: AxiosRequestConfig,
+    options?: {
+      disableCache?: boolean
+      disableToken?: boolean
+    }
+  ) {
     this.instance = axios.create(config)
     this.tokenHandler = new TokenHandler(this.instance)
     this.retryHandler = new RetryHandler(this.instance)
     this.cacheHandler = new CacheHandler(this.instance)
+    this.disableCache = options?.disableCache ?? false
+    this.disableToken = options?.disableToken ?? false
 
     this.setupInterceptors()
   }
@@ -33,8 +43,12 @@ class Request {
     // 请求拦截器
     this.instance.interceptors.request.use(
       async (config) => {
+        const preConfig = config as CustomAxiosRequestConfig
+        if (this.disableCache) {
+          preConfig.cache = { enabled: false }
+        }
         // 1. 处理缓存
-        const result = await this.cacheHandler.getCachedData(config)
+        const result = await this.cacheHandler.getCachedData(preConfig as any)
         const customConfig = result as CustomAxiosRequestConfig
 
         // 如果有缓存数据，使用 CancelToken 取消请求并返回缓存数据
@@ -50,7 +64,9 @@ class Request {
           )
         }
         // 2. 处理token
-        config = await this.tokenHandler.addTokenToRequest(config)
+        if (!this.disableToken) {
+          config = await this.tokenHandler.addTokenToRequest(config)
+        }
         return config
       },
       (error) => Promise.reject(error)
@@ -60,7 +76,12 @@ class Request {
     this.instance.interceptors.response.use(
       async (response) => {
         // 1. 处理缓存
-        console.log("💾 设置缓存")
+        const config = response.config as CustomAxiosRequestConfig
+        if (!this.disableCache && config.cache?.enabled !== false) {
+          const baseURL = config.baseURL ?? ""
+          const url = config.url ?? ""
+          console.log("💾 设置缓存", `${baseURL}${url}`)
+        }
         response = await this.cacheHandler.setCachedData(response)
         return response.data
       },
@@ -114,6 +135,25 @@ class Request {
   }
 }
 
+const apiBaseURL = process.env.NEXT_PUBLIC_API_URL
+const cmsBaseURL = process.env.NEXT_PUBLIC_CMS_API_URL || apiBaseURL
+const cmsApiToken = process.env.NEXT_PUBLIC_CMS_API_TOKEN
+
 export const http = new Request({
-  baseURL: process.env.NEXT_PUBLIC_API_URL
+  baseURL: apiBaseURL
 })
+
+export const cmsHttp = new Request(
+  {
+    baseURL: cmsBaseURL,
+    headers: cmsApiToken
+      ? {
+          Authorization: `Bearer ${cmsApiToken}`
+        }
+      : undefined
+  },
+  {
+    disableCache: true,
+    disableToken: true
+  }
+)
