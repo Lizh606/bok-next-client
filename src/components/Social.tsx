@@ -63,6 +63,25 @@ const SocialLink = ({
   )
 }
 
+const copyToClipboard = async (text: string) => {
+  if (!text) {
+    throw new Error("empty text")
+  }
+  if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+  // 兼容不支持 Clipboard API 的环境
+  const textarea = document.createElement("textarea")
+  textarea.value = text
+  textarea.style.position = "fixed"
+  textarea.style.opacity = "0"
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand("copy")
+  document.body.removeChild(textarea)
+}
+
 export default function Social({
   svgClassName = "w-6 h-6"
 }: {
@@ -74,10 +93,12 @@ export default function Social({
       iconSrc: icons.wechat,
       onClick: async () => {
         try {
+          const wechat = process.env.NEXT_PUBLIC_BOK_WECHAT || ""
+          if (!wechat) {
+            throw new Error("微信号未配置")
+          }
           // TODO：消息弹窗暂用react-hot-toast，后续等nextUI出Toast组件更新
-          await navigator.clipboard.writeText(
-            process.env.NEXT_PUBLIC_BOK_WECHAT as string
-          )
+          await copyToClipboard(wechat)
           addToast({
             title: "微信号已复制到剪切板啦🫡",
             color: "success",
