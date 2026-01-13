@@ -97,7 +97,6 @@ export default function Social({
           if (!wechat) {
             throw new Error("微信号未配置")
           }
-          // TODO：消息弹窗暂用react-hot-toast，后续等nextUI出Toast组件更新
           await copyToClipboard(wechat)
           addToast({
             title: "微信号已复制到剪切板啦🫡",
@@ -133,10 +132,7 @@ export default function Social({
     }
   ]
   return (
-    <div
-      style={{ display: "flex" }}
-      className="items-center justify-center gap-4"
-    >
+    <div className="flex items-center justify-center gap-4">
       {socialConfig.map((social) => {
         return (
           <SocialLink
