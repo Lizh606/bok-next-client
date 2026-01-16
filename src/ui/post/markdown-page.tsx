@@ -8,7 +8,8 @@ import { useEffect, useMemo, useRef } from "react"
 import MarkdownNav, { type TocNode } from "./markdown-nav"
 
 const RemoteMdxPage = dynamic(() => import("./mdx-remote-page"), {
-  loading: () => <Loading></Loading>
+  loading: () => <Loading></Loading>,
+  ssr: false
 })
 
 export default function MarkDownPage({
