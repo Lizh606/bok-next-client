@@ -130,7 +130,7 @@ export default function Social({
     }
   ]
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="!flex items-center justify-center gap-4">
       {socialConfig.map((social) => {
         return (
           <SocialLink
