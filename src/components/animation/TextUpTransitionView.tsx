@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { FC, JSX } from "react";
+import type { FC, JSX } from "react"
 
 import { microReboundPreset } from "@/constants/spring"
 
@@ -26,7 +26,6 @@ export const TextUpTransitionView: FC<
   } = props
 
   if (!appear) {
-    // @ts-ignore
     return <div {...rest}>{text ?? children}</div>
   }
 

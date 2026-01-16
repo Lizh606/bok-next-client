@@ -1,8 +1,15 @@
 "use client"
 import type { Post } from "@/lib/post"
 import Link from "next/link"
+import type { Locale } from "@/i18n/config"
 
-export default function TimePosts({ posts }: { posts: Post[] }) {
+export default function TimePosts({
+  posts,
+  locale
+}: {
+  posts: Post[]
+  locale: Locale
+}) {
   posts.forEach((i) => {
     // 解析日期字符串
     const date = new Date(i.date)
@@ -45,7 +52,7 @@ export default function TimePosts({ posts }: { posts: Post[] }) {
                   className="timeline flex w-full items-center justify-between pl-4"
                 >
                   <Link
-                    href={`/posts/${item.sort}/${item.id}`}
+                    href={`/${locale}/posts/${item.sort}/${item.id}`}
                     className="flex cursor-pointer items-center"
                   >
                     <div className="flex items-center gap-4">

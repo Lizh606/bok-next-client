@@ -2,57 +2,65 @@
 import clsx from "clsx"
 import { debounce } from "lodash"
 import { useCallback, useEffect, useMemo, useState } from "react"
-export default function MarkdownNav(props: any) {
-  const [isCurrent, setCurrent] = useState(false)
-  // 使用 useCallback 优化路由变化处理函数
-  const handleRouteChange = useCallback(() => {
-    if (props.tagName === "a" && props.properties.href) {
-      const newHash = decodeURIComponent(window.location.hash)
-      const isCurrenHash = props.properties.href.toLowerCase() === newHash
-      setCurrent(isCurrenHash)
-    }
-  }, [props.tagName, props.properties?.href])
 
-  // 使用 useMemo 缓存 DOM 选择器
+export interface TocNode {
+  tagName: "nav" | "ol" | "li" | "a" | string
+  properties?: {
+    href?: string
+    [key: string]: unknown
+  }
+  children?: TocNode[]
+  value?: string
+}
+
+export default function MarkdownNav(props: TocNode) {
+  const [isCurrent, setCurrent] = useState(false)
+
+  const { tagName, properties } = props
+  const href = properties?.href
+
+  const handleRouteChange = useCallback(() => {
+    if (tagName === "a" && href) {
+      const newHash = decodeURIComponent(window.location.hash)
+      setCurrent(href.toLowerCase() === newHash)
+    }
+  }, [tagName, href])
+
   const getHashList = useCallback(() => {
     const allLinks = document.querySelectorAll("a[href^='#']")
     return Array.from(allLinks)
       .map((link) => (link as HTMLAnchorElement).href.split("#")[1])
       .filter(Boolean)
-      .map((hash) => decodeURIComponent(hash))
-      .map((hash) => `#${hash}`)
+      .map((hash) => `#${decodeURIComponent(hash)}`)
   }, [])
 
-  // 优化滚动处理函数
   const handleScroll = useMemo(
     () =>
-      debounce(async () => {
+      debounce(() => {
         if (props.tagName !== "a") return
         const hashList = getHashList()
         const inRangeHashList = hashList.filter((hash) => {
-          const element = document.getElementById(hash)
+          const element = document.getElementById(hash.slice(1))
           if (!element) return false
           const rect = element.getBoundingClientRect()
           return rect.top > 72 && rect.top < 150
         })
 
-        // 使用 Set 去重并找出最近的 hash
-        const closestHash = [...new Set(inRangeHashList)].reduce(
+        const closestHash = inRangeHashList.reduce(
           (closest, hash) => {
-            const element = document.getElementById(hash)
+            const element = document.getElementById(hash.slice(1))
             if (!element) return closest
             const distance = Math.abs(element.getBoundingClientRect().top - 70)
             return distance < closest.distance ? { hash, distance } : closest
           },
           { hash: "", distance: Infinity }
         ).hash
-        // 更新 URL
-        if (closestHash) {
-          if (props.properties.href === closestHash) {
-            const newUrl = `${window.location.pathname}${window.location.search}${props.properties.href.toLowerCase()}`
-            history.replaceState(null, "", newUrl)
-          }
+
+        if (closestHash && props.properties?.href === closestHash) {
+          const newUrl = `${window.location.pathname}${window.location.search}${closestHash.toLowerCase()}`
+          history.replaceState(null, "", newUrl)
         }
+
         if (window.scrollY === 0) {
           history.replaceState(
             null,
@@ -60,39 +68,49 @@ export default function MarkdownNav(props: any) {
             window.location.pathname + window.location.search
           )
         }
-        setTimeout(() => {
-          handleRouteChange()
-        }, 200)
-      }, 200), // 减少防抖时间以提高响应性
-    [props.tagName, props.properties?.href, handleRouteChange, getHashList]
+      }, 200),
+    [props.tagName, props.properties?.href, getHashList]
   )
+
   useEffect(() => {
-    handleScroll()
+    // 初始执行，通过延迟或调度逻辑避免 React 19 同步 setState 警告
+    const timer = setTimeout(() => handleRouteChange(), 0)
+    window.addEventListener("hashchange", handleRouteChange)
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [handleScroll])
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener("hashchange", handleRouteChange)
+      window.removeEventListener("scroll", handleScroll)
+      handleScroll.cancel()
+    }
+  }, [handleRouteChange, handleScroll])
+
+  const safeProperties = useMemo(() => {
+    const { ...rest } = props.properties || {}
+    return rest as Record<string, unknown>
+  }, [props.properties])
 
   switch (props.tagName) {
     case "nav":
       return (
-        <nav {...props.properties}>
-          {props.children.map((item: any, index: number) => (
+        <nav {...safeProperties}>
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </nav>
       )
     case "ol":
       return (
-        <ol {...props.properties}>
-          {props.children.map((item: any, index: number) => (
+        <ol {...safeProperties}>
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </ol>
       )
     case "li":
       return (
-        <li {...props.properties}>
-          {props.children.map((item: any, index: number) => (
+        <li {...safeProperties}>
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </li>
@@ -100,7 +118,7 @@ export default function MarkdownNav(props: any) {
     case "a":
       return (
         <a
-          {...props.properties}
+          {...safeProperties}
           className={clsx(
             isCurrent
               ? "text-highlight border-l-2 border-highlight-light dark:border-highlight-dark"
@@ -108,7 +126,7 @@ export default function MarkdownNav(props: any) {
             "text-highlight-hover block p-2 text-sm font-medium focus:outline-none"
           )}
         >
-          {props.children.map((item: any, index: number) => (
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </a>

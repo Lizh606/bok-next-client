@@ -30,37 +30,54 @@ const SocialLink = ({
   onClick
 }: SocialLinkProps) => {
   const commonClassName = clsxm("w-6 h-6 cursor-pointer", svgClassName)
-  const ToolCom = () => {
-    return (
-      <motion.div
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.8 }}
-        className={commonClassName}
-      >
-        <Image
-          src={iconSrc}
-          alt={name}
-          width={24}
-          height={24}
-          className={svgClassName}
-          priority
-        />
-      </motion.div>
-    )
-  }
+
+  const renderContent = () => (
+    <motion.div
+      whileHover={{ scale: 1.2 }}
+      whileTap={{ scale: 0.8 }}
+      className={commonClassName}
+    >
+      <Image
+        src={iconSrc}
+        alt={name}
+        width={24}
+        height={24}
+        className={svgClassName}
+        priority
+      />
+    </motion.div>
+  )
+
   return (
     <Tooltip placement="bottom" content={name}>
       {link ? (
         <Link href={link} target="_blank" rel="noopener noreferrer">
-          <ToolCom />
+          {renderContent()}
         </Link>
       ) : (
-        <div onClick={onClick}>
-          <ToolCom />
-        </div>
+        <div onClick={onClick}>{renderContent()}</div>
       )}
     </Tooltip>
   )
+}
+
+const copyToClipboard = async (text: string) => {
+  if (!text) {
+    throw new Error("empty text")
+  }
+  if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+  // 兼容不支持 Clipboard API 的环境
+  const textarea = document.createElement("textarea")
+  textarea.value = text
+  textarea.style.position = "fixed"
+  textarea.style.opacity = "0"
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand("copy")
+  document.body.removeChild(textarea)
 }
 
 export default function Social({
@@ -74,10 +91,11 @@ export default function Social({
       iconSrc: icons.wechat,
       onClick: async () => {
         try {
-          // TODO：消息弹窗暂用react-hot-toast，后续等nextUI出Toast组件更新
-          await navigator.clipboard.writeText(
-            process.env.NEXT_PUBLIC_BOK_WECHAT as string
-          )
+          const wechat = process.env.NEXT_PUBLIC_BOK_WECHAT || ""
+          if (!wechat) {
+            throw new Error("微信号未配置")
+          }
+          await copyToClipboard(wechat)
           addToast({
             title: "微信号已复制到剪切板啦🫡",
             color: "success",
@@ -112,10 +130,7 @@ export default function Social({
     }
   ]
   return (
-    <div
-      style={{ display: "flex" }}
-      className="items-center justify-center gap-4"
-    >
+    <div className="flex items-center justify-center gap-4">
       {socialConfig.map((social) => {
         return (
           <SocialLink

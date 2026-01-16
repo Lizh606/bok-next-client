@@ -7,14 +7,16 @@ export interface CacheConfig {
   tags?: string[]
 }
 
-export interface CacheItem<T = any> {
+export interface CacheItem<T = unknown> {
   data: T
   timestamp: number
+  expires?: number
 }
 
 export interface CacheStrategy {
   get<T>(key: string): Promise<CacheItem<T> | null>
-  set<T>(key: string, value: CacheItem<T>): Promise<void>
-  delete(key: string): Promise<void>
-  getAll(): Promise<Record<string, CacheItem<any>>>
+  set<T>(key: string, item: CacheItem<T>): Promise<void>
+  remove(key: string): Promise<void>
+  clear(): Promise<void>
+  getAll(): Promise<Record<string, CacheItem<unknown>>>
 }

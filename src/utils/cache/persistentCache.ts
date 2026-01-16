@@ -1,6 +1,9 @@
 import { CacheItem, CacheStrategy } from "./types"
 
 export class PersistentCache implements CacheStrategy {
+  remove(key: string): Promise<void> {
+    throw new Error("Method not implemented.")
+  }
   private prefix = "http-cache-"
 
   async get<T>(key: string): Promise<CacheItem<T> | null> {
@@ -58,17 +61,14 @@ export class PersistentCache implements CacheStrategy {
       })
   }
 
-  async getAll(): Promise<Record<string, CacheItem<any>>> {
+  async getAll(): Promise<Record<string, CacheItem<unknown>>> {
     const keys = Object.keys(localStorage)
-    return keys.reduce(
-      (acc, key) => {
-        if (key.startsWith(this.prefix)) {
-          const item = JSON.parse(localStorage.getItem(key) || "{}")
-          acc[key.slice(this.prefix.length)] = item
-        }
-        return acc
-      },
-      {} as Record<string, CacheItem<any>>
-    )
+    return keys.reduce<Record<string, CacheItem<unknown>>>((acc, key) => {
+      if (key.startsWith(this.prefix)) {
+        const item = JSON.parse(localStorage.getItem(key) || "{}")
+        acc[key] = item
+      }
+      return acc
+    }, {})
   }
 }

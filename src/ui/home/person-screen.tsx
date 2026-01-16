@@ -6,7 +6,19 @@ import InfoWriterAnimation, {
 } from "@/ui/home/Info-writer-animation"
 import Screen from "../../components/Screen"
 
-const PersonScreen = ({ config }: { config: Config }) => {
+type PersonScreenProps = {
+  config: Config
+  tagline: string
+  avatarAlt: string
+  arrowAlt: string
+}
+
+const PersonScreen = ({
+  config,
+  tagline,
+  avatarAlt,
+  arrowAlt
+}: PersonScreenProps) => {
   return (
     <Screen className="h-[92vh]">
       <div className="relative mx-64 flex h-full">
@@ -40,7 +52,7 @@ const PersonScreen = ({ config }: { config: Config }) => {
                 <Image
                   className="object-cover"
                   src={"/images/avg.png"}
-                  alt="头像"
+                  alt={avatarAlt}
                   fill
                   sizes="(min-width: 1024px) 20rem, (min-width: 640px) 18rem, 16rem"
                   priority
@@ -55,13 +67,13 @@ const PersonScreen = ({ config }: { config: Config }) => {
         </div>
         <div className="absolute bottom-0 flex w-full items-center justify-center">
           <div className="flex flex-col items-center gap-4">
-            <small className="tracking-widest">世间所有路都将与你相逢</small>
+            <small className="tracking-widest">{tagline}</small>
             {/* <BounceTransitionView> */}
             <MaskIcon
               src="/svgs/Arrow_down.svg"
               size={24}
               className="h-6 w-6 animate-bounce text-highlight-light dark:text-highlight-dark"
-              alt="向下"
+              alt={arrowAlt}
             />
             {/* </BounceTransitionView> */}
           </div>

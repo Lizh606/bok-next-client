@@ -5,18 +5,22 @@ export const clearToken = () => {
   token = ""
 }
 
-export const getToken = async () => {
+interface AuthTokenResponse {
+  access_token: string
+}
+
+export const getToken = async (): Promise<string> => {
   if (token) return token
   try {
-    const { access_token } = await http.post<any>({
+    const response = await http.post<AuthTokenResponse>({
       url: "auth/signIn",
       data: {
         username: "wanyue",
         password: "123456"
       }
     })
-    token = access_token
-    return access_token
+    token = response.access_token
+    return token
   } catch (error) {
     console.error("获取 token 失败，跳过鉴权请求:", error)
     return ""

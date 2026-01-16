@@ -64,7 +64,7 @@ export class CacheHandler {
               defaultClientCacheConfig.ttl || 300000
             )
           ) {
-            await memoryStrategy.delete(key)
+            await memoryStrategy.remove(key)
             console.log("🗑️ 清理过期内存缓存:", key)
           }
         }
@@ -79,7 +79,7 @@ export class CacheHandler {
               defaultClientCacheConfig.ttl || 300000
             )
           ) {
-            await persistentStrategy.delete(key)
+            await persistentStrategy.remove(key)
             console.log("🗑️ 清理过期持久化缓存:", key)
           }
         }
@@ -139,7 +139,9 @@ export class CacheHandler {
 
     // 检查持久化缓存
     if (config.persistent) {
-      const persistentCache = await this.strategies.get("persistent")?.get<T>(key)
+      const persistentCache = await this.strategies
+        .get("persistent")
+        ?.get<T>(key)
       if (
         persistentCache &&
         this.isCacheValid(persistentCache.timestamp, config.ttl || 300000)

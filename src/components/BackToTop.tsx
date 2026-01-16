@@ -14,7 +14,7 @@ export default function BackToTop() {
         })
       }}
       className={clsxm(
-        "text-default-400 hover:text-default-700 items-center gap-1 cursor-pointer bg-white shadow-lg rounded-full border border-solid border-[#eee]",
+        "cursor-pointer items-center gap-1 rounded-full border border-solid border-[#eee] bg-white text-default-400 shadow-lg hover:text-default-700",
         isAtTop ? "hidden" : "flex"
       )}
     >
@@ -23,7 +23,7 @@ export default function BackToTop() {
         alt="Back to top"
         width={48}
         height={48}
-        className="w-12 h-12"
+        className="h-12 w-12"
         priority
       />
     </div>
