@@ -3,9 +3,11 @@ import type { Locale } from "@/i18n/config"
 import { getDictionary } from "@/i18n/get-dictionary"
 import { getPostById, getPostList, type Post } from "@/lib/post"
 import GiscusPanel from "@/ui/post/giscus-panel"
+import type { TocNode } from "@/ui/post/markdown-nav"
 import MarkDownPage from "@/ui/post/markdown-page"
 import { calculateTimeDifference } from "@/utils/date"
 import toc from "@jsdevtools/rehype-toc"
+import type { Element, Root, Text } from "hast"
 import type { Metadata } from "next"
 import { serialize } from "next-mdx-remote/serialize"
 import { draftMode } from "next/headers"
@@ -44,56 +46,59 @@ export default async function Post(props: Props) {
   const { isEnabled } = await draftMode()
   const post = await getPostById(params.id, params.locale, isEnabled)
 
-  // Serialize MDX on the server to avoid client-side async suspension
-  let tocData: any = {}
-  const mdxSource = await serialize(post.content, {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        rehypeSlug,
-        () => (tree: any) => {
-          visit(tree, (node: any) => {
-            if (node?.type === "element" && node?.tagName === "pre") {
-              const [codeEl] = node.children
-              if (codeEl.tagName !== "code") return
-              node.raw = codeEl.children?.[0].value
-            }
-          })
-        },
-        [
-          rehypePrettyCode,
-          {
-            theme: "material-theme-lighter"
-          }
-        ],
-        () => (tree: any) => {
-          visit(tree, (node: any) => {
-            if (node?.type === "element") {
-              if (!("data-rehype-pretty-code-fragment" in node.properties)) {
+  // Serialize MDX on the server
+  const { mdxSource, tocData } = await (async () => {
+    let internalTocData: TocNode = {} as TocNode
+    const source = await serialize(post.content, {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [
+          rehypeSlug,
+          () => (tree: Root) => {
+            visit(tree, "element", (node: Element) => {
+              if (node.tagName === "pre") {
+                const codeEl = node.children[0] as Element
+                if (codeEl?.tagName !== "code") return
+                const textNode = codeEl.children[0] as Text
+                if (textNode && "value" in textNode) {
+                  ;(node as any).raw = textNode.value
+                }
+              }
+            })
+          },
+          [rehypePrettyCode, { theme: "material-theme-lighter" }],
+          () => (tree: Root) => {
+            visit(tree, "element", (node: Element) => {
+              if (
+                !node.properties ||
+                !("data-rehype-pretty-code-fragment" in node.properties)
+              ) {
                 return
               }
               for (const child of node.children) {
-                if (child.tagName === "pre") {
-                  child.properties["raw"] = node.raw
+                if (child.type === "element" && child.tagName === "pre") {
+                  child.properties = child.properties || {}
+                  child.properties["raw"] = (node as any).raw
                 }
               }
+            })
+          },
+          [
+            //@ts-ignore
+            toc,
+            {
+              headings: ["h1", "h2", "h3", "h4", "h5"],
+              customizeTOC: (tocAll: TocNode) => {
+                internalTocData = tocAll
+                return false
+              }
             }
-          })
-        },
-        [
-          //@ts-ignore
-          toc,
-          {
-            headings: ["h1", "h2", "h3", "h4", "h5"],
-            customizeTOC: (tocAll: any) => {
-              tocData = tocAll
-              return false
-            }
-          }
+          ]
         ]
-      ]
-    }
-  })
+      }
+    })
+    return { mdxSource: source, tocData: internalTocData }
+  })()
 
   return (
     <div className="mt-20">

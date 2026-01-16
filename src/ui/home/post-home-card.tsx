@@ -1,8 +1,8 @@
 "use client"
 
 import useHover from "@/hooks/useHover"
-import type { Post } from "@/lib/post"
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config"
+import type { Post } from "@/lib/post"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import Image from "next/image"
@@ -32,13 +32,13 @@ export default function PostHomeCard({
   readMore: string
   readMoreAlt: string
 }) {
-  const { isHover, bind } = useHover()
+  const { isHover, onMouseEnter, onMouseLeave, hoverRef } = useHover()
   const router = useRouter()
   const pathname = usePathname()
   const segments = pathname.split("/").filter(Boolean)
-  const locale = (isLocale(segments[0] ?? "")
-    ? segments[0]
-    : defaultLocale) as Locale
+  const locale = (
+    isLocale(segments[0] ?? "") ? segments[0] : defaultLocale
+  ) as Locale
   const href = `/${locale}/posts/${post.sort}/${post.id}`
   const displayDate = post.date ? getMonthDay(post.date) : ""
   const tags =
@@ -61,12 +61,12 @@ export default function PostHomeCard({
       <Link
         href={href}
         className="block w-full max-w-[420px]"
-        ref={bind.ref}
+        ref={hoverRef}
         onMouseEnter={() => {
-          bind.onMouseEnter()
+          onMouseEnter()
           router.prefetch(href)
         }}
-        onMouseLeave={bind.onMouseLeave}
+        onMouseLeave={onMouseLeave}
         onFocus={() => router.prefetch(href)}
       >
         <div className="group relative">
@@ -118,7 +118,7 @@ export default function PostHomeCard({
                 {post.title}
               </h3>
               {post.description ? (
-                <p className="text-base truncate leading-tight text-slate-500 dark:text-white/60 dark:group-hover:text-highlight-dark">
+                <p className="truncate text-base leading-tight text-slate-500 dark:text-white/60 dark:group-hover:text-highlight-dark">
                   {post.description}
                 </p>
               ) : null}

@@ -28,11 +28,18 @@ type StrapiGrowthItem = {
   attributes?: StrapiGrowthAttributes
 } & StrapiGrowthAttributes
 
-const unwrapStrapiList = (response: any): StrapiGrowthItem[] => {
+type StrapiGrowthResponse = {
+  data: StrapiGrowthItem[] | { data: StrapiGrowthItem[] }
+}
+
+const unwrapStrapiList = (
+  response: StrapiGrowthResponse | StrapiGrowthItem[] | null
+): StrapiGrowthItem[] => {
   if (!response) return []
   if (Array.isArray(response)) return response
-  if (Array.isArray(response.data)) return response.data
-  if (Array.isArray(response?.data?.data)) return response.data.data
+  const responseData = (response as StrapiGrowthResponse).data
+  if (Array.isArray(responseData)) return responseData
+  if (Array.isArray(responseData?.data)) return responseData.data
   return []
 }
 
@@ -73,7 +80,7 @@ export const getSiteGrowthList = async (locale?: Locale) => {
     .filter(Boolean)
     .join("&")
 
-  const response = await cmsHttp.get<any>({
+  const response = await cmsHttp.get<StrapiGrowthResponse>({
     url: `site-growths?${params}`,
     cache: {
       enabled: false

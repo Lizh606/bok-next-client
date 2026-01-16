@@ -2,6 +2,7 @@
 
 import { addToast, Button, cn } from "@heroui/react"
 import { useEffect } from "react"
+import { EXTERNAL_LINKS } from "../constants/links"
 import useVersionCheck from "../hooks/useVersionCheck"
 
 const UpdateNotification = () => {
@@ -41,10 +42,7 @@ const UpdateNotification = () => {
                 size="sm"
                 variant="bordered"
                 onPress={() =>
-                  window.open(
-                    "https://github.com/Lizh606/bok-next-client/releases",
-                    "_blank"
-                  )
+                  window.open(EXTERNAL_LINKS.GITHUB_RELEASES, "_blank")
                 }
               >
                 查看版本公告

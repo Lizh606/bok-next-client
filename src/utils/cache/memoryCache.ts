@@ -19,7 +19,7 @@ export class MemoryCache implements CacheStrategy {
     this.cache.clear()
   }
 
-  async getAll(): Promise<Record<string, CacheItem<any>>> {
-    return Object.fromEntries(this.cache)
+  async getAll(): Promise<Record<string, CacheItem<unknown>>> {
+    return Object.fromEntries(this.cache) as Record<string, CacheItem<unknown>>
   }
 }

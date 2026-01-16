@@ -36,7 +36,7 @@ export default function PostList({
             <PostCard
               post={post}
               index={i}
-              key={i}
+              key={post.id}
               locale={locale}
               readMore={readMore}
               readMoreAlt={readMoreAlt}

@@ -11,7 +11,7 @@ export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   retryConfig?: RetryConfig
   cache?: CacheConfig
   _cached?: boolean
-  _cachedData?: any
+  _cachedData?: unknown
 }
 
 class Request {
@@ -47,23 +47,24 @@ class Request {
         if (this.disableCache) {
           preConfig.cache = { enabled: false }
         }
-        // 1. 处理缓存
-        const result = await this.cacheHandler.getCachedData(preConfig as any)
-        const customConfig = result as CustomAxiosRequestConfig
 
-        // 如果有缓存数据，使用 CancelToken 取消请求并返回缓存数据
-        if (customConfig._cached) {
-          console.log("🔄 拦截缓存数据")
-          const source = axios.CancelToken.source()
-          config.cancelToken = source.token
-          source.cancel(
-            JSON.stringify({
-              data: customConfig._cachedData,
-              useCache: true
+        // 1. 处理缓存 (仅针对 GET 请求)
+        if (preConfig.method?.toUpperCase() === "GET") {
+          const cachedResult = await this.cacheHandler.getCachedData(config)
+          const resultConfig = cachedResult as CustomAxiosRequestConfig
+          if (resultConfig._cached) {
+            console.log("🔄 命中缓存，返回模拟响应")
+            config.adapter = async () => ({
+              data: resultConfig._cachedData,
+              status: 200,
+              statusText: "OK",
+              headers: {},
+              config: config
             })
-          )
+          }
         }
-        // 2. 处理token
+
+        // 2. 处理 token
         if (!this.disableToken) {
           config = await this.tokenHandler.addTokenToRequest(config)
         }
@@ -75,26 +76,12 @@ class Request {
     // 响应拦截器
     this.instance.interceptors.response.use(
       async (response) => {
-        // 1. 处理缓存
-        const config = response.config as CustomAxiosRequestConfig
-        if (!this.disableCache && config.cache?.enabled !== false) {
-          const baseURL = config.baseURL ?? ""
-          const url = config.url ?? ""
-          console.log("💾 设置缓存", `${baseURL}${url}`)
-        }
-        response = await this.cacheHandler.setCachedData(response)
+        // 1. 处理缓存存储
+        await this.cacheHandler.setCachedData(response)
         return response.data
       },
       async (error) => {
-        if (axios.isCancel(error)) {
-          // 如果是因为缓存而取消的请求
-          const response = JSON.parse(error.message as any)
-          console.log("🔄 使用缓存数据")
-          if (response.useCache) {
-            return response.data
-          }
-        }
-        // 2. 处理token过期
+        // 2. 处理 token 过期
         if (error.response?.status === 401) {
           return this.tokenHandler.handleTokenRefresh(error)
         }
@@ -107,28 +94,28 @@ class Request {
 
   // 请求方法
   async get<T>(options: CustomAxiosRequestConfig): Promise<T> {
-    return this.instance.request<any, T>({
+    return this.instance.request<unknown, T>({
       ...options,
       method: "GET"
     })
   }
 
   async post<T>(options: CustomAxiosRequestConfig): Promise<T> {
-    return this.instance.request<any, T>({
+    return this.instance.request<unknown, T>({
       ...options,
       method: "POST"
     })
   }
 
   async put<T>(options: CustomAxiosRequestConfig): Promise<T> {
-    return this.instance.request<any, T>({
+    return this.instance.request<unknown, T>({
       ...options,
       method: "PUT"
     })
   }
 
   async delete<T>(options: CustomAxiosRequestConfig): Promise<T> {
-    return this.instance.request<any, T>({
+    return this.instance.request<unknown, T>({
       ...options,
       method: "DELETE"
     })

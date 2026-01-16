@@ -1,5 +1,6 @@
 "use client"
 import useHover from "@/hooks/useHover"
+import type { Locale } from "@/i18n/config"
 import type { Post } from "@/lib/post"
 import { formatDate } from "@/utils/date"
 import clsx from "clsx"
@@ -8,7 +9,6 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useAppTheme } from "../../hooks/useAppTheme"
 import ReadTip from "./read-tip"
-import type { Locale } from "@/i18n/config"
 export default function PostCard({
   post,
   index,
@@ -22,7 +22,7 @@ export default function PostCard({
   readMore: string
   readMoreAlt: string
 }) {
-  const { isHover, bind } = useHover()
+  const { isHover, onMouseEnter, onMouseLeave, hoverRef } = useHover()
   const { currentTheme } = useAppTheme()
   const router = useRouter()
   const href = `/${locale}/posts/${post.sort}/${post.id}`
@@ -41,12 +41,12 @@ export default function PostCard({
         <Link
           href={href}
           className="fade-in-up flex cursor-pointer flex-col gap-2 overflow-hidden no-underline transition"
-          ref={bind.ref}
+          ref={hoverRef}
           onMouseEnter={() => {
-            bind.onMouseEnter()
+            onMouseEnter()
             router.prefetch(href)
           }}
-          onMouseLeave={bind.onMouseLeave}
+          onMouseLeave={onMouseLeave}
           onFocus={() => router.prefetch(href)}
         >
           <div

@@ -2,16 +2,26 @@
 import clsx from "clsx"
 import { debounce } from "lodash"
 import { useCallback, useEffect, useMemo, useState } from "react"
-export default function MarkdownNav(props: any) {
+export interface TocNode {
+  tagName: "nav" | "ol" | "li" | "a" | string
+  properties?: {
+    href?: string
+    [key: string]: unknown // 替换 any 以允许安全的 HTML 属性透传
+  }
+  children?: TocNode[]
+  value?: string
+}
+
+export default function MarkdownNav(props: TocNode) {
   const [isCurrent, setCurrent] = useState(false)
   // 使用 useCallback 优化路由变化处理函数
   const handleRouteChange = useCallback(() => {
-    if (props.tagName === "a" && props.properties.href) {
+    if (props.tagName === "a" && props.properties?.href) {
       const newHash = decodeURIComponent(window.location.hash)
       const isCurrenHash = props.properties.href.toLowerCase() === newHash
       setCurrent(isCurrenHash)
     }
-  }, [props.tagName, props.properties?.href])
+  }, [props.tagName, props.properties])
 
   // 使用 useMemo 缓存 DOM 选择器
   const getHashList = useCallback(() => {
@@ -48,8 +58,10 @@ export default function MarkdownNav(props: any) {
         ).hash
         // 更新 URL
         if (closestHash) {
-          if (props.properties.href === closestHash) {
-            const newUrl = `${window.location.pathname}${window.location.search}${props.properties.href.toLowerCase()}`
+          if (props.properties?.href === closestHash) {
+            const newUrl = `${window.location.pathname}${
+              window.location.search
+            }${props.properties.href.toLowerCase()}`
             history.replaceState(null, "", newUrl)
           }
         }
@@ -64,7 +76,7 @@ export default function MarkdownNav(props: any) {
           handleRouteChange()
         }, 200)
       }, 200), // 减少防抖时间以提高响应性
-    [props.tagName, props.properties?.href, handleRouteChange, getHashList]
+    [props.tagName, props.properties, handleRouteChange, getHashList]
   )
   useEffect(() => {
     handleScroll()
@@ -76,7 +88,7 @@ export default function MarkdownNav(props: any) {
     case "nav":
       return (
         <nav {...props.properties}>
-          {props.children.map((item: any, index: number) => (
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </nav>
@@ -84,7 +96,7 @@ export default function MarkdownNav(props: any) {
     case "ol":
       return (
         <ol {...props.properties}>
-          {props.children.map((item: any, index: number) => (
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </ol>
@@ -92,7 +104,7 @@ export default function MarkdownNav(props: any) {
     case "li":
       return (
         <li {...props.properties}>
-          {props.children.map((item: any, index: number) => (
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </li>
@@ -108,7 +120,7 @@ export default function MarkdownNav(props: any) {
             "text-highlight-hover block p-2 text-sm font-medium focus:outline-none"
           )}
         >
-          {props.children.map((item: any, index: number) => (
+          {props.children?.map((item, index) => (
             <MarkdownNav {...item} key={index} />
           ))}
         </a>

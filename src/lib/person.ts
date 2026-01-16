@@ -46,10 +46,14 @@ type StrapiPersonSingle = {
   meta?: Record<string, unknown>
 }
 
-type Candidate = StrapiPersonSingle | StrapiPersonData | StrapiPersonAttributes | null
+type Candidate =
+  | StrapiPersonSingle
+  | StrapiPersonData
+  | StrapiPersonAttributes
+  | null
 const extractAttributes = (raw: Candidate): StrapiPersonAttributes | null => {
   if (!raw) return null
-  const candidate: Candidate = Array.isArray(raw) ? raw[0] ?? null : raw
+  const candidate: Candidate = Array.isArray(raw) ? (raw[0] ?? null) : raw
   if (!candidate) return null
   if ("data" in candidate) {
     return extractAttributes(candidate.data ?? null)

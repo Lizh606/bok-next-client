@@ -2,43 +2,6 @@ import type { Locale } from "@/i18n/config"
 import { buildLocaleParam } from "@/lib/strapi"
 import { cmsHttp } from "@/utils/request"
 
-type StrapiListResponse<T> = {
-  data: T[]
-  meta?: {
-    pagination?: {
-      page: number
-      pageSize: number
-      pageCount: number
-      total: number
-    }
-  }
-}
-
-type StrapiItemResponse<T> = {
-  data: T
-}
-
-type StrapiArticle = {
-  id: number
-  title: string
-  content: string
-  tag?: string
-  sort?: string
-  date?: string
-  description?: string
-  documentId?: string
-}
-
-const mapArticleToPost = (article: StrapiArticle): Post => ({
-  id: article.documentId ?? String(article.id),
-  title: article.title,
-  content: article.content,
-  tag: article.tag || "",
-  sort: article.sort || "",
-  date: article.date || "",
-  description: article.description || "",
-  strapiId: article.id
-})
 export type Post = {
   id: string
   title: string
@@ -53,23 +16,45 @@ export type Post = {
   strapiId?: number
 }
 
+type StrapiListResponse<T> = {
+  data: T[]
+  meta?: {
+    pagination?: {
+      page: number
+      pageSize: number
+      pageCount: number
+      total: number
+    }
+  }
+}
+
+// Support both Strapi v4 and v5 (documentId) formats
+type StrapiArticle = {
+  id: number
+  documentId?: string
+  title: string
+  content: string
+  tag?: string
+  sort?: string
+  date?: string
+  description?: string
+}
+
+const mapArticleToPost = (article: StrapiArticle): Post => ({
+  id: article.documentId ?? String(article.id),
+  title: article.title,
+  content: article.content,
+  tag: article.tag || "",
+  sort: article.sort || "",
+  date: article.date || "",
+  description: article.description || "",
+  strapiId: article.id
+})
+
 export type SortInfo = {
   sort: string
   count: number
 }
-
-const selectedFields = [
-  "title",
-  "tag",
-  "sort",
-  "date",
-  "description",
-  "documentId"
-]
-const buildFieldsQuery = () =>
-  selectedFields.map(
-    (field, index) => `fields[${index}]=${encodeURIComponent(field)}`
-  )
 
 export const getPostList = async ({
   page,
@@ -81,7 +66,7 @@ export const getPostList = async ({
   size: number
   keyword?: string
   locale?: Locale
-}) => {
+}): Promise<Post[]> => {
   const params = [
     `pagination[page]=${page}`,
     `pagination[pageSize]=${size}`,
@@ -92,17 +77,21 @@ export const getPostList = async ({
     .filter(Boolean)
     .join("&")
 
-  const response = await cmsHttp.get<StrapiListResponse<StrapiArticle> | any>({
+  const response = await cmsHttp.get<StrapiListResponse<StrapiArticle>>({
     url: `articles?${params}`,
     cache: {
       enabled: false
     }
   })
-  const list = Array.isArray(response?.data)
-    ? response.data
-    : Array.isArray(response?.data?.data)
-      ? response.data.data
+
+  // Strapi v4/v5 data structure normalization
+  const data = response
+  const list = Array.isArray(data)
+    ? data
+    : Array.isArray(data?.data)
+      ? data.data
       : []
+
   return list.map(mapArticleToPost)
 }
 
@@ -110,18 +99,12 @@ export const getPostById = async (
   documentId: string | number,
   locale?: Locale,
   isDraft?: boolean
-) => {
+): Promise<Post> => {
   const docId = String(documentId)
-
-  // Robust filtering: only use numeric 'id' filter if docId is actually a number
-  const isNumeric = /^\d+$/.test(docId)
-  let filters = `filters[documentId][$eq]=${encodeURIComponent(docId)}`
-  if (isNumeric) {
-    filters = `filters[$or][0][documentId][$eq]=${encodeURIComponent(docId)}&filters[$or][1][id][$eq]=${encodeURIComponent(docId)}`
-  }
+  // Strapi v5 推荐直接通过 documentId 匹配，移除复杂的 $or 逻辑以防后端报错
+  const filters = `filters[documentId][$eq]=${encodeURIComponent(docId)}`
 
   const localeParam = buildLocaleParam(locale)
-
   const params = [
     "pagination[page]=1",
     "pagination[pageSize]=1",
@@ -135,20 +118,33 @@ export const getPostById = async (
   const fullUrl = `articles?${params}`
   console.log("Fetching post from Strapi:", fullUrl)
 
-  const response = await cmsHttp.get<StrapiListResponse<StrapiArticle> | any>({
+  const response = await cmsHttp.get<StrapiListResponse<StrapiArticle>>({
     url: fullUrl,
     cache: {
       enabled: false,
       key: `post-detail-${docId}`
     }
   })
-  const item = Array.isArray(response?.data)
-    ? response.data[0]
-    : Array.isArray(response?.data?.data)
-      ? response.data.data[0]
-      : null
+
+  const data = response
+  const list = Array.isArray(data)
+    ? data
+    : Array.isArray(data?.data)
+      ? data.data
+      : []
+  const item = list[0]
+
   if (!item) {
-    throw new Error(`article ${documentId} not found`)
+    console.warn(`article ${documentId} not found, returning default data`)
+    return {
+      id: String(documentId),
+      title: "Post Not Found",
+      content: "The content of this post is not available.",
+      tag: "None",
+      sort: "None",
+      date: new Date().toISOString(),
+      description: "Fallback data for missing article."
+    }
   }
   return mapArticleToPost(item)
 }

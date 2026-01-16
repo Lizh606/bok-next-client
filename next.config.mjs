@@ -18,8 +18,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "**" // 允许所有域名，建议根据实际需求限制
-      }
-      ,
+      },
       {
         protocol: "http",
         hostname: "**"

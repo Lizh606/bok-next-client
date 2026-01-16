@@ -139,7 +139,9 @@ export class CacheHandler {
 
     // 检查持久化缓存
     if (config.persistent) {
-      const persistentCache = await this.strategies.get("persistent")?.get<T>(key)
+      const persistentCache = await this.strategies
+        .get("persistent")
+        ?.get<T>(key)
       if (
         persistentCache &&
         this.isCacheValid(persistentCache.timestamp, config.ttl || 300000)

@@ -22,10 +22,7 @@ export async function POST(request: NextRequest) {
       : []
 
   if (paths.length === 0) {
-    return NextResponse.json(
-      { message: "Missing path" },
-      { status: 400 }
-    )
+    return NextResponse.json({ message: "Missing path" }, { status: 400 })
   }
 
   paths.forEach((path) => revalidatePath(path))

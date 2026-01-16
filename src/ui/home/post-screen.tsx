@@ -1,9 +1,9 @@
+import type { Locale } from "@/i18n/config"
 import { getPostList } from "@/lib/post"
 import type { Config } from "@/ui/home/Info-writer-animation"
 import InfoWriterAnimation from "@/ui/home/Info-writer-animation"
 import Screen from "../../components/Screen"
 import PostHomeCard from "./post-home-card"
-import type { Locale } from "@/i18n/config"
 
 type PostScreenProps = {
   title: string
@@ -46,7 +46,7 @@ export default async function PostScreen({
                 return (
                   <PostHomeCard
                     post={post}
-                    key={i}
+                    key={post.id}
                     index={i}
                     publishedAlt={publishedAlt}
                     readMore={readMore}

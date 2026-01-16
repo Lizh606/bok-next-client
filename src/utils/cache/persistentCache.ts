@@ -58,7 +58,7 @@ export class PersistentCache implements CacheStrategy {
       })
   }
 
-  async getAll(): Promise<Record<string, CacheItem<any>>> {
+  async getAll(): Promise<Record<string, CacheItem<unknown>>> {
     const keys = Object.keys(localStorage)
     return keys.reduce(
       (acc, key) => {
@@ -68,7 +68,7 @@ export class PersistentCache implements CacheStrategy {
         }
         return acc
       },
-      {} as Record<string, CacheItem<any>>
+      {} as Record<string, CacheItem<unknown>>
     )
   }
 }

@@ -36,7 +36,7 @@ export default function PostSortList({
                 "inline-block cursor-pointer",
                 pathName.includes(sort.sort)
                   ? "text-highlight border-b-solid border-b-2 border-highlight-light dark:border-highlight-dark"
-                  : "text-highlight-hover underline-animation text-zinc-400 "
+                  : "text-highlight-hover underline-animation text-zinc-400"
               )}
             >
               {sort.sort}({sort.count})

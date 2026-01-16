@@ -28,7 +28,8 @@ export function useAppTheme() {
   }, [theme, setTheme])
 
   useEffect(() => {
-    setMounted(true)
+    const frame = requestAnimationFrame(() => setMounted(true))
+    return () => cancelAnimationFrame(frame)
   }, [])
 
   return {

@@ -29,53 +29,27 @@ export default function Header() {
   const restPath = `/${restSegments.join("/")}`
   const currentBasePath = restSegments.length > 0 ? `/${restSegments[0]}` : "/"
   const dictionary = getClientDictionary(locale)
+  // 将 avatarAlt 作为派生变量，避免在 Effect 中同步更新导致的级联渲染
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>()
-  const [avatarAlt, setAvatarAlt] = useState(
-    dictionary.home.personScreen.avatarAlt
-  )
+  const [fetchedAvatarAlt, setFetchedAvatarAlt] = useState<string | undefined>()
+  const avatarAlt = fetchedAvatarAlt ?? dictionary.home.personScreen.avatarAlt
+
+  const tabs = [
+    { label: dictionary.header.home, value: "/" },
+    { label: dictionary.header.posts, value: "/posts" },
+    { label: dictionary.header.time, value: "/time" },
+    { label: dictionary.header.about, value: "/about" }
+  ]
+
+  const buildPath = (basePath: string) => {
+    return basePath === "/" ? `/${locale}` : `/${locale}${basePath}`
+  }
+
+  // 使用派生状态替代 Effect，避免级联渲染
+  const isShowName = !!currentTheme
   const zhPath = restPath === "/" ? "/zh" : `/zh${restPath}`
   const enPath = restPath === "/" ? "/en" : `/en${restPath}`
 
-  const tabs = [
-    {
-      label: dictionary.header.home,
-      value: "/"
-    },
-    {
-      label: dictionary.header.posts,
-      value: "/posts"
-    },
-    {
-      label: dictionary.header.time,
-      value: "/time"
-    },
-    {
-      label: dictionary.header.about,
-      value: "/about"
-    }
-    // {
-    //   label: "mdx",
-    //   value: "/mdx"
-    // },
-    // {
-    //   label: "mdx-remote",
-    //   value: "/mdx-remote"
-    // }
-  ]
-  const buildPath = (basePath: string) => {
-    if (basePath === "/") {
-      return `/${locale}`
-    }
-    return `/${locale}${basePath}`
-  }
-  const [isShowName, setShow] = useState(false)
-
-  useEffect(() => {
-    currentTheme && setShow(true)
-  }, [currentTheme])
-  useEffect(() => {
-    setAvatarAlt(dictionary.home.personScreen.avatarAlt)
-  }, [dictionary.home.personScreen.avatarAlt])
   useEffect(() => {
     const controller = new AbortController()
     const loadAvatar = async () => {
@@ -83,16 +57,10 @@ export default function Header() {
         const response = await fetch("/api/avatar", {
           signal: controller.signal
         })
-        if (!response.ok) {
-          return
-        }
+        if (!response.ok) return
         const data = await response.json()
-        if (data?.url) {
-          setAvatarSrc(data.url)
-        }
-        if (data?.alt) {
-          setAvatarAlt(data.alt)
-        }
+        if (data?.url) setAvatarSrc(data.url)
+        if (data?.alt) setFetchedAvatarAlt(data.alt)
       } catch (error) {
         if ((error as Error).name === "AbortError") return
         console.error("Failed to load avatar media", error)

@@ -22,7 +22,7 @@ type StrapiMediaAttributes = {
   width?: number
   height?: number
   formats?: StrapiMediaFormats | null
-  provider_metadata?: Record<string, any>
+  provider_metadata?: Record<string, unknown>
 }
 
 type StrapiMediaFile = {
@@ -37,18 +37,21 @@ type StrapiMediaFile = {
   formats?: StrapiMediaFormats | null
 }
 
-const unwrapStrapiSingle = <T>(response: any): T | null => {
+const unwrapStrapiSingle = <T>(
+  response: T | { data: T } | T[] | null
+): T | null => {
   if (!response) return null
   if (Array.isArray(response)) {
-    return response[0] ?? null
+    return (response[0] as T) ?? null
   }
-  if ("data" in response) {
-    if (Array.isArray(response.data)) {
-      return response.data[0] ?? null
+  if (typeof response === "object" && response !== null && "data" in response) {
+    const data = (response as { data: T | T[] }).data
+    if (Array.isArray(data)) {
+      return (data[0] as T) ?? null
     }
-    return response.data ?? null
+    return (data as T) ?? null
   }
-  return response
+  return response as T
 }
 
 const buildMediaUrl = (rawUrl?: string | null) => {

@@ -4,9 +4,14 @@ import { draftMode } from "next/headers"
 import { redirect } from "next/navigation"
 
 // Helper to detect Next.js redirect errors
-const isRedirectError = (error: any) =>
-  error?.digest?.startsWith("NEXT_REDIRECT") ||
-  error?.message?.includes("NEXT_REDIRECT")
+const isRedirectError = (error: unknown): boolean =>
+  !!(
+    error &&
+    typeof error === "object" &&
+    "digest" in error &&
+    typeof error.digest === "string" &&
+    error.digest.startsWith("NEXT_REDIRECT")
+  )
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -46,11 +51,12 @@ export async function GET(request: Request) {
       const finalId = post.id || slug
       const redirectUrl = `/${encodeURIComponent(locale)}/posts/${encodeURIComponent(sort)}/${encodeURIComponent(finalId)}`
       redirect(redirectUrl)
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (isRedirectError(error)) throw error
       console.error("Failed to fetch post for preview redirection", error)
+      const message = error instanceof Error ? error.message : "Unknown error"
       return new Response(
-        `Failed to fetch post for preview: ${error}. Slug: ${slug}, Locale: ${locale}`,
+        `Failed to fetch post for preview: ${message}. Slug: ${slug}, Locale: ${locale}`,
         {
           status: 500
         }

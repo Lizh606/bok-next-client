@@ -1,5 +1,10 @@
 import { clearToken, getToken } from "@/lib/public"
-import type { AxiosError, AxiosInstance } from "axios"
+import type {
+  AxiosError,
+  AxiosInstance,
+  InternalAxiosRequestConfig
+} from "axios"
+import type { CustomAxiosRequestConfig } from "./request"
 
 export class TokenHandler {
   private isRefreshing = false
@@ -9,12 +14,17 @@ export class TokenHandler {
 
   // 处理token刷新
   async handleTokenRefresh(error: AxiosError) {
-    const config = error.config as any
+    const config = error.config as InternalAxiosRequestConfig &
+      CustomAxiosRequestConfig
+
+    if (!config) return Promise.reject(error)
 
     if (this.isRefreshing) {
       return new Promise((resolve) => {
         this.requests.push((token: string) => {
-          config.headers["Authorization"] = "Bearer " + token
+          if (config.headers) {
+            config.headers["Authorization"] = "Bearer " + token
+          }
           resolve(this.instance(config))
         })
       })
@@ -32,7 +42,9 @@ export class TokenHandler {
       this.requests = []
 
       // 重试当前请求
-      config.headers["Authorization"] = "Bearer " + newToken
+      if (config.headers) {
+        config.headers["Authorization"] = "Bearer " + newToken
+      }
       return this.instance(config)
     } catch (refreshError) {
       clearToken()
@@ -43,10 +55,12 @@ export class TokenHandler {
   }
 
   // 添加token到请求头
-  async addTokenToRequest(config: any) {
+  async addTokenToRequest(
+    config: InternalAxiosRequestConfig & CustomAxiosRequestConfig
+  ) {
     if (config.url?.includes("auth")) return config
     const token = await getToken()
-    if (token) {
+    if (token && config.headers) {
       config.headers["Authorization"] = "Bearer " + token
     }
     return config

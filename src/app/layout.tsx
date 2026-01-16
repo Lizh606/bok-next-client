@@ -15,15 +15,13 @@ export const metadata: Metadata = {
   },
   description: process.env.NEXT_PUBLIC_BOK_NAME
 }
-export default async function RootLayout({
-  children,
-  params
-}: Readonly<{
+export default async function RootLayout(props: {
   children: React.ReactNode
-  params?: { locale?: string }
-}>) {
+  params: Promise<{ locale?: string }>
+}) {
+  const params = await props.params
   const locale = isLocale(params?.locale ?? "")
-    ? params?.locale ?? defaultLocale
+    ? (params?.locale ?? defaultLocale)
     : defaultLocale
 
   return (
@@ -31,7 +29,7 @@ export default async function RootLayout({
       <body
         className={`${myFont.className} relative m-0 h-full overflow-y-auto overflow-x-hidden p-0 text-default-700`}
       >
-        <>{children}</>
+        <>{props.children}</>
         <div className="fixed bottom-44 right-4 z-20">
           <BackToTop></BackToTop>
         </div>

@@ -1,8 +1,8 @@
-import { getPostList } from "@/lib/post"
+import type { Locale } from "@/i18n/config"
+import { getDictionary } from "@/i18n/get-dictionary"
+import { getPostList, type Post } from "@/lib/post"
 import PostList from "@/ui/post/post-list"
 import { notFound } from "next/navigation"
-import { getDictionary } from "@/i18n/get-dictionary"
-import type { Locale } from "@/i18n/config"
 
 export const revalidate = 1800
 
@@ -21,9 +21,9 @@ type Props = {
 export default async function Sort(props: Props) {
   const params = await props.params
   const dictionary = await getDictionary(params.locale)
-  const posts = await getPostList({ page: 1, size: 999, locale })
+  const posts = await getPostList({ page: 1, size: 999, locale: params.locale })
   const postsBySort = posts.filter(
-    (post) => post.sort === decodeURIComponent(params.sort)
+    (post: Post) => post.sort === decodeURIComponent(params.sort)
   )
 
   if (postsBySort.length === 0) {

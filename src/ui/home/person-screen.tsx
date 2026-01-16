@@ -50,17 +50,17 @@ const PersonScreen = ({
             <div className="absolute inset-[13.5%] rounded-full transition duration-700 group-hover:scale-[1.022] group-hover:opacity-70" />
             <div className="relative z-10 h-full w-full rounded-full">
               <div className="absolute inset-0 rounded-full"></div>
-            <div className="absolute inset-4 overflow-hidden rounded-full shadow-lg shadow-indigo-500/20 transition duration-700 group-hover:scale-[1.008] group-hover:shadow-indigo-500/30">
-              <Image
-                className="object-cover"
-                src={avatarSrc ?? "/images/avg.png"}
-                alt={avatarAlt}
-                fill
-                sizes="(min-width: 1024px) 20rem, (min-width: 640px) 18rem, 16rem"
-                priority
-                unoptimized={process.env.NODE_ENV !== "production"}
-              ></Image>
-            </div>
+              <div className="absolute inset-4 overflow-hidden rounded-full shadow-lg shadow-indigo-500/20 transition duration-700 group-hover:scale-[1.008] group-hover:shadow-indigo-500/30">
+                <Image
+                  className="object-cover"
+                  src={avatarSrc ?? "/images/avg.png"}
+                  alt={avatarAlt}
+                  fill
+                  sizes="(min-width: 1024px) 20rem, (min-width: 640px) 18rem, 16rem"
+                  priority
+                  unoptimized={process.env.NODE_ENV !== "production"}
+                ></Image>
+              </div>
             </div>
             <div className="pointer-events-none absolute -right-3 top-8 z-20 h-5 w-5 rounded-full bg-white/85 shadow-lg shadow-indigo-500/20 backdrop-blur dark:bg-white/10">
               <span className="absolute inset-[-3px] animate-breathe-ring rounded-full bg-emerald-400/0 dark:bg-emerald-400/0"></span>

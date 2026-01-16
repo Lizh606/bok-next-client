@@ -30,34 +30,32 @@ const SocialLink = ({
   onClick
 }: SocialLinkProps) => {
   const commonClassName = clsxm("w-6 h-6 cursor-pointer", svgClassName)
-  const ToolCom = () => {
-    return (
-      <motion.div
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.8 }}
-        className={commonClassName}
-      >
-        <Image
-          src={iconSrc}
-          alt={name}
-          width={24}
-          height={24}
-          className={svgClassName}
-          priority
-        />
-      </motion.div>
-    )
-  }
+
+  const renderContent = () => (
+    <motion.div
+      whileHover={{ scale: 1.2 }}
+      whileTap={{ scale: 0.8 }}
+      className={commonClassName}
+    >
+      <Image
+        src={iconSrc}
+        alt={name}
+        width={24}
+        height={24}
+        className={svgClassName}
+        priority
+      />
+    </motion.div>
+  )
+
   return (
     <Tooltip placement="bottom" content={name}>
       {link ? (
         <Link href={link} target="_blank" rel="noopener noreferrer">
-          <ToolCom />
+          {renderContent()}
         </Link>
       ) : (
-        <div onClick={onClick}>
-          <ToolCom />
-        </div>
+        <div onClick={onClick}>{renderContent()}</div>
       )}
     </Tooltip>
   )
