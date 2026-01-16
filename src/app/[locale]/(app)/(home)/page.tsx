@@ -58,13 +58,13 @@ export default async function Home({
           type: "h1",
           text: hero.title,
           class:
-            "block text-5xl font-black leading-tight text-slate-900 md:text-6xl lg:text-7xl dark:text-white dark:drop-shadow-[0_8px_28px_rgba(0,0,0,0.65)]"
+            "block text-5xl font-black leading-tight text-slate-900 drop-shadow-sm md:text-6xl lg:text-7xl dark:text-white dark:drop-shadow-[0_8px_40px_rgba(255,255,255,0.15)]"
         },
         {
           type: "code",
           text: hero.tag,
           class:
-            "block italic text-5xl font-semibold leading-tight text-slate-600 md:text-6xl lg:text-7xl dark:text-white dark:drop-shadow-[0_8px_28px_rgba(0,0,0,0.6)]"
+            "block font-mono text-5xl font-bold leading-tight text-highlight-light md:text-6xl lg:text-7xl dark:text-highlight-dark dark:drop-shadow-[0_0_30px_rgba(189,51,164,0.3)]"
         },
         {
           type: "br"
@@ -73,7 +73,7 @@ export default async function Home({
           type: "span",
           text: hero.subtitle,
           class:
-            "text-xl font-medium text-slate-500 md:text-2xl dark:text-white/90 dark:drop-shadow-[0_6px_20px_rgba(0,0,0,0.55)]"
+            "text-xl font-medium tracking-tight text-slate-400 md:text-2xl dark:text-white/50"
         },
         {
           type: "br"
@@ -93,6 +93,7 @@ export default async function Home({
       ></PersonScreen>
       <PostScreen
         title={postScreen.title}
+        intro={postScreen.intro}
         publishedAlt={postScreen.publishedAlt}
         readMore={postScreen.readMore}
         readMoreAlt={postScreen.readMoreAlt}

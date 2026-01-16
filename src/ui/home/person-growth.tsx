@@ -85,14 +85,14 @@ export default function PersonGrowth({
 
         {/* 时间轴内容区域 */}
         <div className="relative w-full">
-          <span className="absolute left-1/2 -translate-x-1/2 animate-pulse text-sm text-default-400">
+          <span className="absolute left-1/2 -translate-x-1/2 animate-pulse text-sm text-slate-400 dark:text-white/70">
             {swipeHint}
           </span>
           <div className="flex w-full overflow-x-auto scroll-smooth px-4 pt-8 scrollbar-hide">
             <motion.span
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              className="border-gradient-to-b m-8 ml-0 flex w-72 shrink-0 items-center border-l-4 from-highlight-light to-blue-500 pl-6 text-xl font-bold transition-all duration-300 hover:scale-105 dark:from-highlight-dark dark:to-blue-400"
+              className="m-8 ml-0 flex w-72 shrink-0 items-center border-l-4 border-highlight-light from-highlight-light to-blue-500 pl-6 text-xl font-bold transition-all duration-300 hover:scale-105 dark:border-highlight-dark dark:from-highlight-dark dark:to-blue-400"
             >
               {growingLabel}
             </motion.span>
@@ -102,17 +102,17 @@ export default function PersonGrowth({
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
-                className="border-gradient-to-b group m-8 flex w-72 shrink-0 flex-col gap-4 border-l-4 from-highlight-light to-blue-500 pl-6 transition-all duration-300 hover:scale-105 hover:pl-8 dark:from-highlight-dark dark:to-blue-400"
+                className="group m-8 flex w-72 shrink-0 flex-col gap-4 border-l-4 border-highlight-light from-highlight-light to-blue-500 pl-6 transition-all duration-300 hover:scale-105 hover:pl-8 dark:border-highlight-dark dark:from-highlight-dark dark:to-blue-400"
                 key={index}
               >
-                <span className="text-xl font-bold text-default-800">
+                <span className="text-xl font-bold text-slate-900 dark:text-white">
                   {growth.date}
                 </span>
                 <div className="flex items-center gap-3">
                   <span className="text-2xl transition-transform duration-300 group-hover:scale-110">
                     {growth.icon ?? "📌"}
                   </span>
-                  <span className="text-sm text-default-500 transition-colors duration-300 group-hover:text-default-800">
+                  <span className="text-sm text-slate-500 transition-colors duration-300 group-hover:text-slate-900 dark:text-white/60 dark:group-hover:text-white">
                     {growth.event}
                   </span>
                 </div>

@@ -33,49 +33,55 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
       return acc + (cur.text?.length || 0)
     }, 0) * 30
 
+  // Calculate total delay for social icons to appear after text finishes
+  const socialDelay = titleAnimateD / 1000 + 0.5
+
   return (
     <motion.div
-      className="relative leading-[4] [&_*]:inline-block"
-      initial={{ opacity: 0.0001, y: 50 }}
+      className="relative flex flex-col gap-6"
+      initial={{ opacity: 0.0001, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", damping: 10, stiffness: 100 }}
     >
-      {config.title.template.map((t, i) => {
-        const { type } = t
-        const prevAllTextLength = config.title.template
-          .slice(0, i)
-          .reduce((acc, cur) => {
-            return acc + (cur.text?.length || 0)
-          }, 0)
+      <div className="text-left leading-[1.4] [&_*]:inline-block">
+        {config.title.template.map((t, i) => {
+          const { type } = t
+          const prevAllTextLength = config.title.template
+            .slice(0, i)
+            .reduce((acc, cur) => {
+              return acc + (cur.text?.length || 0)
+            }, 0)
 
-        return createElement(
-          type,
-          { key: i, className: t.class },
-          t.text && (
-            <TextUpTransitionView
-              initialDelay={prevAllTextLength * 0.03}
-              eachDelay={0.03}
-            >
-              {t.text}
-            </TextUpTransitionView>
+          return createElement(
+            type,
+            { key: i, className: t.class },
+            t.text && (
+              <TextUpTransitionView
+                initialDelay={prevAllTextLength * 0.03}
+                eachDelay={0.03}
+              >
+                {t.text}
+              </TextUpTransitionView>
+            )
           )
-        )
-      })}
+        })}
+      </div>
+
       {showSocial && (
         <motion.div
-          className="inline-block whitespace-pre"
-          initial={{ transform: "translateY(10px)", opacity: 0 }}
+          className="mt-4 flex flex-wrap"
+          initial={{ opacity: 0, y: 20 }}
           animate={{
-            transform: "translateY(0px)",
             opacity: 1,
+            y: 0,
             transition: {
               ...microReboundPreset,
-              duration: 0.1,
-              delay: 0 + titleAnimateD / 1000
+              duration: 0.5,
+              delay: socialDelay
             }
           }}
         >
-          <Social svgClassName="w-8 h-8"></Social>
+          <Social svgClassName="w-6 h-6"></Social>
         </motion.div>
       )}
     </motion.div>

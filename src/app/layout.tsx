@@ -1,3 +1,4 @@
+import AmbientBackground from "@/components/AmbientBackground"
 import BackToTop from "@/components/BackToTop"
 import UpdateNotificationClient from "@/components/UpdateNotificationClient"
 import { defaultLocale, isLocale } from "@/i18n/config"
@@ -29,6 +30,7 @@ export default async function RootLayout(props: {
       <body
         className={`${myFont.className} relative m-0 h-full overflow-y-auto overflow-x-hidden p-0 text-default-700`}
       >
+        <AmbientBackground />
         <>{props.children}</>
         <div className="fixed bottom-44 right-4 z-20">
           <BackToTop></BackToTop>

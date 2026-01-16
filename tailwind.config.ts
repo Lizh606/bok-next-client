@@ -63,6 +63,25 @@ const config: Config = {
           "30%": { opacity: "1", transform: "scale(1)" },
           "60%": { opacity: "1", transform: "scale(1)" },
           "100%": { opacity: "0", transform: "scale(0.9)" }
+        },
+        "snow-fall": {
+          "0%": {
+            transform: "translateY(-10vh) translateX(-20px)",
+            opacity: "0"
+          },
+          "10%, 90%": { opacity: "1" },
+          "100%": {
+            transform: "translateY(110vh) translateX(100px)",
+            opacity: "0"
+          }
+        },
+        sway: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(30px)" }
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" }
         }
       },
       animation: {
@@ -70,7 +89,11 @@ const config: Config = {
         "typing-fade":
           "typing 2s steps(40), blink 1s steps(1) infinite, fade 4s ease-in-out",
         "breathe-ring": "breatheRing 3s ease-in-out infinite",
-        "breathe-dot": "breatheDot 3s ease-in-out infinite"
+        "breathe-dot": "breatheDot 3s ease-in-out infinite",
+        "snow-fall":
+          "snow-fall 10s cubic-bezier(0.25, 0.1, 0.25, 1.0) infinite",
+        sway: "sway 3s ease-in-out infinite",
+        "spin-slow": "spin-slow 20s linear infinite"
       }
     },
     colors: {
