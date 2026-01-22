@@ -2,10 +2,32 @@
   "header": {
     "home": "Home",
     "posts": "Posts",
-    "time": "Timeline",
+    "time": "Moments",
     "about": "About",
+    "dailyLogs": "Logs",
+    "photography": "Photography",
     "switchToEn": "EN",
-    "switchToZh": "中"
+    "switchToZh": "Zh"
+  },
+  "photography": {
+    "title": "Photography Portfolio",
+    "subtitle": "Capturing eternal moments through the lens",
+    "back": "Back"
+  },
+  "daily_logs": {
+    "title": "Daily Life",
+    "subtitle": "Moments of light, captured in purity."
+  },
+  "daily_log_detail": {
+    "backToList": "Back to List",
+    "readingTime": "Reading Time",
+    "minutes": "min",
+    "publishedAt": "Published at",
+    "simulation": {
+      "sunshine": "In this era filled with digital noise, we often overlook the purest moments: the sunshine outside the window, a steaming cup of coffee, or a clean line of code dancing on the screen.",
+      "order": "A sense of order in life doesn't come from grand plans, but from the perception of every detail. Just like the design of this page, we have removed all redundant decorations, leaving only the content itself.",
+      "cyber": "Cyber-Organic is not just a visual style, but an attitude towards technology and life: preserving organic warmth within coldy industrial sensations, and deep expression within minimalist forms."
+    }
   },
   "home": {
     "hero": {

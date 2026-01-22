@@ -4,8 +4,30 @@
     "posts": "文章",
     "time": "时光",
     "about": "关于",
-    "switchToEn": "EN",
+    "dailyLogs": "日志",
+    "photography": "摄影",
+    "switchToEn": "英",
     "switchToZh": "中"
+  },
+  "photography": {
+    "title": "摄影作品集",
+    "subtitle": "用镜头捕捉瞬间的永恒",
+    "back": "返回"
+  },
+  "daily_logs": {
+    "title": "日常生活",
+    "subtitle": "记录生活中的每一个微光时刻，在纯净中寻找灵感。"
+  },
+  "daily_log_detail": {
+    "backToList": "返回列表",
+    "readingTime": "阅读时长",
+    "minutes": "分钟",
+    "publishedAt": "发布于",
+    "simulation": {
+      "sunshine": "在这个充满数字杂讯的时代，我们往往忽略了那些最纯粹的瞬间。窗外的阳光，冒着热气的咖啡，或者是屏幕上跳动的一行干净的代码。",
+      "order": "生活的秩序感并非来自于宏大的计划，而是来自于对每一个细节的感知。正如这个页面的设计，我们去掉了所有冗余的修饰，只留下内容本身。",
+      "cyber": "Cyber-Organic 不仅仅是一种视觉风格，更是一种对待技术与生活的态度：在冷峻的工业感中保留有机的温存，在极简的形态中蕴含深邃的表达。"
+    }
   },
   "home": {
     "hero": {
