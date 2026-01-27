@@ -34,7 +34,7 @@ export const TextUpTransitionView: FC<
       {Array.from(text ?? (children as string)).map((char, i) => (
         <motion.span
           key={i}
-          className="inline-block whitespace-pre"
+          className="whitespace-pre"
           initial={{ transform: "translateY(10px)", opacity: 0.001 }}
           animate={{
             transform: "translateY(0px)",

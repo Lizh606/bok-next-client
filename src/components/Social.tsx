@@ -29,33 +29,45 @@ const SocialLink = ({
   svgClassName = "w-6 h-6",
   onClick
 }: SocialLinkProps) => {
-  const commonClassName = clsxm("w-6 h-6 cursor-pointer", svgClassName)
-
   const renderContent = () => (
     <motion.div
-      whileHover={{ scale: 1.2 }}
-      whileTap={{ scale: 0.8 }}
-      className={commonClassName}
+      whileHover={{ scale: 1.2, y: -2 }}
+      whileTap={{ scale: 0.9 }}
+      className="relative transition-all duration-300"
     >
       <Image
         src={iconSrc}
         alt={name}
-        width={24}
-        height={24}
-        className={svgClassName}
+        width={32}
+        height={32}
+        className={clsxm(
+          "h-8 w-8 transition-all duration-300",
+          // Subtly brighten icons in dark mode
+          "dark:brightness-125 dark:contrast-125"
+        )}
         priority
       />
     </motion.div>
   )
 
   return (
-    <Tooltip placement="bottom" content={name}>
+    <Tooltip
+      placement="top"
+      content={name}
+      offset={15}
+      classNames={{
+        content:
+          "px-4 py-2 text-xs font-bold tracking-widest uppercase bg-white/95 dark:bg-black/80 backdrop-blur-md shadow-2xl rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white"
+      }}
+    >
       {link ? (
         <Link href={link} target="_blank" rel="noopener noreferrer">
           {renderContent()}
         </Link>
       ) : (
-        <div onClick={onClick}>{renderContent()}</div>
+        <button onClick={onClick} className="cursor-pointer">
+          {renderContent()}
+        </button>
       )}
     </Tooltip>
   )
@@ -129,8 +141,9 @@ export default function Social({
       link: process.env.NEXT_PUBLIC_BOK_BILIBILI
     }
   ]
+
   return (
-    <div className="!flex items-center justify-center gap-4">
+    <div className="flex flex-wrap items-center gap-4 py-2">
       {socialConfig.map((social) => {
         return (
           <SocialLink

@@ -1,5 +1,4 @@
 "use client"
-import MaskIcon from "@/components/MaskIcon"
 import useScrolling from "@/hooks/useScrolling"
 import { getClientDictionary } from "@/i18n/client"
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config"
@@ -156,24 +155,44 @@ export default function Header() {
                 })}
               </Tabs>
             </div>
-            <div className="flex items-center justify-center gap-3">
-              <Link
-                href={locale === "zh" ? enPath : zhPath}
-                className="flex h-10 items-center gap-2 rounded-[20px] border border-default-200 bg-white px-3 text-xs font-semibold uppercase tracking-wide text-default-700 transition hover:border-default-300 dark:border-default-700 dark:bg-slate-900/60 dark:text-default-100"
-                aria-label="Language switch"
-              >
-                <MaskIcon
-                  src="/svgs/site.svg"
-                  size={16}
-                  className="text-default-500 dark:text-default-200"
-                  alt="Language"
-                />
-                <span>
-                  {locale === "zh"
-                    ? dictionary.header.switchToEn
-                    : dictionary.header.switchToZh}
-                </span>
-              </Link>
+            <div className="hidden shrink-0 items-center justify-center gap-2 md:flex md:gap-3">
+              {process.env.NODE_ENV !== "production" && (
+                <Link
+                  href={locale === "zh" ? enPath : zhPath}
+                  className={clsxm(
+                    "group flex h-8 items-center justify-center gap-1.5 rounded-full border px-2 transition-all duration-300 md:h-9 md:px-3",
+                    "border-slate-200/60 bg-white/50 backdrop-blur-md hover:scale-105 hover:bg-white hover:shadow-lg hover:shadow-highlight-light/10",
+                    "dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-highlight-dark/20"
+                  )}
+                  aria-label="Language switch"
+                  scroll={true}
+                  prefetch={true}
+                >
+                  <div className="flex items-center gap-1 font-bold tracking-wider">
+                    <span
+                      className={clsxm(
+                        "text-[9px] transition-colors md:text-[11px]",
+                        locale === "zh"
+                          ? "text-highlight-light dark:text-highlight-dark"
+                          : "text-slate-400 dark:text-white/70"
+                      )}
+                    >
+                      中
+                    </span>
+                    <div className="h-2 w-[1px] bg-slate-200 dark:bg-white/10" />
+                    <span
+                      className={clsxm(
+                        "text-[8px] transition-colors md:text-[10px]",
+                        locale === "en"
+                          ? "text-highlight-light dark:text-highlight-dark"
+                          : "text-slate-400 dark:text-white/70"
+                      )}
+                    >
+                      EN
+                    </span>
+                  </div>
+                </Link>
+              )}
               <ThemeSwitcher></ThemeSwitcher>
             </div>
           </div>
