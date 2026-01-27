@@ -85,47 +85,71 @@ pnpm build
 ## 版本发布流程
 
 ### 前置条件
+
 - 已安装 pnpm (`npm install -g pnpm`)
 - 有仓库推送权限，工作区干净
 
 ### 发布分支策略
+
 - 发布在 release 分支（如 `release/vX.Y.Z`），避免未完成的提交影响发布。
 - 发布后将 release 分支合并回 `main`（或 cherry-pick 发布提交），让版本号/CHANGELOG 回流主干。
 
 ### 发布步骤
-1) 准备发布分支
+
+1. 同步开发分支
+
 ```bash
-git checkout main
-git pull origin main
+git checkout dev
+git pull origin dev
+```
+
+2. 准备发布分支
+
+```bash
 git checkout -b release/vX.Y.Z
 pnpm install
 ```
 
-2) 执行发布
+3. 执行发布
+
 ```bash
+# 执行构建校验 (可选，建议执行)
+pnpm build
+
+# 执行发布脚本
 pnpm release
 ```
+
 - 选择版本类型（patch/minor/major/custom）
 - 确认版本号
 
-3) 自动化步骤
+4. 自动化步骤
+
 - 更新 `package.json` 版本号
 - 生成/更新 `CHANGELOG.md`
-- 提交变更并创建标签（`v版本号-YYYYMMDD`）
-- 推送代码和标签
+- 提交变更并在本地创建标签
 
-4) 合并回主干
+5. 合并回主干并推送
+
 ```bash
 git checkout main
 git pull origin main
-git merge --no-ff release/vX.Y.Z   # 或 cherry-pick 发布提交
-git push origin main
+git merge --no-ff release/vX.Y.Z
+git push origin main --tags
 ```
 
-5) 清理 release 分支
+6. 同步回开发分支 (重要：保持版本号一致)
+
+```bash
+git checkout dev
+git merge main
+git push origin dev
+```
+
+7. 清理 release 分支
+
 ```bash
 git branch -d release/vX.Y.Z
-git push origin --delete release/vX.Y.Z  # 若已推送
 ```
 
 ### 注意事项

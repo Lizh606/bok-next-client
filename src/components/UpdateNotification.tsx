@@ -7,14 +7,17 @@ import useVersionCheck from "../hooks/useVersionCheck"
 const UpdateNotification = () => {
   const timeout = 30000
 
-  const { newVersionAvailable, refreshApp } = useVersionCheck(timeout) // 每30秒检查一次
+  const { updateType, refreshApp } = useVersionCheck(timeout) // 每30秒检查一次
   useEffect(() => {
-    if (newVersionAvailable) {
+    if (updateType) {
       console.log("获取到新版本")
+      const isAppUpdate = updateType === "APP"
       addToast({
-        title: "🚀 新版本已就绪",
-        description: "我们为您准备了新功能和优化，立即刷新体验最新版本！",
-        color: "success",
+        title: isAppUpdate ? "🚀 新版本已就绪" : "📝 内容已更新",
+        description: isAppUpdate
+          ? "我们为您准备了新功能和优化，立即刷新体验最新版本！"
+          : "博文内容已在后台更新，刷新即可查看最新内容。",
+        color: isAppUpdate ? "success" : "primary",
         timeout,
         variant: "bordered",
         classNames: {
@@ -39,7 +42,7 @@ const UpdateNotification = () => {
               查看版本公告
             </Button>
             <Button
-              color={"success"}
+              color={isAppUpdate ? "success" : "primary"}
               size="sm"
               variant="flat"
               onPress={refreshApp}
@@ -50,7 +53,7 @@ const UpdateNotification = () => {
         )
       })
     }
-  }, [newVersionAvailable, refreshApp])
+  }, [updateType, refreshApp])
 
   return null
 }

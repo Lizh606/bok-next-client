@@ -1,5 +1,7 @@
 "use client"
 import useScrolling from "@/hooks/useScrolling"
+import { getClientDictionary } from "@/i18n/client"
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config"
 import { clsxm } from "@/lib/helper"
 import { Tab, Tabs } from "@heroui/react"
 import Image from "next/image"
@@ -16,22 +18,34 @@ export default function Header() {
   const { currentTheme } = useAppTheme()
   const router = useRouter()
   const scrolling = useScrolling()
+  const segments = pathName.split("/").filter(Boolean)
+  const locale = (
+    isLocale(segments[0] ?? "") ? segments[0] : defaultLocale
+  ) as Locale
+  const restSegments = isLocale(segments[0] ?? "")
+    ? segments.slice(1)
+    : segments
+  const restPath = `/${restSegments.join("/")}`
+  const currentBasePath = restSegments.length > 0 ? `/${restSegments[0]}` : "/"
+  const dictionary = getClientDictionary(locale)
+  const zhPath = restPath === "/" ? "/zh" : `/zh${restPath}`
+  const enPath = restPath === "/" ? "/en" : `/en${restPath}`
 
   const tabs = [
     {
-      label: "首页",
+      label: dictionary.header.home,
       value: "/"
     },
     {
-      label: "文章",
+      label: dictionary.header.posts,
       value: "/posts"
     },
     {
-      label: "时光",
+      label: dictionary.header.time,
       value: "/time"
     },
     {
-      label: "关于",
+      label: dictionary.header.about,
       value: "/about"
     }
     // {
@@ -43,10 +57,19 @@ export default function Header() {
     //   value: "/mdx-remote"
     // }
   ]
+  const buildPath = (basePath: string) => {
+    if (basePath === "/") {
+      return `/${locale}`
+    }
+    return `/${locale}${basePath}`
+  }
   const [isShowName, setShow] = useState(false)
 
   useEffect(() => {
-    currentTheme && setShow(true)
+    if (currentTheme) {
+      const timer = setTimeout(() => setShow(true), 0)
+      return () => clearTimeout(timer)
+    }
   }, [currentTheme])
   return (
     <>
@@ -91,7 +114,7 @@ export default function Header() {
             <div
               className={clsxm(
                 "flex items-center justify-center",
-                !scrolling || pathName === "/"
+                !scrolling || currentBasePath === "/"
                   ? "animate-[dropDown_1s_ease-in-out]"
                   : "opacity-0"
               )}
@@ -111,10 +134,10 @@ export default function Header() {
                   tabContent:
                     "group-data-[selected=true]:text-highlight-light dark:group-data-[selected=true]:text-highlight-dark"
                 }}
-                defaultSelectedKey={`/${pathName.split("/")[1]}`}
-                selectedKey={`/${pathName.split("/")[1]}`}
+                defaultSelectedKey={currentBasePath}
+                selectedKey={currentBasePath}
                 onSelectionChange={(key) => {
-                  router.push(key as string)
+                  router.push(buildPath(key as string))
                 }}
               >
                 {tabs.map((tab) => {
@@ -124,7 +147,7 @@ export default function Header() {
                       title={
                         <div className="flex items-center space-x-2">
                           {/* <PhotoIcon /> */}
-                          <Link href={tab.value}>{tab.label}</Link>
+                          <Link href={buildPath(tab.value)}>{tab.label}</Link>
                         </div>
                       }
                     />
@@ -132,7 +155,44 @@ export default function Header() {
                 })}
               </Tabs>
             </div>
-            <div className="flex items-center justify-center">
+            <div className="hidden shrink-0 items-center justify-center gap-2 md:flex md:gap-3">
+              {process.env.NODE_ENV !== "production" && (
+                <Link
+                  href={locale === "zh" ? enPath : zhPath}
+                  className={clsxm(
+                    "group flex h-8 items-center justify-center gap-1.5 rounded-full border px-2 transition-all duration-300 md:h-9 md:px-3",
+                    "border-slate-200/60 bg-white/50 backdrop-blur-md hover:scale-105 hover:bg-white hover:shadow-lg hover:shadow-highlight-light/10",
+                    "dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-highlight-dark/20"
+                  )}
+                  aria-label="Language switch"
+                  scroll={true}
+                  prefetch={true}
+                >
+                  <div className="flex items-center gap-1 font-bold tracking-wider">
+                    <span
+                      className={clsxm(
+                        "text-[9px] transition-colors md:text-[11px]",
+                        locale === "zh"
+                          ? "text-highlight-light dark:text-highlight-dark"
+                          : "text-slate-400 dark:text-white/70"
+                      )}
+                    >
+                      中
+                    </span>
+                    <div className="h-2 w-[1px] bg-slate-200 dark:bg-white/10" />
+                    <span
+                      className={clsxm(
+                        "text-[8px] transition-colors md:text-[10px]",
+                        locale === "en"
+                          ? "text-highlight-light dark:text-highlight-dark"
+                          : "text-slate-400 dark:text-white/70"
+                      )}
+                    >
+                      EN
+                    </span>
+                  </div>
+                </Link>
+              )}
               <ThemeSwitcher></ThemeSwitcher>
             </div>
           </div>

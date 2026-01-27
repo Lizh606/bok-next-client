@@ -11,7 +11,7 @@ export class MemoryCache implements CacheStrategy {
     this.cache.set(key, value)
   }
 
-  async delete(key: string): Promise<void> {
+  async remove(key: string): Promise<void> {
     this.cache.delete(key)
   }
 
@@ -19,7 +19,7 @@ export class MemoryCache implements CacheStrategy {
     this.cache.clear()
   }
 
-  async getAll(): Promise<Record<string, CacheItem<any>>> {
+  async getAll(): Promise<Record<string, CacheItem<unknown>>> {
     return Object.fromEntries(this.cache)
   }
 }

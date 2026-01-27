@@ -1,11 +1,13 @@
 "use client"
 
 import useHover from "@/hooks/useHover"
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config"
 import type { Post } from "@/lib/post"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import ReadTip from "../post/read-tip"
 
 const getMonthDay = (date: string) => {
@@ -19,12 +21,25 @@ const getMonthDay = (date: string) => {
 
 export default function PostHomeCard({
   post,
-  index
+  index,
+  publishedAlt,
+  readMore,
+  readMoreAlt
 }: {
   post: Post
   index: number
+  publishedAlt: string
+  readMore: string
+  readMoreAlt: string
 }) {
-  const { isHover, bind } = useHover()
+  const { isHover, onMouseEnter, onMouseLeave, hoverRef } = useHover()
+  const router = useRouter()
+  const pathname = usePathname()
+  const segments = pathname.split("/").filter(Boolean)
+  const locale = (
+    isLocale(segments[0] ?? "") ? segments[0] : defaultLocale
+  ) as Locale
+  const href = `/${locale}/posts/${post.sort}/${post.id}`
   const displayDate = post.date ? getMonthDay(post.date) : ""
   const tags =
     post.tag
@@ -34,87 +49,106 @@ export default function PostHomeCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         type: "spring",
-        stiffness: 260,
-        damping: 20,
-        delay: index * 0.4
+        stiffness: 100,
+        damping: 15,
+        delay: index * 0.1
       }}
+      className="w-full"
     >
       <Link
-        href={`posts/${post.sort}/${post.id}`}
-        className="block w-full max-w-[420px]"
-        {...bind}
+        href={href}
+        className="block w-full"
+        ref={hoverRef}
+        onMouseEnter={() => {
+          onMouseEnter()
+          router.prefetch(href)
+        }}
+        onMouseLeave={onMouseLeave}
+        onFocus={() => router.prefetch(href)}
       >
-        <div className="group relative">
+        <div className="group relative transition-transform duration-500 ease-out hover:-translate-y-2">
+          {/* Noise/Grain Texture Overlay */}
+          <div
+            className="pointer-events-none absolute inset-0 z-10 opacity-[0.03] mix-blend-overlay dark:opacity-[0.05]"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+            }}
+          />
+
+          {/* Enhanced Glow Effect */}
           <div
             className={clsx(
-              "absolute inset-0 -z-10 rounded-[30px] transition duration-500 group-hover:translate-y-1",
-              "bg-gradient-to-br from-white via-slate-50 to-slate-100 shadow-[0_8px_28px_rgba(15,23,42,0.04)] group-hover:shadow-[0_12px_30px_rgba(15,23,42,0.08)]",
-              "dark:from-[#030817] dark:via-[#05132f] dark:to-[#01030a] dark:shadow-[0_18px_40px_rgba(11,78,103,0.35)] dark:group-hover:shadow-[0_22px_60px_rgba(11,78,103,0.45)]"
+              "absolute -inset-[1px] -z-10 rounded-[2rem] opacity-0 transition-opacity duration-700 group-hover:opacity-100",
+              "bg-gradient-to-br dark:from-highlight-dark/30 dark:via-gloria-dark/30 dark:to-highlight-dark/30"
             )}
           />
+
           <div
             className={clsx(
-              "relative overflow-hidden rounded-[24px] border p-5 shadow-[0_6px_20px_rgba(15,23,42,0.04)] transition duration-500",
-              "border-slate-100 bg-white group-hover:border-highlight-light/70 group-hover:bg-gradient-to-br group-hover:from-highlight-light/20 group-hover:via-white group-hover:to-highlight-light/10 group-hover:shadow-[0_14px_36px_rgba(15,23,42,0.1)]",
-              "dark:border-slate-600 dark:bg-gradient-to-br dark:from-[#070e20]/90 dark:via-[#0d1b3b]/80 dark:to-[#050912]/90 dark:shadow-[0_10px_32px_rgba(11,78,103,0.35)]",
-              "dark:group-hover:to-[#f472b6]/18 group-hover:to-highlight-light/10 dark:group-hover:border-highlight-dark/70 dark:group-hover:bg-gradient-to-br dark:group-hover:from-highlight-dark/60 dark:group-hover:via-highlight-dark/10 dark:group-hover:to-highlight-dark/60 dark:group-hover:shadow-[0_14px_36px_rgba(0,0,0,0.38)]"
+              "relative overflow-hidden rounded-[2rem] border p-7 transition-all duration-500",
+              // Light mode: More solid to prevent ambient color bleeding
+              "border-slate-200 bg-white/30 shadow-sm backdrop-blur-md hover:border-highlight-light/50 hover:bg-white/50 hover:shadow-2xl hover:shadow-highlight-light/10",
+              // Dark mode: Deep Glass (Pure Transparency & Stable Contrast)
+              "dark:border-white/20 dark:bg-black/10 dark:shadow-2xl dark:shadow-black/50 dark:backdrop-blur-2xl",
+              "dark:hover:border-highlight-dark/50 dark:hover:bg-black/50"
             )}
           >
-            <div className="flex items-center gap-4">
-              <div
-                className={clsx(
-                  "flex h-12 items-center gap-2 rounded-2xl border px-4 shadow-inner backdrop-blur",
-                  "border-slate-200/80 bg-white/70 text-slate-500 shadow-white/40",
-                  "dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100 dark:shadow-black/40"
-                )}
-              >
-                <Image
-                  src="/svgs/time.svg"
-                  alt="发布时间"
-                  width={20}
-                  height={20}
-                  className="h-5 w-5"
-                  priority
-                />
-                <span className="text-base font-semibold tracking-[0.08em]">
-                  {displayDate || "--/--"}
-                </span>
+            <div className="flex flex-col gap-6">
+              {/* Header: Date & Meta */}
+              <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.1em] text-slate-400 dark:text-slate-200">
+                <div className="flex items-center gap-2 rounded-lg bg-slate-100/80 px-3 py-1.5 dark:bg-white/15 dark:text-white/90">
+                  <Image
+                    src="/svgs/time.svg"
+                    alt={publishedAlt}
+                    width={12}
+                    height={12}
+                    className="opacity-50 dark:invert"
+                  />
+                  <span>{displayDate || "--/--"}</span>
+                </div>
               </div>
-              <div
-                className={clsx(
-                  "h-px flex-1 bg-gradient-to-r from-slate-200/90 via-slate-100/70 to-transparent",
-                  "dark:from-slate-700/80 dark:via-slate-700/40 dark:to-transparent"
+
+              {/* Title & Description */}
+              <div className="space-y-3">
+                <h3 className="line-clamp-2 text-2xl font-extrabold leading-[1.2] tracking-tight text-slate-900 transition-colors dark:text-white">
+                  {post.title}
+                </h3>
+                {post.description && (
+                  <p className="line-clamp-3 text-base font-medium leading-relaxed text-slate-600 dark:text-white/70 dark:drop-shadow-sm">
+                    {post.description}
+                  </p>
                 )}
-              />
-            </div>
+              </div>
 
-            <div className="mt-5 space-y-3">
-              <h3 className="text-xl font-extrabold tracking-tight text-slate-800 transition-colors duration-300 group-hover:text-highlight-light dark:text-white dark:group-hover:text-highlight-dark">
-                {post.title}
-              </h3>
-              {post.description ? (
-                <p className="text-base truncate leading-tight text-slate-500 dark:text-white/60 dark:group-hover:text-highlight-dark">
-                  {post.description}
-                </p>
-              ) : null}
-
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap gap-3">
+              {/* Footer: Tags & Action */}
+              <div className="flex items-end justify-between gap-4 pt-3">
+                <div className="flex flex-wrap gap-2.5">
                   {tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-indigo-100 bg-white/80 px-4 py-2 text-sm font-semibold text-indigo-600 shadow-sm shadow-indigo-100/60 dark:border-slate-700 dark:bg-slate-900/70 dark:shadow-black/30 dark:group-hover:text-highlight-dark"
+                      className={clsx(
+                        "rounded-lg px-3 py-1 text-[11px] font-bold tracking-widest transition-all duration-300",
+                        "bg-slate-100/50 text-slate-500 hover:bg-highlight-light/10 hover:text-highlight-light",
+                        // Dark mode tags: Harmonized with glass
+                        "dark:bg-white/10 dark:text-white/60 dark:hover:bg-highlight-dark/20 dark:hover:text-highlight-dark"
+                      )}
                     >
-                      {tag}
+                      {tag.toUpperCase()}
                     </span>
                   ))}
                 </div>
-                <div className="flex items-center gap-2 text-slate-500 transition-colors duration-200 group-hover:text-highlight-light dark:text-slate-200 dark:group-hover:text-highlight-dark">
-                  <ReadTip show={isHover}></ReadTip>
+
+                <div className="shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 ltr:-translate-x-2 rtl:translate-x-2">
+                  <ReadTip
+                    show={true} // Always show interaction on hover due to opacity grouping
+                    label={readMore}
+                    iconAlt={readMoreAlt}
+                  />
                 </div>
               </div>
             </div>

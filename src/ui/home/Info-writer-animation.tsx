@@ -35,7 +35,7 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
 
   return (
     <motion.div
-      className="relative leading-[4] [&_*]:inline-block"
+      className="relative leading-[4]"
       initial={{ opacity: 0.0001, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", damping: 10, stiffness: 100 }}
@@ -63,7 +63,7 @@ const InfoWriterAnimation: React.FC<InfoWriterAnimationProps> = ({
       })}
       {showSocial && (
         <motion.div
-          className="inline-block whitespace-pre"
+          className="whitespace-pre"
           initial={{ transform: "translateY(10px)", opacity: 0 }}
           animate={{
             transform: "translateY(0px)",

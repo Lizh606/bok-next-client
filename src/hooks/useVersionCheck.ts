@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useRef, useState } from "react"
 
 interface VersionInfo {
@@ -5,77 +7,98 @@ interface VersionInfo {
   buildTime: string
 }
 
+interface ContentVersionInfo {
+  version: number
+}
+
+export type UpdateType = "APP" | "CONTENT" | null
+
 export default function useVersionCheck(checkInterval: number = 60000) {
-  // Skip version polling during local development to avoid missing file errors.
-  const isProd = typeof window !== "undefined" && process.env.NODE_ENV === "production"
+  const [updateType, setUpdateType] = useState<UpdateType>(null)
 
-  const [newVersionAvailable, setNewVersionAvailable] = useState<boolean>(false)
-  const [currentVersion, setCurrentVersion] = useState<string | null>(null)
-  const currentVersionRef = useRef<string | null>(null)
+  const currentAppVersionRef = useRef<string | null>(null)
+  const currentContentVersionRef = useRef<number | null>(null)
 
-  // 使用不缓存的请求获取版本信息
-  const fetchVersionInfo = async (): Promise<VersionInfo> => {
-    const timestamp = new Date().getTime()
-    const response = await fetch(`/version.json?t=${timestamp}`, {
-      cache: "no-cache",
-      headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0"
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error(`获取版本信息失败: ${response.status}`)
+  // Fetch App Version (Deployment)
+  const fetchAppVersion = async (): Promise<VersionInfo | null> => {
+    try {
+      const timestamp = new Date().getTime()
+      const response = await fetch(`/version.json?t=${timestamp}`, {
+        cache: "no-cache",
+        headers: { "Cache-Control": "no-cache", Pragma: "no-cache" }
+      })
+      if (!response.ok) return null
+      return await response.json()
+    } catch (e) {
+      console.error("Failed to fetch app version", e)
+      return null
     }
+  }
 
-    return await response.json()
+  // Fetch Content Version (Strapi Updates 适配 NestJS)
+  const fetchContentVersion = async (): Promise<ContentVersionInfo | null> => {
+    try {
+      const timestamp = new Date().getTime()
+      const response = await fetch(`/api/content-version?t=${timestamp}`, {
+        cache: "no-cache",
+        headers: { "Cache-Control": "no-cache", Pragma: "no-cache" }
+      })
+      if (!response.ok) return null
+      return await response.json()
+    } catch (e) {
+      console.error("Failed to fetch content version", e)
+      return null
+    }
   }
 
   useEffect(() => {
-    if (!isProd) return
+    // Initial Load
+    const init = async () => {
+      const appData = await fetchAppVersion()
+      if (appData) currentAppVersionRef.current = appData.version
 
-    let cancelled = false
+      const contentData = await fetchContentVersion()
+      if (contentData) currentContentVersionRef.current = contentData.version
 
-    const loadCurrentVersion = async () => {
-      try {
-        const data = await fetchVersionInfo()
-        if (cancelled) return
-        console.log("当前版本信息:", data)
-        setCurrentVersion(data.version)
-        currentVersionRef.current = data.version
-      } catch (error) {
-        console.error("获取版本信息失败:", error)
-      }
+      console.log("Initial Versions:", {
+        app: appData?.version,
+        content: contentData?.version
+      })
     }
 
-    loadCurrentVersion()
+    init()
 
+    // Polling
     const intervalId = setInterval(async () => {
-      if (!currentVersionRef.current) return
-
-      try {
-        const data = await fetchVersionInfo()
-        console.log("检查到版本信息:", data, "当前版本:", currentVersionRef.current)
-        if (data.version !== currentVersionRef.current) {
-          console.log("发现新版本:", data.version)
-          setNewVersionAvailable(true)
+      // 1. Check App Version
+      if (currentAppVersionRef.current) {
+        const appData = await fetchAppVersion()
+        if (appData && appData.version !== currentAppVersionRef.current) {
+          console.log("New App Version Detected:", appData.version)
+          setUpdateType("APP")
+          return // Prioritize app app update
         }
-      } catch (error) {
-        console.error("检查更新失败:", error)
+      }
+
+      // 2. Check Content Version
+      if (currentContentVersionRef.current) {
+        const contentData = await fetchContentVersion()
+        if (
+          contentData &&
+          contentData.version > currentContentVersionRef.current
+        ) {
+          console.log("New Content Detected:", contentData.version)
+          setUpdateType((prev) => (prev === "APP" ? "APP" : "CONTENT"))
+        }
       }
     }, checkInterval)
 
-    return () => {
-      cancelled = true
-      clearInterval(intervalId)
-    }
-  }, [checkInterval, isProd])
+    return () => clearInterval(intervalId)
+  }, [checkInterval])
 
-  const refreshApp = (): void => {
-    // 强制刷新并清除缓存
+  const refreshApp = async (): Promise<void> => {
     window.location.reload()
   }
 
-  return { newVersionAvailable, refreshApp }
+  return { updateType, refreshApp }
 }

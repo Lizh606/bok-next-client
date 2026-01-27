@@ -1,3 +1,24 @@
+## [1.0.1](https://github.com/Lizh606/bok-next-client/compare/v1.0.0-20251210...v1.0.1) (2026-01-27)
+
+
+### Bug Fixes
+
+* loading文案修改 ([b5b78d5](https://github.com/Lizh606/bok-next-client/commit/b5b78d58ec62d741ba409bad0d1a7d88103dd837))
+* resolve hydration mismatch using CSR strategy ([348037e](https://github.com/Lizh606/bok-next-client/commit/348037ee4e9ba6b869e2f510df2637ef71ba2817))
+* social样式错误 ([ffa597d](https://github.com/Lizh606/bok-next-client/commit/ffa597d6f81fb44f9d797e83fc5a787d57380789))
+
+
+### Features
+
+* **about:** 介绍描述修改 ([5f448b2](https://github.com/Lizh606/bok-next-client/commit/5f448b2aef1eeb598696476f91978d7860f6bd4b))
+* migrate premium styles from strapi branch and hide language switcher in production ([82b95bb](https://github.com/Lizh606/bok-next-client/commit/82b95bb1e331ab27f0f8c19c68a01b315bc2bd9e))
+
+
+
+## [0.0.7-20251204](https://github.com/Lizh606/bok-next-client/compare/v0.0.6-20250724...v0.0.7-20251204) (2025-12-04)
+
+
+
 # [1.0.0](https://github.com/Lizh606/bok-next-client/compare/v0.0.6-20250724...v1.0.0) (2025-12-10)
 
 ### Bug Fixes
